@@ -55,7 +55,7 @@ export default function WhatsAppChat() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.88, y: 10 }}
             transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-            className={`absolute bottom-[72px] ${panelAlign} w-80 bg-white rounded-2xl shadow-2xl overflow-hidden`}
+            className={`absolute bottom-[72px] ${panelAlign} w-[min(320px,calc(100vw-40px))] bg-white rounded-2xl shadow-2xl overflow-hidden`}
           >
             {/* Header */}
             <div className="flex items-center gap-3 px-4 py-3" style={{ backgroundColor: color }}>

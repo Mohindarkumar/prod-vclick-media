@@ -70,7 +70,11 @@ function VideoModal({ video, onClose }) {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.28 }}
           className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10"
-          style={{ background: 'rgba(0,0,0,0.94)' }}
+          style={{
+            background: 'rgba(0,0,0,0.94)',
+            paddingTop: 'max(16px, env(safe-area-inset-top, 0px))',
+            paddingBottom: 'max(16px, env(safe-area-inset-bottom, 0px))',
+          }}
           role="dialog"
           aria-modal="true"
           aria-label={video.title}
@@ -89,7 +93,8 @@ function VideoModal({ video, onClose }) {
             transition={{ duration: 0.3, delay: 0.15 }}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.92 }}
-            className="absolute top-5 right-5 z-20 w-10 h-10 rounded-full bg-white/8 border border-white/12 flex items-center justify-center text-paper/70 hover:text-gold hover:border-gold/45 transition-colors duration-200"
+            className="absolute right-5 z-20 w-10 h-10 rounded-full bg-white/8 border border-white/12 flex items-center justify-center text-paper/70 hover:text-gold hover:border-gold/45 transition-colors duration-200"
+            style={{ top: 'max(20px, env(safe-area-inset-top, 0px))' }}
           >
             <X size={17} />
           </motion.button>

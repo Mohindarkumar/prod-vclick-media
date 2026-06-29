@@ -1,0 +1,101 @@
+// Portfolio items rendered by the masonry grid + lightbox (build brief §6.6).
+// TODO: replace every image URL below with real VClick portfolio photography/video stills.
+export const portfolioCategories = [
+  'All',
+  'Wedding',
+  'Corporate',
+  'Conference',
+  'Product Launch',
+  'Fashion',
+  'Commercial',
+  'Photography',
+  'Videography',
+  'Drone Shots',
+]
+
+export const portfolioItems = [
+  {
+    id: 1,
+    title: 'Royal Garden Wedding',
+    categories: ['Wedding', 'Photography'],
+    image: 'https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=1200&auto=format&fit=crop',
+    span: 'row-span-2',
+  },
+  {
+    id: 2,
+    title: 'TechVerse Product Launch',
+    categories: ['Product Launch', 'Corporate'],
+    image: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=1200&auto=format&fit=crop',
+    span: 'row-span-1',
+  },
+  {
+    id: 3,
+    title: 'Gulf Business Summit',
+    categories: ['Conference', 'Corporate'],
+    image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1200&auto=format&fit=crop',
+    span: 'row-span-1',
+  },
+  {
+    id: 4,
+    title: 'Desert Couture Editorial',
+    categories: ['Fashion', 'Photography'],
+    image: 'https://images.unsplash.com/photo-1485125639709-a60c3a500bf1?q=80&w=1200&auto=format&fit=crop',
+    span: 'row-span-2',
+  },
+  {
+    id: 5,
+    title: 'Marina Skyline Aerial',
+    categories: ['Drone Shots', 'Commercial'],
+    image: 'https://images.unsplash.com/photo-1518684079-3c830dcef090?q=80&w=1200&auto=format&fit=crop',
+    span: 'row-span-1',
+  },
+  {
+    id: 6,
+    title: 'Heritage Wedding Film',
+    categories: ['Wedding', 'Videography'],
+    image: 'https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?q=80&w=1200&auto=format&fit=crop',
+    span: 'row-span-2',
+  },
+  {
+    id: 7,
+    title: 'Auto Expo Brand Booth',
+    categories: ['Corporate', 'Commercial'],
+    image: 'https://images.unsplash.com/photo-1531058020387-3be344556be6?q=80&w=1200&auto=format&fit=crop',
+    span: 'row-span-1',
+  },
+  {
+    id: 8,
+    title: 'Skyline Brand Film',
+    categories: ['Commercial', 'Videography'],
+    image: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=1200&auto=format&fit=crop',
+    span: 'row-span-1',
+  },
+  {
+    id: 9,
+    title: 'Runway Aerial Reveal',
+    categories: ['Drone Shots', 'Fashion'],
+    image: 'https://images.unsplash.com/photo-1473968512647-3e447244af8f?q=80&w=1200&auto=format&fit=crop',
+    span: 'row-span-2',
+  },
+  {
+    id: 10,
+    title: 'Founders Conference Stage',
+    categories: ['Conference', 'Photography'],
+    image: 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?q=80&w=1200&auto=format&fit=crop',
+    span: 'row-span-1',
+  },
+  {
+    id: 11,
+    title: 'Bridal Portrait Series',
+    categories: ['Wedding', 'Photography'],
+    image: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=1200&auto=format&fit=crop',
+    span: 'row-span-1',
+  },
+  {
+    id: 12,
+    title: 'Launch Night Reel',
+    categories: ['Product Launch', 'Videography'],
+    image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=1200&auto=format&fit=crop',
+    span: 'row-span-2',
+  },
+]

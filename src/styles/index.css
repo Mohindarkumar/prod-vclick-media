@@ -1,0 +1,165 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+    background-color: #0B0B0B;
+    /* Prevent scroll chaining / rubber-band bounce on Android */
+    overscroll-behavior-y: none;
+    /* Remove tap flash on iOS/Android */
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Remove 300ms tap delay on all interactive elements on mobile */
+  a, button, [role="button"], input, select, textarea, label {
+    touch-action: manipulation;
+  }
+
+  /* Visible, branded focus state for all interactive elements (WCAG / a11y requirement) */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid #D4AF37;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background-color: rgba(212, 175, 55, 0.35);
+    color: #FFFFFF;
+  }
+
+  /* Slim, gold-tinted scrollbar to match the brand instead of default grey browser chrome */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0B0B0B;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #D4AF37, #FFB703);
+    border-radius: 8px;
+  }
+}
+
+@layer components {
+  /* Eyebrow label used above every section headline */
+  .eyebrow {
+    @apply text-eyebrow font-medium uppercase text-gold tracking-[0.2em];
+  }
+
+  /* Standard section container: full-bleed background, constrained content */
+  .section-container {
+    @apply max-w-7xl mx-auto px-6 sm:px-8 lg:px-12;
+  }
+
+  .section-padding {
+    @apply py-14 md:py-20;
+  }
+
+  /* Glassmorphism surface reused across nav, cards, pricing, testimonials */
+  .glass-surface {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10;
+  }
+
+  .gold-text-gradient {
+    @apply bg-gold-sweep bg-clip-text text-transparent;
+  }
+
+  .btn-base {
+    @apply inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-300 px-7 py-3.5 text-sm md:text-base;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Hardware-accelerated layers for parallax and progress-bar elements */
+  .will-change-transform {
+    will-change: transform;
+  }
+  .will-change-opacity {
+    will-change: opacity;
+  }
+
+  /* Scroll-snap helpers (opt-in per section when sections are restored) */
+  .snap-start {
+    scroll-snap-align: start;
+  }
+}
+
+/* ── Custom cursor — suppress default when custom cursor is active ──────── */
+.no-cursor,
+.no-cursor * {
+  cursor: none !important;
+}
+
+/* ── Gallery skeleton shimmer ────────────────────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+.gallery-skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.03) 25%,
+    rgba(255, 255, 255, 0.07) 50%,
+    rgba(255, 255, 255, 0.03) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
+}
+
+/* ── Hide native scrollbar on filter bar ─────────────────────────────────── */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { scrollbar-width: none; -ms-overflow-style: none; }
+
+/* ── Video card play-button ambient pulse ring ──────────────────────────── */
+@keyframes play-pulse {
+  0%   { transform: scale(1);    opacity: 0.28; }
+  65%  { transform: scale(1.38); opacity: 0;    }
+  100% { transform: scale(1.38); opacity: 0;    }
+}
+.animate-play-pulse {
+  animation: play-pulse 2.2s ease-out infinite;
+}
+
+/* ── Lightbox / modal backdrop noise grain (pure CSS) ───────────────────── */
+.backdrop-noise::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* Respect prefers-reduced-motion globally: disable scroll-smooth and let JS-level
+   checks (usePrefersReducedMotion) gate parallax/autoplay/cursor-glow effects. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

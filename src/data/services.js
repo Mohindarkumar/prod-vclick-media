@@ -9,6 +9,7 @@ import {
   PartyPopper,
   Globe,
   Share2,
+  Gift,
 } from 'lucide-react'
 
 export const services = [
@@ -68,6 +69,14 @@ export const services = [
     description:
       'Immersive 360-degree virtual tours for hotels, venues, showrooms, and real estate — let clients explore your space from anywhere in the world.',
     image: '/uploads/images/services/360-photo.webp',
+  },
+  {
+    id: 'special-occasions',
+    icon: Gift,
+    title: 'Special Occasions',
+    description:
+      'Beautifully crafted coverage for birthdays, anniversaries, baby showers, and life\'s most cherished milestones — every frame preserved with cinematic quality to relive the moment forever.',
+    image: '/uploads/images/services/events.webp',
   },
   {
     id: 'social-media-content-creation',

@@ -7,7 +7,7 @@ import GoldDivider from '../../components/common/GoldDivider'
 
 // ─── YouTube video config ──────────────────────────────────────────────────
 // Replace YOUTUBE_VIDEO_ID with VClick's actual YouTube video ID
-const YOUTUBE_VIDEO_ID = 'TVLdE1wdSaQ'
+const YOUTUBE_VIDEO_ID = 'Ye9aM-6OIDo'
 
 // ─── Showreel slide images ─────────────────────────────────────────────────
 const SHOWREEL_SLIDES = [

@@ -8,6 +8,7 @@ export const galleryAlbumOrder = [
   'Events & Exhibitions',
   'Fashion & Lifestyle',
   'Desert',
+  'Sports',
   'Weddings',
 ]
 
@@ -60,6 +61,12 @@ export const galleryItems = [
   { id: 'events-42', image: '/uploads/images/gallery/events-exhibitions/SIB_7016.webp',      album: 'Events & Exhibitions', orientation: 'landscape', title: '', caption: null },
   { id: 'events-43', image: '/uploads/images/gallery/events-exhibitions/SIB_7339.webp',      album: 'Events & Exhibitions', orientation: 'landscape', title: '', caption: null },
   { id: 'events-44', image: '/uploads/images/gallery/events-exhibitions/SIB_7475.webp',      album: 'Events & Exhibitions', orientation: 'landscape', title: '', caption: null },
+  { id: 'events-45', image: '/uploads/images/gallery/events-exhibitions/DSC00459.webp',      album: 'Events & Exhibitions', orientation: 'landscape', title: '', caption: null },
+  { id: 'events-46', image: '/uploads/images/gallery/events-exhibitions/DSC00494.webp',      album: 'Events & Exhibitions', orientation: 'landscape', title: '', caption: null },
+  { id: 'events-47', image: '/uploads/images/gallery/events-exhibitions/DSC00883.webp',      album: 'Events & Exhibitions', orientation: 'landscape', title: '', caption: null },
+  { id: 'events-48', image: '/uploads/images/gallery/events-exhibitions/DSC00886.webp',      album: 'Events & Exhibitions', orientation: 'landscape', title: '', caption: null },
+  { id: 'events-49', image: '/uploads/images/gallery/events-exhibitions/DSC_4231.webp',      album: 'Events & Exhibitions', orientation: 'landscape', title: '', caption: null },
+  { id: 'events-50', image: '/uploads/images/gallery/events-exhibitions/SIB_9300.webp',      album: 'Events & Exhibitions', orientation: 'landscape', title: '', caption: null },
 
   // ── Fashion & Lifestyle (20 images — sequential same-shoot dupes removed) ──
   { id: 'fashion-1',  image: '/uploads/images/gallery/fashion-lifestyle/1000119837.webp', album: 'Fashion & Lifestyle', orientation: 'portrait', title: '', caption: null },
@@ -101,4 +108,22 @@ export const galleryItems = [
   { id: 'wedding-3', image: '/uploads/images/gallery/wedding/wedding-3.webp', album: 'Weddings', orientation: 'landscape', title: '', caption: null },
   { id: 'wedding-4', image: '/uploads/images/gallery/wedding/wedding-4.webp', album: 'Weddings', orientation: 'landscape', title: '', caption: null },
   { id: 'wedding-5', image: '/uploads/images/gallery/wedding/wedding-5.webp', album: 'Weddings', orientation: 'landscape', title: '', caption: null },
+
+  // ── Sports (16 images) ────────────────────────────────────────────────────
+  { id: 'sports-1',  image: '/uploads/images/gallery/sports/1000345518.webp', album: 'Sports', orientation: 'landscape', title: '', caption: null },
+  { id: 'sports-2',  image: '/uploads/images/gallery/sports/1000345520.webp', album: 'Sports', orientation: 'portrait',  title: '', caption: null },
+  { id: 'sports-3',  image: '/uploads/images/gallery/sports/DSC_1217.webp',   album: 'Sports', orientation: 'landscape', title: '', caption: null },
+  { id: 'sports-4',  image: '/uploads/images/gallery/sports/DSC_1382.webp',   album: 'Sports', orientation: 'landscape', title: '', caption: null },
+  { id: 'sports-5',  image: '/uploads/images/gallery/sports/DSC_1516.webp',   album: 'Sports', orientation: 'landscape', title: '', caption: null },
+  { id: 'sports-6',  image: '/uploads/images/gallery/sports/DSC_1680.webp',   album: 'Sports', orientation: 'landscape', title: '', caption: null },
+  { id: 'sports-7',  image: '/uploads/images/gallery/sports/DSC_1681.webp',   album: 'Sports', orientation: 'landscape', title: '', caption: null },
+  { id: 'sports-8',  image: '/uploads/images/gallery/sports/DSC_1682.webp',   album: 'Sports', orientation: 'landscape', title: '', caption: null },
+  { id: 'sports-9',  image: '/uploads/images/gallery/sports/DSC_1777.webp',   album: 'Sports', orientation: 'landscape', title: '', caption: null },
+  { id: 'sports-10', image: '/uploads/images/gallery/sports/DSC_1814.webp',   album: 'Sports', orientation: 'landscape', title: '', caption: null },
+  { id: 'sports-11', image: '/uploads/images/gallery/sports/DSC_2892.webp',   album: 'Sports', orientation: 'landscape', title: '', caption: null },
+  { id: 'sports-12', image: '/uploads/images/gallery/sports/DSC_2903.webp',   album: 'Sports', orientation: 'landscape', title: '', caption: null },
+  { id: 'sports-13', image: '/uploads/images/gallery/sports/DSC_9052.webp',   album: 'Sports', orientation: 'landscape', title: '', caption: null },
+  { id: 'sports-14', image: '/uploads/images/gallery/sports/DSC_9124.webp',   album: 'Sports', orientation: 'landscape', title: '', caption: null },
+  { id: 'sports-15', image: '/uploads/images/gallery/sports/DSC_9326.webp',   album: 'Sports', orientation: 'landscape', title: '', caption: null },
+  { id: 'sports-16', image: '/uploads/images/gallery/sports/DSC_9654.webp',   album: 'Sports', orientation: 'landscape', title: '', caption: null },
 ]

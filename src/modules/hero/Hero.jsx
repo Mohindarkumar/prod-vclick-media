@@ -163,7 +163,7 @@ function Hero({ section = null }) {
       {/* Main content */}
       <motion.div
         style={{ y: contentParallaxY }}
-        className="relative z-10 section-container w-full will-change-transform flex-1 flex items-center overflow-hidden"
+        className="relative z-10 section-container w-full will-change-transform flex-1 flex items-start sm:items-center overflow-hidden"
       >
         <motion.div
           className="max-w-3xl"
@@ -255,7 +255,7 @@ function Hero({ section = null }) {
               iconPosition="left"
               className="justify-center sm:w-auto"
             >
-              {siteConfig.contact.phone}
+              Call Us Now
             </Button>
           </motion.div>
         </motion.div>

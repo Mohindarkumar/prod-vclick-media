@@ -17,7 +17,7 @@ function ScrollIndicator({ visible }) {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: visible ? 1 : 0, y: visible ? 0 : 12 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
-      className="absolute bottom-8 inset-x-0 flex flex-col items-center gap-2.5 text-paper/55 hover:text-gold transition-colors duration-300 group"
+      className="hidden sm:flex absolute bottom-8 inset-x-0 flex-col items-center gap-2.5 text-paper/55 hover:text-gold transition-colors duration-300 group"
     >
       <span className="text-[10px] font-medium uppercase tracking-[0.22em]">Scroll</span>
 

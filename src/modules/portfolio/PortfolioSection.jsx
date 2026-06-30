@@ -1,10 +1,15 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowRight, Camera, Video, Play } from 'lucide-react'
+import { ArrowRight, Camera, Video } from 'lucide-react'
 import SectionEyebrow from '../../components/common/SectionEyebrow'
 import GoldDivider from '../../components/common/GoldDivider'
 
+// ─── YouTube video config ──────────────────────────────────────────────────
+// Replace YOUTUBE_VIDEO_ID with VClick's actual YouTube video ID
+const YOUTUBE_VIDEO_ID = 'dQw4w9WgXcQ'
+
+// ─── Showreel slide images ─────────────────────────────────────────────────
 const SHOWREEL_SLIDES = [
   '/uploads/images/gallery/events-exhibitions/DSC07433.webp',
   '/uploads/images/gallery/fashion-lifestyle/SIB-1002.webp',
@@ -20,9 +25,101 @@ const SHOWREEL_SLIDES = [
   '/uploads/images/gallery/events-exhibitions/1000417901.webp',
 ]
 
+const SHOWREEL_ITEM = {
+  title: 'Recent Captures',
+  description: 'A curated look at our finest photography — events, fashion, and unforgettable moments captured across the UAE.',
+  category: 'Photography',
+  stat_value: '450+',
+  stat_label: 'Captures',
+  link_type: 'gallery',
+}
+
+// ─── Shared utilities ──────────────────────────────────────────────────────
+const cardVariants = {
+  hidden:  { opacity: 0, y: 32, filter: 'blur(4px)' },
+  visible: (i) => ({
+    opacity: 1, y: 0, filter: 'blur(0px)',
+    transition: { duration: 0.65, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] },
+  }),
+}
+
+const GOLD_SHADOW  = '0 8px 40px rgba(212,175,55,0.13)'
+const onHoverStart = (e) => { e.currentTarget.style.boxShadow = GOLD_SHADOW }
+const onHoverEnd   = (e) => { e.currentTarget.style.boxShadow = '' }
+
+const CARD_BASE = [
+  'group relative w-full overflow-hidden rounded-2xl',
+  'border border-white/8 bg-charcoal',
+  'hover:border-gold/35 transition-all duration-[400ms]',
+].join(' ')
+
+// ─── YouTubeCard ───────────────────────────────────────────────────────────
+// aspect-video (16:9) ensures the full video is always visible at every width.
+function YouTubeCard({ index }) {
+  const src = [
+    `https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}`,
+    `?autoplay=1&mute=1&loop=1&playlist=${YOUTUBE_VIDEO_ID}`,
+    `&controls=0&playsinline=1&modestbranding=1&rel=0`,
+  ].join('')
+
+  return (
+    <motion.article
+      custom={index}
+      variants={cardVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      className={CARD_BASE}
+      onMouseEnter={onHoverStart}
+      onMouseLeave={onHoverEnd}
+    >
+      {/* 16:9 container — iframe fills it completely */}
+      <div className="relative w-full aspect-video">
+        <iframe
+          src={src}
+          title="Recent Video Showreel"
+          allow="autoplay; encrypted-media; picture-in-picture"
+          allowFullScreen
+          loading="lazy"
+          className="absolute inset-0 w-full h-full border-0"
+          aria-label="VClick Media — Recent Video Showreel"
+        />
+
+        {/* Gradient overlay — pointer-events-none so iframe stays interactive */}
+        <div
+          className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-black/80 via-black/30 to-transparent pointer-events-none"
+          aria-hidden="true"
+        />
+
+        {/* Text overlay at bottom */}
+        <div className="absolute inset-x-0 bottom-0 z-10 p-5 md:p-7 pointer-events-none">
+          <h3 className="text-lg md:text-2xl font-bold text-paper leading-snug group-hover:text-gold/90 transition-colors duration-200">
+            Recent Video Showreel
+          </h3>
+          <p className="text-white/55 text-sm mt-1 line-clamp-1 hidden sm:block">
+            A cinematic showcase of our recent events, brand stories, and productions across the UAE.
+          </p>
+          <Link
+            to="/videos"
+            className="inline-flex items-center gap-1.5 mt-3 text-gold/70 hover:text-gold text-xs font-semibold transition-colors duration-200 pointer-events-auto"
+          >
+            <Video size={12} />
+            Watch Films
+            <ArrowRight size={11} strokeWidth={2.5} className="group-hover:translate-x-0.5 transition-transform duration-200" />
+          </Link>
+        </div>
+      </div>
+    </motion.article>
+  )
+}
+
+// ─── ShowreelCard ──────────────────────────────────────────────────────────
+// Full-height image slideshow — text + progress bar overlaid at bottom.
 function ShowreelCard({ item, index }) {
   const [activeSlide, setActiveSlide] = useState(0)
-  const href = buildLink(item.link_type, item.category)
+  const href = item.link_type === 'gallery'
+    ? (item.category ? `/gallery?album=${encodeURIComponent(item.category)}` : '/gallery')
+    : null
 
   useEffect(() => {
     const id = setInterval(() => setActiveSlide(i => (i + 1) % SHOWREEL_SLIDES.length), 4500)
@@ -30,23 +127,25 @@ function ShowreelCard({ item, index }) {
   }, [])
 
   return (
-    <motion.div
+    <motion.article
       custom={index}
       variants={cardVariants}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true }}
-      className="group relative overflow-hidden rounded-2xl border border-white/8 bg-charcoal hover:border-gold/35 transition-all duration-[400ms] flex flex-col h-[420px] sm:h-[500px] md:h-[560px] w-full"
-      onMouseEnter={(e) => { e.currentTarget.style.boxShadow = '0 8px 40px rgba(212,175,55,0.13)' }}
-      onMouseLeave={(e) => { e.currentTarget.style.boxShadow = '' }}
+      className={CARD_BASE}
+      onMouseEnter={onHoverStart}
+      onMouseLeave={onHoverEnd}
     >
-      {/* ── 70 % — animated showreel ───────────────────── */}
-      <div className="relative overflow-hidden" style={{ flex: '0 0 70%' }}>
+      {/* Full-height image container */}
+      <div className="relative w-full h-[420px] sm:h-[540px] md:h-[660px] xl:h-[700px]">
+
+        {/* Animated slides — fills entire container */}
         <AnimatePresence mode="sync">
           <motion.img
             key={activeSlide}
             src={SHOWREEL_SLIDES[activeSlide]}
-            alt="VClick showreel"
+            alt="VClick recent captures"
             loading="lazy"
             initial={{ opacity: 0, scale: 1.06 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -56,31 +155,10 @@ function ShowreelCard({ item, index }) {
           />
         </AnimatePresence>
 
-        {/* cinematic vignette */}
-        <div className="absolute inset-0 bg-gradient-to-t from-charcoal/85 via-black/10 to-black/30" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-transparent h-1/3" />
+        {/* Cinematic vignette */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-black/25 pointer-events-none" aria-hidden="true" />
 
-        {/* top-left SHOWREEL badge */}
-        <div className="absolute top-4 left-4 z-10 flex items-center gap-2">
-          <span className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest text-gold bg-black/50 backdrop-blur-sm border border-gold/40 rounded-full px-3 py-1">
-            <Play size={9} fill="currentColor" />
-            Showreel
-          </span>
-        </div>
-
-        {/* progress bar */}
-        <div className="absolute bottom-4 left-4 right-4 z-10 flex gap-1">
-          {SHOWREEL_SLIDES.map((_, i) => (
-            <button
-              key={i}
-              aria-label={`Slide ${i + 1}`}
-              onClick={() => setActiveSlide(i)}
-              className={`flex-1 h-[3px] rounded-full transition-all duration-300 ${i === activeSlide ? 'bg-gold' : 'bg-white/30'}`}
-            />
-          ))}
-        </div>
-
-        {/* stat pill */}
+        {/* Stat pill — top right */}
         {item.stat_value && (
           <div className="absolute top-4 right-4 z-10">
             <div className="bg-black/50 backdrop-blur-sm border border-white/15 rounded-full px-3 py-1 text-center">
@@ -91,193 +169,66 @@ function ShowreelCard({ item, index }) {
             </div>
           </div>
         )}
-      </div>
 
-      {/* ── 30 % — text ───────────────────────────────── */}
-      <div className="p-5 flex flex-col justify-center" style={{ flex: '0 0 30%' }}>
-        {item.category && (
-          <span className="text-[11px] font-semibold uppercase tracking-wider text-gold mb-1">
-            {item.category}
-          </span>
-        )}
-        <h3 className="text-lg md:text-xl font-bold text-paper leading-snug group-hover:text-gold/90 transition-colors duration-200">
-          {item.title}
-        </h3>
-        {item.description && (
-          <p className="text-mist/55 text-sm mt-2 leading-relaxed line-clamp-2">
-            {item.description}
-          </p>
-        )}
-        {href && (
-          <Link
-            to={href}
-            className="inline-flex items-center gap-1.5 mt-4 text-gold/60 group-hover:text-gold text-xs font-semibold transition-colors duration-200"
-          >
-            <Camera size={12} /> View Photos
-            <ArrowRight size={11} strokeWidth={2.5} className="group-hover:translate-x-0.5 transition-transform duration-200" />
-          </Link>
-        )}
-      </div>
-    </motion.div>
-  )
-}
-
-const STATIC_WORKS = [
-  {
-    featured_work_id: 1,
-    title: 'Photography',
-    subtitle: 'Professional Photography · UAE',
-    description: 'Every frame tells a story. From brand shoots and product launches to portraits and live events, we capture the moments that matter most — beautifully lit, thoughtfully composed, and delivered with the detail your audience deserves.',
-    category: 'Photography',
-    cover_image_url: '/uploads/images/gallery/fashion-lifestyle/SIB-1002.webp',
-    image_position: 'object-top',
-    stat_label: 'Photos',
-    stat_value: '450+',
-    link_type: 'gallery',
-  },
-  {
-    featured_work_id: 2,
-    title: 'Videography',
-    subtitle: 'Cinematic Videography · UAE',
-    description: 'Cinematic video production for campaigns, events, and brand stories — from single-camera shoots to full multi-crew productions.',
-    category: 'Videography',
-    cover_image_url: '/uploads/images/gallery/events-exhibitions/DSC03817.webp',
-    stat_label: 'Films',
-    stat_value: '200+',
-    link_type: 'video',
-  },
-  {
-    featured_work_id: 3,
-    title: 'Events',
-    subtitle: 'Full-Service Events · UAE',
-    description: 'Complete event planning and coverage — from corporate conferences and exhibitions to brand activations and private celebrations.',
-    category: 'Corporate',
-    cover_image_url: '/uploads/images/gallery/events-exhibitions/DSC03148.webp',
-    stat_label: 'Events',
-    stat_value: '500+',
-    link_type: 'video',
-  },
-]
-
-function buildLink(linkType, category) {
-  if (linkType === 'gallery') return category ? `/gallery?album=${encodeURIComponent(category)}` : '/gallery'
-  if (linkType === 'video')   return category ? `/videos?category=${encodeURIComponent(category)}` : '/videos'
-  return null
-}
-
-const CATEGORY_COLORS = {
-  Wedding:   'from-rose-500/30 to-pink-600/20',
-  Corporate: 'from-blue-500/30 to-indigo-600/20',
-  Fashion:   'from-purple-500/30 to-violet-600/20',
-  Drone:     'from-amber-500/30 to-orange-600/20',
-  Product:   'from-emerald-500/30 to-teal-600/20',
-  Concert:   'from-red-500/30 to-rose-600/20',
-  Sports:    'from-cyan-500/30 to-sky-600/20',
-  Portrait:  'from-yellow-500/30 to-amber-600/20',
-}
-
-const cardVariants = {
-  hidden:  { opacity: 0, y: 32, filter: 'blur(4px)' },
-  visible: (i) => ({
-    opacity: 1, y: 0, filter: 'blur(0px)',
-    transition: { duration: 0.65, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] },
-  }),
-}
-
-function WorkCard({ item, index, isFeatured = false }) {
-  const href = buildLink(item.link_type, item.category)
-  const gradClass = CATEGORY_COLORS[item.category] ?? 'from-gold/20 to-amber-600/10'
-
-  return (
-    <motion.div
-      custom={index}
-      variants={cardVariants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true }}
-      className={`group relative overflow-hidden rounded-2xl border border-white/8 bg-charcoal
-        hover:border-gold/35 transition-all duration-[400ms]
-        ${isFeatured ? 'md:col-span-2 md:row-span-2' : ''}
-      `}
-      onMouseEnter={(e) => { e.currentTarget.style.boxShadow = '0 8px 40px rgba(212,175,55,0.13)' }}
-      onMouseLeave={(e) => { e.currentTarget.style.boxShadow = '' }}
-    >
-      {/* Cover image */}
-      <div className={`relative overflow-hidden ${isFeatured ? 'h-52 md:h-80' : 'h-40 md:h-48'}`}>
-        <img
-          src={item.cover_image_url}
-          alt={item.title}
-          loading="lazy"
-          className={`w-full h-full object-cover ${item.image_position ?? 'object-center'} group-hover:scale-[1.04] transition-transform duration-700 ease-out`}
-        />
-        {/* Gradient overlay */}
-        <div
-          className={`absolute inset-0 bg-gradient-to-t ${gradClass} opacity-60 group-hover:opacity-80 transition-opacity duration-300`}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-charcoal/90 via-transparent to-transparent" />
-
-        {/* Category badge */}
-        {item.category && (
-          <div className="absolute top-3 left-3 z-10">
-            <span className="text-[11px] font-semibold uppercase tracking-wider text-gold bg-black/40 backdrop-blur-sm border border-gold/30 rounded-full px-3 py-1">
+        {/* Bottom overlay — text + progress bar */}
+        <div className="absolute inset-x-0 bottom-0 z-10 px-5 pt-8 pb-5 md:px-7 md:pb-6">
+          {item.category && (
+            <span className="text-[11px] font-semibold uppercase tracking-wider text-gold block mb-1">
               {item.category}
             </span>
-          </div>
-        )}
+          )}
+          <h3 className="text-lg md:text-2xl font-bold text-paper leading-snug group-hover:text-gold/90 transition-colors duration-200">
+            {item.title}
+          </h3>
+          {item.description && (
+            <p className="text-white/55 text-sm mt-1 line-clamp-1 hidden sm:block">
+              {item.description}
+            </p>
+          )}
+          {href && (
+            <Link
+              to={href}
+              className="inline-flex items-center gap-1.5 mt-3 text-gold/70 hover:text-gold text-xs font-semibold transition-colors duration-200"
+            >
+              <Camera size={12} />
+              View Photos
+              <ArrowRight size={11} strokeWidth={2.5} className="group-hover:translate-x-0.5 transition-transform duration-200" />
+            </Link>
+          )}
 
-        {/* Stat pill */}
-        {item.stat_value && (
-          <div className="absolute top-3 right-3 z-10">
-            <div className="bg-black/50 backdrop-blur-sm border border-white/15 rounded-full px-3 py-1 text-center">
-              <p className="text-gold font-extrabold text-sm leading-none">{item.stat_value}</p>
-              {item.stat_label && (
-                <p className="text-white/55 text-[9px] uppercase tracking-wide leading-none mt-0.5">{item.stat_label}</p>
-              )}
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* Text content */}
-      <div className="p-5">
-        <p className="text-mist/55 text-xs mb-1">{item.subtitle}</p>
-        <h3 className={`text-paper font-bold leading-snug group-hover:text-gold/90 transition-colors duration-200 ${isFeatured ? 'text-lg md:text-xl' : 'text-base'}`}>
-          {item.title}
-        </h3>
-        {item.description && (
-          <p className={`text-mist/55 text-sm mt-2 leading-relaxed line-clamp-2 ${!isFeatured && 'hidden md:block'}`}>
-            {item.description}
-          </p>
-        )}
-
-        {/* CTA link */}
-        {href && (
-          <Link
-            to={href}
-            className="inline-flex items-center gap-1.5 mt-4 text-gold/60 group-hover:text-gold text-xs font-semibold transition-colors duration-200"
+          {/* Slide progress bar */}
+          <div
+            className="flex gap-1 mt-4"
+            role="tablist"
+            aria-label="Slideshow navigation"
           >
-            {item.link_type === 'video' ? (
-              <><Video size={12} /> View Film</>
-            ) : (
-              <><Camera size={12} /> View Photos</>
-            )}
-            <ArrowRight size={11} strokeWidth={2.5} className="group-hover:translate-x-0.5 transition-transform duration-200" />
-          </Link>
-        )}
+            {SHOWREEL_SLIDES.map((_, i) => (
+              <button
+                key={i}
+                role="tab"
+                aria-selected={i === activeSlide}
+                aria-label={`Slide ${i + 1}`}
+                onClick={() => setActiveSlide(i)}
+                className={`flex-1 h-[3px] rounded-full transition-all duration-300 ${
+                  i === activeSlide ? 'bg-gold' : 'bg-white/30 hover:bg-white/50'
+                }`}
+              />
+            ))}
+          </div>
+        </div>
       </div>
-    </motion.div>
+    </motion.article>
   )
 }
 
+// ─── PortfolioSection ──────────────────────────────────────────────────────
 function PortfolioSection({ section = null }) {
-  const items = STATIC_WORKS
-  const [featured, ...rest] = items
-
   const heading = section?.title || 'Recent Works'
 
   return (
     <section id="portfolio" className="py-14 md:py-20 bg-charcoal overflow-hidden">
       <div className="section-container">
+
         {/* Section header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10 md:mb-12">
           <div>
@@ -305,7 +256,6 @@ function PortfolioSection({ section = null }) {
             </motion.p>
           </div>
 
-          {/* View all links */}
           <motion.div
             initial={{ opacity: 0, x: 16 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -317,38 +267,21 @@ function PortfolioSection({ section = null }) {
               to="/gallery"
               className="inline-flex items-center gap-1.5 text-sm text-mist/65 hover:text-gold transition-colors duration-200 font-medium"
             >
-              <Camera size={14} />
-              All Photos
-              <ArrowRight size={12} strokeWidth={2.5} />
+              <Camera size={14} /> All Photos <ArrowRight size={12} strokeWidth={2.5} />
             </Link>
             <Link
               to="/videos"
               className="inline-flex items-center gap-1.5 text-sm text-mist/65 hover:text-gold transition-colors duration-200 font-medium"
             >
-              <Video size={14} />
-              All Videos
-              <ArrowRight size={12} strokeWidth={2.5} />
+              <Video size={14} /> All Videos <ArrowRight size={12} strokeWidth={2.5} />
             </Link>
           </motion.div>
         </div>
 
-        {/* Portfolio layout — full-width showreel, then cards below */}
-        <div className="flex flex-col gap-4 md:gap-5">
-          <AnimatePresence>
-            {/* Full-width showreel */}
-            {featured && (
-              <ShowreelCard key={featured.featured_work_id} item={featured} index={0} />
-            )}
-          </AnimatePresence>
-
-          {/* Cards row below */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
-            <AnimatePresence>
-              {rest.slice(0, 4).map((item, i) => (
-                <WorkCard key={item.featured_work_id} item={item} index={i + 1} />
-              ))}
-            </AnimatePresence>
-          </div>
+        {/* Two full-width showcase cards */}
+        <div className="flex flex-col gap-4 md:gap-6">
+          <YouTubeCard index={0} />
+          <ShowreelCard item={SHOWREEL_ITEM} index={1} />
         </div>
 
         {/* Bottom CTA */}
@@ -376,6 +309,7 @@ function PortfolioSection({ section = null }) {
             <ArrowRight size={14} strokeWidth={2.5} className="group-hover:translate-x-0.5 transition-transform duration-200" />
           </Link>
         </motion.div>
+
       </div>
     </section>
   )

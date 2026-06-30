@@ -12,7 +12,7 @@ function ContactSection({ section = null }) {
   const { contact, whatsapp: wa } = siteConfig
 
   const quickContacts = [
-    { label: 'WhatsApp', icon: MessageCircle, href: `https://wa.me/${wa.phone.replace(/[^0-9]/g, '')}` },
+    { label: 'WhatsApp', icon: MessageCircle, href: `https://wa.me/${(contact.whatsapp || wa.phone).replace(/[^0-9]/g, '')}` },
     { label: 'Call Us',  icon: PhoneCall,     href: `tel:${contact.phone.replace(/\s/g, '')}` },
     { label: 'Email',    icon: Mail,          href: `mailto:${contact.email}` },
   ]

@@ -22,7 +22,7 @@ export default function WhatsAppChat() {
 
   if (!waConfig.enabled) return null
 
-  const phone    = waConfig.phone.replace(/[^0-9+]/g, '')
+  const phone    = (siteConfig.contact.whatsapp || waConfig.phone).replace(/[^0-9+]/g, '')
   const preset   = waConfig.message
   const label    = waConfig.label
   const position = waConfig.position

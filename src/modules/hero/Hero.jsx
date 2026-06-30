@@ -255,7 +255,7 @@ function Hero({ section = null }) {
               iconPosition="left"
               className="justify-center sm:w-auto"
             >
-              {CONTENT.ctaSecondary}
+              {siteConfig.contact.phone}
             </Button>
           </motion.div>
         </motion.div>

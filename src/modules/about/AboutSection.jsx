@@ -2,57 +2,50 @@ import { motion } from 'framer-motion'
 import { Target, Eye, Clock, Users } from 'lucide-react'
 import SectionEyebrow from '../../components/common/SectionEyebrow'
 import GoldDivider from '../../components/common/GoldDivider'
+import { homeSectionContents } from '../../data/home_section_contents'
 
-const STATIC_PILLAR_ICONS = [Target, Eye, Clock, Users]
+const { about: CONTENT } = homeSectionContents
 
-const STATIC_PILLARS = [
-  { label: 'Mission',             copy: 'To document every milestone our clients trust us with as a cinematic, lasting memory.' },
-  { label: 'Vision',              copy: "To be the UAE's most trusted name in creative media and event production." },
-  { label: 'Years of Experience', copy: 'A decade-deep team that has covered everything from intimate weddings to national expos.' },
-  { label: 'Professional Team',   copy: 'Photographers, editors, drone pilots and planners working as one coordinated crew.' },
-]
+const PILLAR_ICONS = [Target, Eye, Clock, Users]
 
-const STATIC_COLLAGE_IMAGES = [
+const COLLAGE_IMAGES = [
   {
-    src: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=700&auto=format&fit=crop',
-    alt: 'Photographer directing a shoot on location in the UAE',
+    src: '/uploads/images/gallery/events-exhibitions/DSC03273.webp',
+    alt: 'VClick event production — Purplefi stage setup at Ritz-Carlton Dubai',
     className: 'absolute top-0 left-0 w-3/5 rotate-[-3deg] z-20',
   },
   {
-    src: 'https://images.unsplash.com/photo-1556745757-8d76bdb6984b?q=80&w=700&auto=format&fit=crop',
-    alt: 'Cinematic event lighting setup at a corporate venue',
+    src: '/uploads/images/gallery/events-exhibitions/1000417901.webp',
+    alt: 'VClick covering a large-scale ADFW conference in Abu Dhabi',
     className: 'absolute top-16 right-0 w-1/2 rotate-[4deg] z-10',
   },
   {
-    src: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=700&auto=format&fit=crop',
-    alt: 'Wedding videography crew capturing a couple at golden hour',
+    src: '/uploads/images/gallery/fashion-lifestyle/DSC04879.webp',
+    alt: 'VClick fashion and lifestyle editorial photography in the UAE',
     className: 'absolute bottom-0 left-10 w-2/3 rotate-[2deg] z-0',
   },
 ]
 
-const STATIC_COLLAGE_CLASSES = [
+const COLLAGE_CLASSES = [
   'absolute top-0 left-0 w-3/5 rotate-[-3deg] z-20',
   'absolute top-16 right-0 w-1/2 rotate-[4deg] z-10',
   'absolute bottom-0 left-10 w-2/3 rotate-[2deg] z-0',
 ]
 
-const STATIC_BODY =
-  'VClick Media & Events is a UAE-based creative production house headquartered in Ajman Free Zone. We specialize in high-end photography, videography and full-service event management — covering weddings, corporate conferences, exhibitions, brand activations and product launches across all seven Emirates. Every project is treated as a story worth telling well, backed by a crew that brings cinematic standards to every brief, big or small.'
-
 function AboutSection({ section = null }) {
-  const heading      = section?.title    || 'Who We Are'
-  const bodyText     = section?.subtitle || STATIC_BODY
-  const cmsPillars   = section?.content?.items
-  const pillars      = cmsPillars?.length ? cmsPillars : STATIC_PILLARS
-  const cmsImages    = section?.content?.images
-  const collageImages = cmsImages?.length ? cmsImages : STATIC_COLLAGE_IMAGES
+  const heading       = section?.title    || CONTENT.heading
+  const bodyText      = section?.subtitle || CONTENT.body
+  const cmsPillars    = section?.content?.items
+  const pillars       = cmsPillars?.length ? cmsPillars : CONTENT.pillars
+  const cmsImages     = section?.content?.images
+  const collageImages = cmsImages?.length ? cmsImages : COLLAGE_IMAGES
 
   return (
     <section id="about" className="pt-6 md:pt-8 pb-14 md:pb-20 bg-ink overflow-hidden">
       <GoldDivider className="mb-8 md:mb-12" />
       <div className="section-container grid lg:grid-cols-2 gap-16 items-center">
         <div>
-          <SectionEyebrow align="left">Who We Are</SectionEyebrow>
+          <SectionEyebrow align="left">{CONTENT.eyebrow}</SectionEyebrow>
           <motion.h2
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -75,7 +68,7 @@ function AboutSection({ section = null }) {
 
           <div className="mt-8 md:mt-12 grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
             {pillars.map((pillar, index) => {
-              const Icon  = STATIC_PILLAR_ICONS[index % STATIC_PILLAR_ICONS.length]
+              const Icon  = PILLAR_ICONS[index % PILLAR_ICONS.length]
               const label = pillar.label || pillar.title
               const copy  = pillar.copy  || pillar.description
               return (
@@ -100,7 +93,7 @@ function AboutSection({ section = null }) {
           </div>
         </div>
 
-        {/* Mobile: clean stacked image grid */}
+        {/* Mobile: clean stacked grid */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -133,7 +126,7 @@ function AboutSection({ section = null }) {
           className="relative h-[520px] w-full hidden lg:block"
         >
           {collageImages.slice(0, 3).map((img, i) => {
-            const cls = img.className || STATIC_COLLAGE_CLASSES[i % STATIC_COLLAGE_CLASSES.length]
+            const cls = img.className || COLLAGE_CLASSES[i % COLLAGE_CLASSES.length]
             return (
               <img
                 key={img.src}

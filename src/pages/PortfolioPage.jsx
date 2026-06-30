@@ -14,6 +14,27 @@ import {
   Images,
 } from 'lucide-react'
 import SEOHead from '../components/common/SEOHead'
+import { portfolioSectionContents } from '../data/portfolio_section_contents'
+
+const SITE = 'https://www.vclickmedia.ae'
+const PC   = portfolioSectionContents
+
+const PORTFOLIO_PAGE_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  '@id': `${SITE}/portfolio`,
+  name: PC.seo.schemaName,
+  description: PC.seo.schemaDescription,
+  url: `${SITE}/portfolio`,
+  isPartOf: { '@id': `${SITE}/#website` },
+  about: { '@id': `${SITE}/#organization` },
+  inLanguage: 'en-AE',
+}
+
+const PORTFOLIO_BREADCRUMBS = [
+  { name: 'Home', url: SITE },
+  { name: PC.hero.breadcrumbCurrent, url: `${SITE}/portfolio` },
+]
 import Navbar from '../components/layout/Navbar'
 import Footer from '../components/layout/Footer'
 import GoldDivider from '../components/common/GoldDivider'
@@ -30,43 +51,14 @@ import {
 const SPAN_MAP = { portrait: 'row-span-2', landscape: 'row-span-1', square: 'row-span-1' }
 const FALLBACK_SPANS = ['row-span-2', 'row-span-1', 'row-span-1', 'row-span-2', 'row-span-1', 'row-span-2']
 
-const STATS = [
-  { target: 500, suffix: '+', label: 'Events Covered', icon: Award },
-  { target: 200, suffix: '+', label: 'Weddings Shot', icon: Camera },
-  { target: 50,  suffix: '+', label: 'Brand Clients', icon: Users },
-  { target: 5,   suffix: '+', label: 'Countries', icon: Globe },
-]
+const STAT_ICONS = [Award, Camera, Users, Globe]
+const STATS = PC.stats.map((s, i) => ({ ...s, icon: STAT_ICONS[i] ?? Award }))
 
-const SERVICE_CATEGORIES = [
-  {
-    title: 'Wedding Photography',
-    desc: 'Timeless portraits and candid moments that tell your love story.',
-    icon: Camera,
-    filter: 'Wedding',
-    gradient: 'from-rose-500/20 to-pink-500/10',
-  },
-  {
-    title: 'Corporate Films',
-    desc: 'High-impact brand videos that communicate authority and vision.',
-    icon: Clapperboard,
-    filter: 'Corporate',
-    gradient: 'from-blue-500/20 to-indigo-500/10',
-  },
-  {
-    title: 'Fashion Editorials',
-    desc: 'Striking visual narratives for campaigns, lookbooks and runway.',
-    icon: Aperture,
-    filter: 'Fashion',
-    gradient: 'from-purple-500/20 to-violet-500/10',
-  },
-  {
-    title: 'Drone Coverage',
-    desc: 'Breathtaking aerial perspectives over events and landscapes.',
-    icon: Globe,
-    filter: 'Drone Shots',
-    gradient: 'from-amber-500/20 to-orange-500/10',
-  },
-]
+const CATEGORY_ICONS = [Camera, Clapperboard, Aperture, Globe]
+const SERVICE_CATEGORIES = PC.specialties.categories.map((cat, i) => ({
+  ...cat,
+  icon: CATEGORY_ICONS[i] ?? Camera,
+}))
 
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
@@ -99,9 +91,12 @@ function PortfolioPage() {
   return (
     <>
       <SEOHead
-        title="Portfolio | VClick Media & Events — Creative Work UAE"
-        description="Explore VClick's curated portfolio — weddings, corporate events, fashion editorials, drone photography and more across the UAE."
-        url="https://www.vclickmedia.ae/portfolio"
+        title={PC.seo.title}
+        description={PC.seo.description}
+        url={`${SITE}/portfolio`}
+        canonical={`${SITE}/portfolio`}
+        breadcrumbs={PORTFOLIO_BREADCRUMBS}
+        schemas={[PORTFOLIO_PAGE_SCHEMA]}
       />
       <Navbar />
 
@@ -168,7 +163,7 @@ function PortfolioPage() {
                   transition={{ duration: 1, delay: 0.3 }}
                   aria-hidden="true"
                 />
-                <span className="eyebrow">Creative Showcase</span>
+                <span className="eyebrow">{PC.hero.eyebrow}</span>
               </motion.div>
 
               <motion.h1
@@ -183,16 +178,15 @@ function PortfolioPage() {
               </motion.h1>
 
               <motion.p variants={fadeUp} className="mt-5 text-lg text-mist/75 leading-relaxed max-w-xl">
-                More than a gallery — a body of work built from creative vision,
-                technical mastery, and a relentless pursuit of the perfect frame.
+                {PC.hero.subtitle}
               </motion.p>
 
               <motion.div variants={fadeUp} className="mt-7 flex items-center gap-4 flex-wrap">
                 <Button as={Link} to="/gallery" variant="ghost" icon={Images} iconPosition="left">
-                  Photo Gallery
+                  {PC.hero.ctaGallery}
                 </Button>
                 <Button as={Link} to="/videos" variant="ghost" icon={Video} iconPosition="left">
-                  Video Gallery
+                  {PC.hero.ctaVideos}
                 </Button>
               </motion.div>
             </motion.div>
@@ -240,16 +234,15 @@ function PortfolioPage() {
             >
               <div className="flex items-center justify-center gap-3 mb-4">
                 <span className="h-px w-6 bg-gold-sweep" aria-hidden="true" />
-                <span className="eyebrow">What We Do</span>
+                <span className="eyebrow">{PC.specialties.eyebrow}</span>
                 <span className="h-px w-6 bg-gold-sweep" aria-hidden="true" />
               </div>
               <h2 id="services-heading" className="text-h3 md:text-h2 font-extrabold text-paper leading-tight">
-                Specialties &{' '}
-                <span className="gold-text-gradient">Expertise</span>
+                {PC.specialties.headingBase} {PC.specialties.headingConnector}{' '}
+                <span className="gold-text-gradient">{PC.specialties.headingHighlight}</span>
               </h2>
               <p className="mt-4 text-mist/65 leading-relaxed">
-                Each discipline represents years of mastery — from intimate portraits
-                to large-scale commercial productions.
+                {PC.specialties.subtitle}
               </p>
             </motion.div>
 
@@ -287,7 +280,7 @@ function PortfolioPage() {
                     {desc}
                   </p>
                   <div className="mt-4 flex items-center gap-1.5 text-gold/50 group-hover:text-gold text-xs font-medium transition-colors duration-200">
-                    <span>View Work</span>
+                    <span>{PC.specialties.viewWorkLabel}</span>
                     <ArrowRight size={12} strokeWidth={2.5} />
                   </div>
                 </motion.button>
@@ -314,12 +307,12 @@ function PortfolioPage() {
             >
               <div className="flex items-center justify-center gap-3 mb-4">
                 <span className="h-px w-6 bg-gold-sweep" aria-hidden="true" />
-                <span className="eyebrow">Selected Work</span>
+                <span className="eyebrow">{PC.grid.eyebrow}</span>
                 <span className="h-px w-6 bg-gold-sweep" aria-hidden="true" />
               </div>
               <h2 id="grid-heading" className="text-h3 md:text-h2 font-extrabold text-paper leading-tight">
-                Browse by{' '}
-                <span className="gold-text-gradient">Category</span>
+                {PC.grid.headingBase}{' '}
+                <span className="gold-text-gradient">{PC.grid.headingHighlight}</span>
               </h2>
             </motion.div>
 
@@ -352,16 +345,15 @@ function PortfolioPage() {
             >
               <div className="flex items-center justify-center gap-3 mb-4">
                 <span className="h-px w-6 bg-gold-sweep" aria-hidden="true" />
-                <span className="eyebrow">Explore More</span>
+                <span className="eyebrow">{PC.cta.eyebrow}</span>
                 <span className="h-px w-6 bg-gold-sweep" aria-hidden="true" />
               </div>
               <h2 id="cta-heading" className="text-h3 md:text-h2 font-extrabold text-paper">
-                The Full{' '}
-                <span className="gold-text-gradient">Experience</span>
+                {PC.cta.headingBase}{' '}
+                <span className="gold-text-gradient">{PC.cta.headingHighlight}</span>
               </h2>
               <p className="mt-4 text-mist/65 leading-relaxed">
-                The portfolio shows our curated best. The gallery and video collections
-                hold the complete archive of every project we've completed.
+                {PC.cta.subtitle}
               </p>
             </motion.div>
 
@@ -389,15 +381,14 @@ function PortfolioPage() {
                   </div>
                   <div>
                     <h3 className="text-paper font-bold text-lg group-hover:text-gold transition-colors duration-200 mb-1.5">
-                      Photo Gallery
+                      {PC.cta.gallery.heading}
                     </h3>
                     <p className="text-mist/55 text-sm leading-relaxed">
-                      Browse the complete photography archive — hundreds of images
-                      organized by album and event type.
+                      {PC.cta.gallery.description}
                     </p>
                   </div>
                   <div className="flex items-center gap-2 text-gold/60 group-hover:text-gold text-sm font-semibold transition-colors duration-200 mt-auto">
-                    <span>Open Gallery</span>
+                    <span>{PC.cta.gallery.linkLabel}</span>
                     <ArrowRight size={14} strokeWidth={2.5} />
                   </div>
                 </Link>
@@ -426,15 +417,14 @@ function PortfolioPage() {
                   </div>
                   <div>
                     <h3 className="text-paper font-bold text-lg group-hover:text-gold transition-colors duration-200 mb-1.5">
-                      Video Showreel
+                      {PC.cta.video.heading}
                     </h3>
                     <p className="text-mist/55 text-sm leading-relaxed">
-                      Watch our cinematic work — weddings, corporate films, fashion
-                      reels and aerial footage all in one place.
+                      {PC.cta.video.description}
                     </p>
                   </div>
                   <div className="flex items-center gap-2 text-gold/60 group-hover:text-gold text-sm font-semibold transition-colors duration-200 mt-auto">
-                    <span>Watch Films</span>
+                    <span>{PC.cta.video.linkLabel}</span>
                     <ArrowRight size={14} strokeWidth={2.5} />
                   </div>
                 </Link>
@@ -450,10 +440,10 @@ function PortfolioPage() {
               className="text-center mt-8"
             >
               <p className="text-mist/50 text-sm mb-5">
-                Ready to bring your vision to life?
+                {PC.cta.bottomPrompt}
               </p>
               <Button as="a" href="/#contact" variant="primary" icon={ArrowRight}>
-                Get a Free Consultation
+                {PC.cta.bottomCta}
               </Button>
             </motion.div>
           </div>

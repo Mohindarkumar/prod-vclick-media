@@ -3,6 +3,9 @@ import { Building } from 'lucide-react'
 import SectionEyebrow from '../../components/common/SectionEyebrow'
 import usePrefersReducedMotion from '../../hooks/usePrefersReducedMotion'
 import { clientLogos as staticClients } from '../../data/clients'
+import { homeSectionContents } from '../../data/home_section_contents'
+
+const { clients: CONTENT } = homeSectionContents
 
 function ClientLogo({ client }) {
   const inner = (
@@ -49,7 +52,7 @@ function ClientsLogoStrip() {
   return (
     <section id="clients" className="section-padding bg-charcoal">
       <div className="section-container text-center">
-        <SectionEyebrow>Trusted By</SectionEyebrow>
+        <SectionEyebrow>{CONTENT.eyebrow}</SectionEyebrow>
         <motion.h2
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -57,7 +60,7 @@ function ClientsLogoStrip() {
           transition={{ duration: 0.6 }}
           className="mt-5 text-3xl md:text-h2 font-extrabold text-paper"
         >
-          Our Clients
+          {CONTENT.heading}
         </motion.h2>
       </div>
 

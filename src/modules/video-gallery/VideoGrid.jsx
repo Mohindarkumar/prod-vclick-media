@@ -2,6 +2,9 @@ import { useState, useMemo, useCallback, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Video, Sparkles, ChevronDown } from 'lucide-react'
 import VideoCard from './VideoCard'
+import { videoSectionContents } from '../../data/video_section_contents'
+
+const { grid: GRID } = videoSectionContents
 
 const ITEMS_PER_PAGE = 12
 const SKELETON_COUNT = 6
@@ -57,8 +60,8 @@ function VideoGrid({ videos, isLoading, isError, activeCategory, onPlay, feature
           <Video size={30} className="text-red-400/50" aria-hidden="true" />
         </div>
         <div>
-          <p className="text-paper/70 font-semibold text-base">Could not load videos.</p>
-          <p className="text-sm text-mist/45 mt-1.5">Please refresh the page and try again.</p>
+          <p className="text-paper/70 font-semibold text-base">{GRID.errorTitle}</p>
+          <p className="text-sm text-mist/45 mt-1.5">{GRID.errorSubtitle}</p>
         </div>
       </motion.div>
     )
@@ -88,8 +91,8 @@ function VideoGrid({ videos, isLoading, isError, activeCategory, onPlay, feature
           </div>
         </motion.div>
         <div>
-          <p className="text-paper/75 font-semibold text-base">No videos in this category yet.</p>
-          <p className="text-sm text-mist/45 mt-1.5">Check back soon — more work is on the way.</p>
+          <p className="text-paper/75 font-semibold text-base">{GRID.emptyTitle}</p>
+          <p className="text-sm text-mist/45 mt-1.5">{GRID.emptySubtitle}</p>
         </div>
       </motion.div>
     )
@@ -111,12 +114,12 @@ function VideoGrid({ videos, isLoading, isError, activeCategory, onPlay, feature
             <div className="flex items-center gap-2">
               <Sparkles size={14} className="text-gold" aria-hidden="true" />
               <h2 className="text-sm font-bold gold-text-gradient uppercase tracking-[0.16em]">
-                Featured
+                {GRID.featuredLabel}
               </h2>
             </div>
             <span className="flex-1 h-px bg-gold/15" aria-hidden="true" />
             <span className="text-[11px] text-mist/35 uppercase tracking-wider">
-              {featuredVideos.length} {featuredVideos.length === 1 ? 'film' : 'films'}
+              {featuredVideos.length} {featuredVideos.length === 1 ? GRID.filmSingular : GRID.filmPlural}
             </span>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
@@ -131,7 +134,7 @@ function VideoGrid({ videos, isLoading, isError, activeCategory, onPlay, feature
       {showFeaturedBand && hasMainVideos && mainVideos.length > 0 && (
         <div className="mb-10 flex items-center gap-4">
           <span className="flex-1 h-px bg-white/6" aria-hidden="true" />
-          <span className="text-xs text-mist/35 uppercase tracking-wider">All Videos</span>
+          <span className="text-xs text-mist/35 uppercase tracking-wider">{GRID.allVideosLabel}</span>
           <span className="flex-1 h-px bg-white/6" aria-hidden="true" />
         </div>
       )}
@@ -187,7 +190,7 @@ function VideoGrid({ videos, isLoading, isError, activeCategory, onPlay, feature
               transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
           >
             <ChevronDown size={16} strokeWidth={2.25} aria-hidden="true" />
-            Load More
+            {GRID.loadMoreBtn}
           </motion.button>
         </motion.div>
       )}
@@ -204,7 +207,7 @@ function VideoGrid({ videos, isLoading, isError, activeCategory, onPlay, feature
             <div className="h-full w-full bg-gold-sweep rounded-full" />
           </div>
           <p className="text-xs text-mist/35 uppercase tracking-[0.18em]">
-            — End of Collection —
+            {GRID.endLabel}
           </p>
         </motion.div>
       )}

@@ -10,6 +10,42 @@ import VideoGrid from '../modules/video-gallery/VideoGrid'
 import VideoModal from '../modules/video-gallery/VideoModal'
 import GalleryFilter from '../modules/gallery/GalleryFilter'
 import { videos as allVideos, videoCategories } from '../data/videos'
+import { videoSectionContents } from '../data/video_section_contents'
+
+const { search: SEARCH, seo: SEO_CONTENT } = videoSectionContents
+
+const SITE = 'https://www.vclickmedia.ae'
+
+// VideoObject schemas for each static video
+const videoSchemas = allVideos.map((v) => ({
+  '@context': 'https://schema.org',
+  '@type': 'VideoObject',
+  name: v.title,
+  description: v.description,
+  thumbnailUrl: v.thumbnail_url ? `${SITE}${v.thumbnail_url}` : undefined,
+  contentUrl: v.video_url ? `${SITE}${v.video_url}` : undefined,
+  uploadDate: '2025-01-01',
+  publisher: { '@id': `${SITE}/#organization` },
+  inLanguage: 'en-AE',
+}))
+
+const VIDEO_PAGE_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  '@id': `${SITE}/videos`,
+  name: 'Video Gallery — VClick Media & Events',
+  description:
+    'Cinematic videography collection including wedding films, corporate event videos, and fashion reels captured by VClick Media & Events across the UAE.',
+  url: `${SITE}/videos`,
+  isPartOf: { '@id': `${SITE}/#website` },
+  about: { '@id': `${SITE}/#organization` },
+  inLanguage: 'en-AE',
+}
+
+const VIDEO_BREADCRUMBS = [
+  { name: 'Home', url: SITE },
+  { name: 'Video Gallery', url: `${SITE}/videos` },
+]
 
 function VideoGalleryPage() {
   const [searchParams] = useSearchParams()
@@ -65,9 +101,12 @@ function VideoGalleryPage() {
   return (
     <>
       <SEOHead
-        title="Video Gallery | VClick Media & Events — Cinematic Videography UAE"
-        description="Browse VClick's collection of cinematic videos — weddings, corporate films, fashion reels, drone footage and live event highlights across UAE."
-        url="https://www.vclickmedia.ae/videos"
+        title={SEO_CONTENT.title}
+        description={SEO_CONTENT.description}
+        url={`${SITE}/videos`}
+        canonical={`${SITE}/videos`}
+        breadcrumbs={VIDEO_BREADCRUMBS}
+        schemas={[VIDEO_PAGE_SCHEMA, ...videoSchemas]}
       />
       <Navbar />
 
@@ -86,8 +125,8 @@ function VideoGalleryPage() {
               type="search"
               value={searchQuery}
               onChange={handleSearchChange}
-              placeholder="Search videos…"
-              aria-label="Search videos"
+              placeholder={SEARCH.placeholder}
+              aria-label={SEARCH.ariaLabel}
               className="w-full bg-white/5 border border-white/10 rounded-full pl-11 pr-11 py-3 text-sm text-paper placeholder-mist/35
                 focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold/40
                 transition-all duration-300"
@@ -97,7 +136,7 @@ function VideoGalleryPage() {
                 <motion.button
                   type="button"
                   onClick={clearSearch}
-                  aria-label="Clear search"
+                  aria-label={SEARCH.clearAriaLabel}
                   initial={{ opacity: 0, scale: 0.7 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.7 }}
@@ -145,11 +184,11 @@ function VideoGalleryPage() {
                 className="mb-8 text-sm text-mist/55"
               >
                 {filteredVideos.length === 0 ? (
-                  <span>No videos match your search.</span>
+                  <span>{SEARCH.noResults}</span>
                 ) : (
                   <span>
                     <span className="text-gold font-semibold">{filteredVideos.length}</span>
-                    {` result${filteredVideos.length === 1 ? '' : 's'} for `}
+                    {` ${filteredVideos.length === 1 ? SEARCH.resultSingular : SEARCH.resultPlural} `}
                     <span className="text-paper/70">&ldquo;{searchQuery}&rdquo;</span>
                   </span>
                 )}

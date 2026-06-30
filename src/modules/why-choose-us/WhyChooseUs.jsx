@@ -13,45 +13,28 @@ import {
 } from 'lucide-react'
 import SectionEyebrow from '../../components/common/SectionEyebrow'
 import StatBlock from './StatBlock'
+import { homeSectionContents } from '../../data/home_section_contents'
 
-const STATIC_ICONS = [Palette, Camera, Wand2, Zap, Wallet, Settings2, UserCog, Award, SmilePlus, Headset]
+const { whyChooseUs: CONTENT } = homeSectionContents
 
-const STATIC_REASONS = [
-  { label: 'Creative Team' },
-  { label: 'Latest Equipment' },
-  { label: 'Professional Editing' },
-  { label: 'Fast Delivery' },
-  { label: 'Affordable Packages' },
-  { label: 'Customized Solutions' },
-  { label: 'Experienced Event Managers' },
-  { label: 'High Quality Output' },
-  { label: 'Customer Satisfaction' },
-  { label: '24/7 Support' },
-]
-
-const STATIC_STATS = [
-  { target: 500, suffix: '+', label: 'Events Delivered' },
-  { target: 200, suffix: '+', label: 'Happy Clients' },
-  { target: 50,  suffix: '+', label: 'Corporate Partners' },
-  { target: 8,   suffix: '+', label: 'Years Experience' },
-]
+const REASON_ICONS = [Palette, Camera, Wand2, Zap, Wallet, Settings2, UserCog, Award, SmilePlus, Headset]
 
 function WhyChooseUs({ section = null }) {
-  const heading = section?.title || 'Why Choose Us'
+  const heading = section?.title || CONTENT.heading
 
   const cmsReasons = section?.content?.reasons
-  const reasons = cmsReasons?.length ? cmsReasons : STATIC_REASONS
+  const reasons    = cmsReasons?.length ? cmsReasons : CONTENT.reasons
 
   const cmsStats = section?.content?.stats
-  const stats = cmsStats?.length
+  const stats    = cmsStats?.length
     ? cmsStats.map((s) => ({ target: Number(s.target ?? s.value ?? 0), suffix: s.suffix ?? '+', label: s.label }))
-    : STATIC_STATS
+    : CONTENT.stats
 
   return (
     <section id="why-choose-us" className="section-padding bg-ink">
       <div className="section-container">
         <div className="text-center max-w-2xl mx-auto">
-          <SectionEyebrow>Why VClick</SectionEyebrow>
+          <SectionEyebrow>{CONTENT.eyebrow}</SectionEyebrow>
           <motion.h2
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -65,8 +48,9 @@ function WhyChooseUs({ section = null }) {
 
         <div className="mt-10 md:mt-14 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
           {reasons.map((reason, index) => {
-            const Icon  = STATIC_ICONS[index % STATIC_ICONS.length]
-            const label = reason.label || reason.title
+            const Icon        = REASON_ICONS[index % REASON_ICONS.length]
+            const label       = reason.label || reason.title
+            const description = reason.description || reason.copy
             return (
               <motion.div
                 key={label}
@@ -80,6 +64,9 @@ function WhyChooseUs({ section = null }) {
                   <Icon size={22} strokeWidth={2} />
                 </div>
                 <p className="text-sm font-medium text-paper">{label}</p>
+                {description && (
+                  <p className="text-xs text-mist/60 leading-relaxed hidden md:block">{description}</p>
+                )}
               </motion.div>
             )
           })}

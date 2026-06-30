@@ -2,6 +2,9 @@ import { useState, useMemo, useCallback, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Camera, ChevronDown } from 'lucide-react'
 import GalleryCard from './GalleryCard'
+import { gallerySectionContents } from '../../data/gallery_section_contents'
+
+const { grid: GRID } = gallerySectionContents
 
 const ITEMS_PER_PAGE = 12
 
@@ -50,8 +53,8 @@ function GalleryGrid({ items, activeAlbum, onOpenLightbox }) {
           </div>
         </motion.div>
         <div>
-          <p className="text-paper/75 font-semibold text-base">No images in this album yet.</p>
-          <p className="text-sm text-mist/45 mt-1.5">Check back soon — more work is on the way.</p>
+          <p className="text-paper/75 font-semibold text-base">{GRID.emptyTitle}</p>
+          <p className="text-sm text-mist/45 mt-1.5">{GRID.emptySubtitle}</p>
         </div>
       </motion.div>
     )
@@ -121,7 +124,7 @@ function GalleryGrid({ items, activeAlbum, onOpenLightbox }) {
               transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
           >
             <ChevronDown size={16} strokeWidth={2.25} aria-hidden="true" />
-            Load More
+            {GRID.loadMoreBtn}
           </motion.button>
         </motion.div>
       )}
@@ -139,7 +142,7 @@ function GalleryGrid({ items, activeAlbum, onOpenLightbox }) {
             <div className="h-full w-full bg-gold-sweep rounded-full" />
           </div>
           <p className="text-xs text-mist/35 uppercase tracking-[0.18em]">
-            — End of Gallery —
+            {GRID.endLabel}
           </p>
         </motion.div>
       )}

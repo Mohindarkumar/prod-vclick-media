@@ -51,7 +51,7 @@ function GalleryCard({ item, onOpen }) {
       onMouseLeave={(e) => {
         e.currentTarget.style.boxShadow = '0 0 0 0 rgba(212,175,55,0)'
       }}
-      aria-label={`View ${item.title}`}
+      aria-label={item.title ? `View ${item.title}` : `View ${item.album} photo`}
     >
       {/* ── Skeleton shimmer ─────────────────────────────────────────────── */}
       {!loaded && !error && (
@@ -70,7 +70,7 @@ function GalleryCard({ item, onOpen }) {
       {!error && (
         <img
           src={item.image}
-          alt={item.title}
+          alt={item.title || `VClick ${item.album} photography — ${item.orientation} shot`}
           loading="lazy"
           decoding="async"
           className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.06]"
@@ -103,10 +103,10 @@ function GalleryCard({ item, onOpen }) {
       {!error && (
         <>
           {/* Darkening layer */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-[350ms]" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-[350ms]" />
 
           {/* Content panel */}
-          <div className="absolute inset-0 flex flex-col justify-end p-4 translate-y-2 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-[350ms]">
+          <div className="absolute inset-0 flex flex-col justify-end p-4 translate-y-2 group-hover:translate-y-0 group-focus-visible:translate-y-0 opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-all duration-[350ms]">
             <div className="flex items-end justify-between gap-2">
               <div className="min-w-0">
                 {/* Album tag */}

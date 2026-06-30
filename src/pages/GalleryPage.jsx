@@ -9,6 +9,26 @@ import GalleryFilter from '../modules/gallery/GalleryFilter'
 import GalleryGrid from '../modules/gallery/GalleryGrid'
 import { galleryAlbums, galleryItems } from '../data/gallery'
 
+const SITE = 'https://www.vclickmedia.ae'
+
+const GALLERY_PAGE_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  '@id': `${SITE}/gallery`,
+  name: 'Photo Gallery — VClick Media & Events',
+  description:
+    'Photography portfolio featuring Desert, Events & Exhibitions, and Fashion & Lifestyle albums captured by VClick Media & Events across the UAE.',
+  url: `${SITE}/gallery`,
+  isPartOf: { '@id': `${SITE}/#website` },
+  about: { '@id': `${SITE}/#organization` },
+  inLanguage: 'en-AE',
+}
+
+const GALLERY_BREADCRUMBS = [
+  { name: 'Home', url: SITE },
+  { name: 'Photo Gallery', url: `${SITE}/gallery` },
+]
+
 function GalleryPage() {
   const [searchParams] = useSearchParams()
   const [activeAlbum, setActiveAlbum] = useState(searchParams.get('album') || 'All')
@@ -40,9 +60,12 @@ function GalleryPage() {
   return (
     <>
       <SEOHead
-        title="Gallery | VClick Media & Events — Premium Photography & Videography UAE"
-        description="Browse VClick's gallery of cinematic photography, videography, and event production work — weddings, corporate events, fashion, drone shots and more across the UAE."
-        url="https://www.vclickmedia.ae/gallery"
+        title="Photo Gallery | VClick Media & Events — Desert, Events & Fashion Photography UAE"
+        description="Browse VClick's curated photography portfolio — Desert shoots, Events & Exhibitions, and Fashion & Lifestyle sessions captured across the UAE. 100+ professional images."
+        url={`${SITE}/gallery`}
+        canonical={`${SITE}/gallery`}
+        breadcrumbs={GALLERY_BREADCRUMBS}
+        schemas={[GALLERY_PAGE_SCHEMA]}
       />
       <Navbar />
 

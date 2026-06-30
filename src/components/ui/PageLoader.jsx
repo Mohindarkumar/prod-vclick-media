@@ -63,10 +63,10 @@ export default function PageLoader({ onComplete }) {
             </svg>
 
             <div className="text-center">
-              <h1 className="text-3xl font-extrabold tracking-tight bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-600 bg-clip-text text-transparent">
+              <h1 className="text-3xl font-extrabold tracking-tight gold-text-gradient">
                 VClick
               </h1>
-              <p className="text-xs text-gray-500 mt-1 tracking-widest uppercase">
+              <p className="text-xs text-mist/50 mt-1 tracking-widest uppercase">
                 Media &amp; Events
               </p>
             </div>
@@ -82,7 +82,7 @@ export default function PageLoader({ onComplete }) {
             {[0, 1, 2].map((i) => (
               <motion.span
                 key={i}
-                className="w-1.5 h-1.5 rounded-full bg-yellow-400"
+                className="w-1.5 h-1.5 rounded-full bg-gold"
                 animate={{ opacity: [0.3, 1, 0.3], scale: [0.8, 1.2, 0.8] }}
                 transition={{ duration: 1.2, repeat: Infinity, delay: i * 0.2, ease: 'easeInOut' }}
               />
@@ -90,9 +90,9 @@ export default function PageLoader({ onComplete }) {
           </motion.div>
 
           {/* Progress bar */}
-          <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-gray-900">
+          <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-white/8">
             <motion.div
-              className="h-full bg-gradient-to-r from-yellow-500 to-yellow-300"
+              className="h-full bg-gold-sweep"
               initial={{ width: '0%' }}
               animate={{ width: `${progress}%` }}
               transition={{ duration: 0.4, ease: 'easeOut' }}

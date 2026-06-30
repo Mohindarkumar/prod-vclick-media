@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
 
 /**
@@ -8,15 +8,28 @@ import { motion } from 'framer-motion'
  * produces a smooth spring-driven morph instead of a hard color swap.
  * Inactive pills have a glassmorphic ghost style with hover scale.
  * Gradient edge masks hint that the bar scrolls horizontally.
+ *
+ * The wheel handler uses a native DOM listener (passive: false) so it can call
+ * preventDefault() and convert vertical wheel delta to horizontal scroll.
+ * React's synthetic onWheel is passive by default since React 17 — calling
+ * preventDefault() on it throws a browser warning and has no effect.
  */
 function GalleryFilter({ albums, counts, activeAlbum, onChange }) {
   const scrollRef = useRef(null)
 
-  const handleWheel = (event) => {
-    if (!scrollRef.current) return
-    event.preventDefault()
-    scrollRef.current.scrollLeft += event.deltaY
-  }
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+
+    const handleWheel = (event) => {
+      if (Math.abs(event.deltaX) > Math.abs(event.deltaY)) return
+      event.preventDefault()
+      el.scrollLeft += event.deltaY
+    }
+
+    el.addEventListener('wheel', handleWheel, { passive: false })
+    return () => el.removeEventListener('wheel', handleWheel)
+  }, [])
 
   return (
     <div className="relative">
@@ -35,7 +48,6 @@ function GalleryFilter({ albums, counts, activeAlbum, onChange }) {
 
       <div
         ref={scrollRef}
-        onWheel={handleWheel}
         className="flex items-center gap-2.5 overflow-x-auto pb-2 px-1 scrollbar-hide"
         role="group"
         aria-label="Filter gallery by album"

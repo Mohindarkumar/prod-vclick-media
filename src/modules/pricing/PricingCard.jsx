@@ -1,11 +1,10 @@
 import { motion } from 'framer-motion'
 import { Check, Crown } from 'lucide-react'
 import Button from '../../components/common/Button'
+import { homeSectionContents } from '../../data/home_section_contents'
 
-/**
- * Single pricing package card (build brief §6.11). The "popular" package
- * gets a gold border, slight scale/elevation, and a "Most Popular" badge.
- */
+const { pricing: CONTENT } = homeSectionContents
+
 function PricingCard({ pkg, index }) {
   return (
     <motion.div
@@ -22,14 +21,13 @@ function PricingCard({ pkg, index }) {
     >
       {pkg.popular && (
         <span className="absolute -top-3 left-1/2 -translate-x-1/2 inline-flex items-center gap-1.5 bg-gold-sweep text-ink text-xs font-bold px-4 py-1.5 rounded-full shadow-gold">
-          <Crown size={13} /> Most Popular
+          <Crown size={13} /> {CONTENT.popularBadge}
         </span>
       )}
 
       <h3 className="text-lg font-semibold text-paper mt-2">{pkg.name}</h3>
       <p className="mt-3 text-2xl font-extrabold gold-text-gradient">{pkg.price}</p>
-      {/* TODO: flagged for client — replace placeholder "Starting from" pricing with real figures */}
-      <p className="text-xs text-mist mt-1">Placeholder pricing — pending final client input</p>
+      <p className="text-xs text-mist mt-1">{CONTENT.pricingNote}</p>
 
       <ul className="mt-7 space-y-3 flex-1">
         {pkg.features.map((feature) => (

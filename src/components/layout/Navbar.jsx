@@ -142,9 +142,9 @@ function Navbar() {
           </Link>
         </motion.div>
 
-        {/* Desktop nav links */}
+        {/* Desktop nav links — visible at lg (1024px+) */}
         {VISIBLE_NAV_LINKS.length > 0 && (
-          <ul className="hidden xl:flex items-center gap-7" role="list">
+          <ul className="hidden lg:flex items-center gap-5 xl:gap-7" role="list">
             {VISIBLE_NAV_LINKS.map((link) => (
               <li key={link.href}>
                 {renderLink(link)}
@@ -154,18 +154,18 @@ function Navbar() {
         )}
 
         {/* Desktop CTA */}
-        <div className="hidden xl:block flex-shrink-0">
+        <div className="hidden lg:block flex-shrink-0">
           <Button as="a" href={pathname === '/' ? '#contact' : '/#contact'} variant="primary">
             Get a Consultation
           </Button>
         </div>
 
-        {/* Mobile hamburger */}
+        {/* Mobile/tablet hamburger — hidden at lg+ */}
         {hasMobileMenu && (
           <button
             type="button"
             onClick={() => setIsMobileMenuOpen(true)}
-            className="xl:hidden text-paper p-2.5 -mr-1 touch-manipulation"
+            className="lg:hidden text-paper p-2.5 -mr-1 touch-manipulation"
             aria-label="Open navigation menu"
             aria-expanded={isMobileMenuOpen}
             aria-controls="mobile-menu"
@@ -184,7 +184,7 @@ function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-50 bg-ink/96 backdrop-blur-xl xl:hidden overflow-y-auto"
+            className="fixed inset-0 z-50 bg-ink/96 backdrop-blur-xl lg:hidden overflow-y-auto"
             role="dialog"
             aria-modal="true"
             aria-label="Mobile navigation"

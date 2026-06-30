@@ -1,6 +1,5 @@
-// Service catalogue rendered by the Services section (build brief §6.4).
-// Icons are lucide-react component references, chosen to be semantically
-// appropriate to each service.
+// Service catalogue — consumed by ServicesSection and the HomePage schema.
+// All text lives here. To update a service name, description, or image, edit this file.
 import {
   Camera,
   Video,
@@ -25,112 +24,128 @@ export const services = [
     id: 'professional-photography',
     icon: Camera,
     title: 'Professional Photography',
-    description: 'High-end photography for brands, products, portraits and live events.',
-    image: 'https://images.unsplash.com/photo-1502920917128-1aa500764cbd?q=80&w=800&auto=format&fit=crop', // TODO: replace with real VClick portfolio image
+    description:
+      'High-resolution photography for brands, products, events, and portraits — shot with precision and finished with a professional editorial eye.',
+    image: '/uploads/images/gallery/fashion-lifestyle/DSC04817.webp',
   },
   {
     id: 'professional-videography',
     icon: Video,
     title: 'Professional Videography',
-    description: 'Cinematic video production for stories that demand to be remembered.',
-    image: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=800&auto=format&fit=crop',
+    description:
+      'Cinematic video production for campaigns, events, and brand stories — from single-camera shoots to full multi-crew productions.',
+    image: '/uploads/images/gallery/events-exhibitions/DSC03817.webp',
   },
   {
     id: 'corporate-event-coverage',
     icon: Building2,
     title: 'Corporate Event Coverage',
-    description: 'Full documentation of conferences, launches and corporate milestones.',
-    image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=800&auto=format&fit=crop',
+    description:
+      'Full media documentation of your conference, awards ceremony, or corporate milestone — stills and video delivered on a professional timeline.',
+    image: '/uploads/images/gallery/events-exhibitions/DSC_4108.webp',
   },
   {
     id: 'wedding-photography',
     icon: Heart,
     title: 'Wedding Photography',
-    description: 'Timeless, emotive imagery that captures every detail of your big day.',
-    image: 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800&auto=format&fit=crop',
+    description:
+      'Timeless, emotionally resonant wedding photography that preserves the details, moments, and people that made your day unforgettable.',
+    image: '/uploads/images/gallery/fashion-lifestyle/SIB-1000.webp',
   },
   {
     id: 'wedding-videography',
     icon: Film,
     title: 'Wedding Videography',
-    description: 'Cinematic wedding films crafted to relive the day for years to come.',
-    image: 'https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?q=80&w=800&auto=format&fit=crop',
+    description:
+      'Cinematic wedding films crafted with the care your day deserves — edited, colour-graded, and ready to watch for decades to come.',
+    image: '/uploads/images/gallery/fashion-lifestyle/SIB-1007.webp',
   },
   {
     id: 'conference-coverage',
     icon: Mic2,
     title: 'Conference Coverage',
-    description: 'Multi-camera coverage of keynotes, panels and breakout sessions.',
-    image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=800&auto=format&fit=crop',
+    description:
+      'Multi-camera coverage of keynotes, panels, and breakout sessions — professional photography and live-edit video cuts for post-event use.',
+    image: '/uploads/images/gallery/events-exhibitions/1000417901.webp',
   },
   {
     id: 'exhibition-coverage',
     icon: LayoutGrid,
     title: 'Exhibition Coverage',
-    description: 'Stand, booth and visitor coverage across UAE trade shows and expos.',
-    image: 'https://images.unsplash.com/photo-1531058020387-3be344556be6?q=80&w=800&auto=format&fit=crop',
+    description:
+      'Stand, booth, and visitor coverage across UAE trade shows and expos — every display, speaker, and interaction documented with precision.',
+    image: '/uploads/images/gallery/events-exhibitions/DSC_4446.webp',
   },
   {
     id: 'product-launch-events',
     icon: Rocket,
     title: 'Product Launch Events',
-    description: 'End-to-end production for product reveals that command attention.',
-    image: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=800&auto=format&fit=crop',
+    description:
+      'End-to-end media production for product reveals and launch events that demand to be noticed and remembered long after the day.',
+    image: '/uploads/images/gallery/events-exhibitions/DSC03273.webp',
   },
   {
     id: 'brand-activations',
     icon: Sparkles,
     title: 'Brand Activations',
-    description: 'Experiential campaigns that bring brand identity into physical space.',
-    image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=800&auto=format&fit=crop',
+    description:
+      'Experiential event coverage and production that captures the energy of your brand the moment it steps into physical space.',
+    image: '/uploads/images/gallery/events-exhibitions/DSC03746.webp',
   },
   {
     id: 'event-planning',
     icon: CalendarCheck,
     title: 'Event Planning',
-    description: 'Full-service planning and logistics from concept through execution.',
-    image: 'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?q=80&w=800&auto=format&fit=crop',
+    description:
+      'Full-service event planning and logistics management — from concept to execution, with a crew that keeps everything running exactly to plan.',
+    image: '/uploads/images/gallery/events-exhibitions/DSC03257.webp',
   },
   {
     id: 'entertainment-activities',
     icon: PartyPopper,
     title: 'Entertainment Activities',
-    description: 'Curated entertainment programming tailored to your audience.',
-    image: 'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?q=80&w=800&auto=format&fit=crop',
+    description:
+      'Curated entertainment coverage and production for corporate events, gala dinners, and public activations that need to make an impact.',
+    image: '/uploads/images/gallery/events-exhibitions/DSC09155-10122.webp',
   },
   {
     id: 'commercial-information-services',
     icon: Info,
     title: 'Commercial Information Services',
-    description: 'Informational and promotional media tailored for commercial use.',
-    image: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=800&auto=format&fit=crop',
+    description:
+      'Informational and promotional media for commercial applications — interviews, explainers, corporate profiles, and product showcases.',
+    image: '/uploads/images/gallery/events-exhibitions/SIB_7475.webp',
   },
   {
     id: 'creative-media-production',
     icon: Clapperboard,
     title: 'Creative Media Production',
-    description: 'Concept-to-delivery media production across formats and platforms.',
-    image: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=800&auto=format&fit=crop',
+    description:
+      'Concept-to-delivery creative production across formats and platforms — idea, script, shoot, edit, and deliver, all under one roof.',
+    image: '/uploads/images/gallery/events-exhibitions/1000418208.webp',
   },
   {
     id: 'digital-content-creation',
     icon: Smartphone,
     title: 'Digital Content Creation',
-    description: 'Platform-native content built for digital-first audiences.',
-    image: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=800&auto=format&fit=crop',
+    description:
+      'Platform-native content built for digital-first audiences — photography and video optimised for web, social, and streaming channels.',
+    image: '/uploads/images/gallery/fashion-lifestyle/DSC05192.webp',
   },
   {
     id: 'drone-photography',
     icon: Plane,
     title: 'Drone Photography',
-    description: 'Licensed aerial photography and videography for sweeping perspectives.',
-    image: 'https://images.unsplash.com/photo-1473968512647-3e447244af8f?q=80&w=800&auto=format&fit=crop',
+    description:
+      'Licensed aerial photography and videography across UAE airspace — sweeping perspectives for events, real estate, and location shoots.',
+    image: '/uploads/images/gallery/desert/SIB-3291.webp',
   },
   {
     id: 'social-media-content-creation',
     icon: Share2,
     title: 'Social Media Content Creation',
-    description: 'Scroll-stopping short-form and feed content built for engagement.',
-    image: 'https://images.unsplash.com/photo-1611926653458-09294b3142bf?q=80&w=800&auto=format&fit=crop',
+    description:
+      'Scroll-stopping short-form and feed content engineered for digital engagement — made to perform on every platform, not just look good.',
+    image: '/uploads/images/gallery/fashion-lifestyle/SIB-1004.webp',
   },
 ]

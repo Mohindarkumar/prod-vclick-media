@@ -1,27 +1,36 @@
 import { useState, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Send, CheckCircle2, User, Mail, Phone, MessageSquare } from 'lucide-react'
+import { Turnstile } from '@marsidev/react-turnstile'
 import Button from '../../components/common/Button'
+import { homeSectionContents } from '../../data/home_section_contents'
+
+const { contactForm: FORM } = homeSectionContents
+
+const TURNSTILE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY || ''
 
 const INITIAL_VALUES = { name: '', email: '', phone: '', message: '', _hp: '' }
 const EMAIL_PATTERN  = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 function ContactForm() {
-  const [values,      setValues]      = useState(INITIAL_VALUES)
-  const [errors,      setErrors]      = useState({})
-  const [showSuccess, setShowSuccess] = useState(false)
-  const [submitting,  setSubmitting]  = useState(false)
+  const [values,          setValues]          = useState(INITIAL_VALUES)
+  const [errors,          setErrors]          = useState({})
+  const [showSuccess,     setShowSuccess]     = useState(false)
+  const [submitting,      setSubmitting]      = useState(false)
+  const [turnstileToken,  setTurnstileToken]  = useState('')
+  const turnstileRef = useRef(null)
 
   const validate = () => {
     const nextErrors = {}
-    if (!values.name.trim())    nextErrors.name    = 'Please enter your name.'
+    if (!values.name.trim())    nextErrors.name    = FORM.errors.name
     if (!values.email.trim()) {
-      nextErrors.email = 'Please enter your email.'
+      nextErrors.email = FORM.errors.emailRequired
     } else if (!EMAIL_PATTERN.test(values.email)) {
-      nextErrors.email = 'Please enter a valid email address.'
+      nextErrors.email = FORM.errors.emailInvalid
     }
-    if (!values.phone.trim())   nextErrors.phone   = 'Please enter your phone number.'
-    if (!values.message.trim()) nextErrors.message = 'Tell us a little about your event.'
+    if (!values.phone.trim())   nextErrors.phone   = FORM.errors.phone
+    if (!values.message.trim()) nextErrors.message = FORM.errors.message
+    if (TURNSTILE_KEY && !turnstileToken) nextErrors._turnstile = FORM.errors.turnstile
     return nextErrors
   }
 
@@ -49,6 +58,9 @@ function ContactForm() {
     formData.append('phone',   values.phone)
     formData.append('message', values.message)
     formData.append('_hp',     values._hp)
+    if (TURNSTILE_KEY && turnstileToken) {
+      formData.append('cf-turnstile-response', turnstileToken)
+    }
 
     try {
       const res  = await fetch('/contact.php', { method: 'POST', body: formData })
@@ -58,28 +70,31 @@ function ContactForm() {
       try {
         json = JSON.parse(text)
       } catch {
-        throw new Error('Server error. Please try again or reach us via WhatsApp.')
+        throw new Error(FORM.errors.serverParseFallback)
       }
 
       if (json.success) {
         setShowSuccess(true)
         setValues(INITIAL_VALUES)
+        setTurnstileToken('')
+        turnstileRef.current?.reset()
         setTimeout(() => setShowSuccess(false), 6000)
       } else {
-        setErrors((prev) => ({ ...prev, _form: json.message || 'Something went wrong. Please try again.' }))
+        setErrors((prev) => ({ ...prev, _form: json.message || FORM.errors.serverFallback }))
+        turnstileRef.current?.reset()
+        setTurnstileToken('')
       }
     } catch (err) {
-      setErrors((prev) => ({ ...prev, _form: err.message || 'Network error. Please check your connection and try again.' }))
+      setErrors((prev) => ({ ...prev, _form: err.message || FORM.errors.networkFallback }))
+      turnstileRef.current?.reset()
+      setTurnstileToken('')
     } finally {
       setSubmitting(false)
     }
   }
 
-  const fields = [
-    { name: 'name',  label: 'Name',  type: 'text',  icon: User,  placeholder: 'Your full name' },
-    { name: 'email', label: 'Email', type: 'email', icon: Mail,  placeholder: 'you@example.com' },
-    { name: 'phone', label: 'Phone', type: 'tel',   icon: Phone, placeholder: '+971 50 000 0000' },
-  ]
+  const FIELD_ICONS = { name: User, email: Mail, phone: Phone }
+  const fields = FORM.fields.map((f) => ({ ...f, icon: FIELD_ICONS[f.name] || User }))
 
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-5">
@@ -128,7 +143,7 @@ function ContactForm() {
 
       <div>
         <label htmlFor="message" className="block text-sm font-medium text-paper mb-2">
-          Message
+          {FORM.messageLabel}
         </label>
         <div className="relative">
           <MessageSquare size={17} className="absolute left-4 top-4 text-mist" />
@@ -138,7 +153,7 @@ function ContactForm() {
             rows={4}
             value={values.message}
             onChange={handleChange}
-            placeholder="Tell us about your event — date, location, and what you have in mind."
+            placeholder={FORM.messagePlaceholder}
             aria-invalid={Boolean(errors.message)}
             aria-describedby={errors.message ? 'message-error' : undefined}
             className={`w-full bg-white/5 border rounded-xl pl-11 pr-4 py-3 text-sm text-paper placeholder:text-mist/60 focus:outline-none focus:ring-2 focus:ring-gold resize-none transition-colors duration-200 ${
@@ -151,8 +166,25 @@ function ContactForm() {
         )}
       </div>
 
+      {/* Cloudflare Turnstile — only rendered when site key is configured */}
+      {TURNSTILE_KEY && (
+        <div>
+          <Turnstile
+            ref={turnstileRef}
+            siteKey={TURNSTILE_KEY}
+            onSuccess={setTurnstileToken}
+            onExpire={() => setTurnstileToken('')}
+            onError={() => setTurnstileToken('')}
+            options={{ theme: 'dark', size: 'normal' }}
+          />
+          {errors._turnstile && (
+            <p className="mt-1.5 text-xs text-red-400">{errors._turnstile}</p>
+          )}
+        </div>
+      )}
+
       <Button type="submit" variant="primary" icon={Send} className="w-full" disabled={submitting}>
-        {submitting ? 'Sending…' : 'Send Message'}
+        {submitting ? FORM.sendingLabel : FORM.submitLabel}
       </Button>
 
       {errors._form && (
@@ -169,7 +201,7 @@ function ContactForm() {
             className="flex items-center gap-2.5 bg-gold/10 border border-gold/30 text-gold text-sm rounded-xl px-4 py-3"
           >
             <CheckCircle2 size={18} />
-            Thanks! Your message has been sent — we&apos;ll be in touch shortly.
+            {FORM.successMessage}
           </motion.div>
         )}
       </AnimatePresence>

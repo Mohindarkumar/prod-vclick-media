@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom'
 import { ChevronRight, Film, Video, Play } from 'lucide-react'
 import GoldDivider from '../../components/common/GoldDivider'
 import usePrefersReducedMotion from '../../hooks/usePrefersReducedMotion'
+import { videoSectionContents } from '../../data/video_section_contents'
+
+const { hero: CONTENT } = videoSectionContents
 
 const stagger = {
   hidden: {},
@@ -193,7 +196,7 @@ function VideoGalleryHero({ totalCount }) {
               transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
               aria-hidden="true"
             />
-            <span className="eyebrow">VClick Films</span>
+            <span className="eyebrow">{CONTENT.eyebrow}</span>
           </motion.div>
 
           {/* Headline */}
@@ -213,8 +216,7 @@ function VideoGalleryHero({ totalCount }) {
             variants={fadeUp}
             className="mt-5 text-lg text-mist/75 leading-relaxed max-w-xl"
           >
-            Cinematic stories captured with precision — weddings, corporate films, fashion reels,
-            drone footage and live event highlights across the UAE.
+            {CONTENT.subtitle}
           </motion.p>
 
           {/* Count chip */}
@@ -229,7 +231,7 @@ function VideoGalleryHero({ totalCount }) {
                 </div>
                 <span className="text-sm text-mist/75">
                   <span className="text-gold font-bold mr-1">{totalCount}</span>
-                  videos in collection
+                  {CONTENT.countSuffix}
                 </span>
               </div>
             </motion.div>

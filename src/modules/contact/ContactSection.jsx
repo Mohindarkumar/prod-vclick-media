@@ -4,6 +4,9 @@ import SectionEyebrow from '../../components/common/SectionEyebrow'
 import ContactForm from './ContactForm'
 import MapEmbed from './MapEmbed'
 import { siteConfig } from '../../config/site.config'
+import { homeSectionContents } from '../../data/home_section_contents'
+
+const { contact: CONTENT } = homeSectionContents
 
 function ContactSection({ section = null }) {
   const { contact, whatsapp: wa } = siteConfig
@@ -14,13 +17,13 @@ function ContactSection({ section = null }) {
     { label: 'Email',    icon: Mail,          href: `mailto:${contact.email}` },
   ]
 
-  const heading = section?.title || "Let's Create Something Unforgettable"
+  const heading = section?.title || CONTENT.heading
 
   return (
     <section id="contact" className="section-padding bg-ink">
       <div className="section-container">
         <div className="text-center max-w-2xl mx-auto">
-          <SectionEyebrow>Get In Touch</SectionEyebrow>
+          <SectionEyebrow>{CONTENT.eyebrow}</SectionEyebrow>
           <motion.h2
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}

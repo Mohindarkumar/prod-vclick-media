@@ -1,7 +1,11 @@
+import { Helmet } from 'react-helmet-async'
 import { motion } from 'framer-motion'
 import SectionEyebrow from '../../components/common/SectionEyebrow'
 import Accordion from '../../components/ui/Accordion'
 import { faqItems as staticFaqItems } from '../../data/faq'
+import { homeSectionContents } from '../../data/home_section_contents'
+
+const { faq: CONTENT } = homeSectionContents
 
 function FAQSection({ section = null }) {
   // CMS items from page_section content.items — normalize to Accordion format
@@ -10,29 +14,48 @@ function FAQSection({ section = null }) {
     ? cmsItems.map((item, i) => ({ id: item.id ?? i + 1, question: item.question, answer: item.answer }))
     : staticFaqItems
 
-  const heading = section?.title || 'Frequently Asked Questions'
+  const heading = section?.title || CONTENT.heading
+
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: items.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
+  }
 
   return (
-    <section id="faq" className="section-padding bg-charcoal">
-      <div className="section-container max-w-3xl">
-        <div className="text-center max-w-2xl mx-auto">
-          <SectionEyebrow>Questions</SectionEyebrow>
-          <motion.h2
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="mt-5 text-3xl md:text-h2 font-extrabold text-paper"
-          >
-            {heading}
-          </motion.h2>
-        </div>
+    <>
+      <Helmet>
+        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
+      </Helmet>
 
-        <div className="mt-14">
-          <Accordion items={items} />
+      <section id="faq" className="section-padding bg-charcoal">
+        <div className="section-container max-w-3xl">
+          <div className="text-center max-w-2xl mx-auto">
+            <SectionEyebrow>{CONTENT.eyebrow}</SectionEyebrow>
+            <motion.h2
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="mt-5 text-3xl md:text-h2 font-extrabold text-paper"
+            >
+              {heading}
+            </motion.h2>
+          </div>
+
+          <div className="mt-14">
+            <Accordion items={items} />
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   )
 }
 

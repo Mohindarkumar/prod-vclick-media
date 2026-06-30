@@ -40,7 +40,7 @@ function PortfolioGrid({ items, onItemClick }) {
             exit={{ opacity: 0, scale: 0.92 }}
             transition={{ duration: 0.35 }}
             whileHover={{ scale: 1.02 }}
-            className={`group relative overflow-hidden rounded-2xl text-left focus-visible:ring-2 focus-visible:ring-gold ${item.span}`}
+            className={`group relative overflow-hidden rounded-2xl text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal ${item.span}`}
           >
             <img
               src={item.image}
@@ -50,7 +50,7 @@ function PortfolioGrid({ items, onItemClick }) {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-300" />
             <div className="absolute inset-0 flex flex-col justify-end p-4">
-              <span className="inline-flex items-center gap-1.5 text-gold text-xs font-semibold opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+              <span className="inline-flex items-center gap-1.5 text-gold text-xs font-semibold opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 translate-y-2 group-hover:translate-y-0 group-focus-visible:translate-y-0 transition-all duration-300">
                 <Expand size={14} /> View
               </span>
               <p className="text-paper text-sm font-medium mt-1">{item.title}</p>

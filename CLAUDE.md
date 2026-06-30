@@ -4,130 +4,102 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-VClick Media & Events — a full-stack CMS platform with a public-facing React site, an embedded admin panel, and a Node.js/Express backend. Two separate workspaces:
-
-- `vclick/` — Frontend (this repo's working directory)
-- `../backend/` — Backend API
+VClick Media & Events — a static marketing website for a UAE-based creative media and event production company. Built with React 19 + Vite, deployed to Hostinger shared hosting. The only server-side component is a PHP contact form (`public/contact.php`) using PHPMailer over Gmail SMTP.
 
 ---
 
-## Frontend Commands (`vclick/`)
+## Commands
 
 ```bash
 npm run dev        # Vite dev server on :5173
-npm run build      # Production build to dist/
-npm run preview    # Preview production build
-npm run lint       # oxlint (no --fix flag; it's read-only)
-```
+npm run build      # Production build → dist/
+npm run preview    # Preview production build on :4173
+npm run lint       # oxlint (read-only, no --fix flag)
 
-## Backend Commands (`../backend/`)
-
-```bash
-npm run dev              # ts-node-dev with hot reload on :4000
-npm run build            # tsc → dist/
-npm run start            # node dist/server.js (prod)
-
-npm run db:generate      # prisma generate (after schema changes)
-npm run db:migrate       # prisma migrate dev (dev migrations)
-npm run db:migrate:prod  # prisma migrate deploy (prod)
-npm run db:studio        # Prisma Studio GUI
-npm run db:seed          # seed admin user + page content
+# Contact form local testing (second terminal required)
+php -S localhost:8181 -t public/
+# Vite proxies /contact.php → http://localhost:8181 (see vite.config.js)
 ```
 
 ## Environment Setup
 
-Frontend `.env`:
+`.env` (copy from `.env.example`):
 ```
-VITE_API_URL=http://localhost:4000/api/v1
+VITE_TURNSTILE_SITE_KEY=   # Leave empty in dev to skip the Turnstile widget entirely
 ```
 
-Backend `.env` (see `.env.example`): requires MySQL 8 (`vclick_cms` DB), Redis, and JWT secrets.
+`config.php` (SMTP credentials — never commit, not in web root):
+```php
+define('SMTP_HOST', 'smtp.gmail.com');
+define('SMTP_PORT', 587);
+define('SMTP_USER', 'you@gmail.com');
+define('SMTP_PASS', 'your-app-password');
+define('OWNER_EMAIL', 'leads@example.com');
+define('SITE_NAME',  'VClick Media & Events');
+define('SITE_URL',   'https://www.vclickmedia.ae');
+```
+
+On the server `config.php` must live **one directory above** `public_html/` — `contact.php` loads it via `dirname(__DIR__) . '/config.php'`. Never place it inside the web root.
 
 ---
 
 ## Architecture
 
-### Frontend structure
+### Configuration layer (`src/config/`)
 
-```
-src/
-  App.jsx              # Root router — all routes lazy-loaded via Suspense
-  main.jsx             # React root: HelmetProvider + QueryClientProvider
-  pages/               # Route-level page components (public site)
-  modules/             # Feature sections (Hero, About, Services, etc.)
-  components/          # Shared layout + UI (Navbar, Footer, CustomCursor, etc.)
-  admin/               # Entire admin panel (TypeScript)
-    AdminApp.tsx        # Admin root: Redux Provider + QueryClientProvider + routes
-    store/              # Redux Toolkit slices (auth only)
-    api/                # Axios-based API clients for each resource
-    pages/              # Admin CRUD pages
-    components/         # Admin-specific UI components
-  data/                # Static fallback data (clients, faq, services, etc.)
-  hooks/               # Shared custom hooks (scroll reveal, counter animation)
-  styles/index.css     # Global CSS + Tailwind directives
-```
+Three files drive all site content and structure without touching module code:
 
-**Key flow — DynamicPage**: The `/:slug` route (`src/pages/DynamicPage.jsx`) fetches a CMS page from the backend and renders its sections using `SectionRenderer`, which maps `section_type` strings (`hero`, `about`, `services`, `gallery`, etc.) to the corresponding `src/modules/` components. Adding a new section type requires both a backend `page_section.section_type` value and a new case in `SectionRenderer`.
+- **`site.config.js`** — contact info (phone, email, WhatsApp), social URLs and visibility flags, stat numbers, theme tokens
+- **`pages.config.js`** — controls which sections are rendered on each page and their display order. `isVisible: false` hides a section without deleting it.
+- **`menus.config.js`** — navbar items with `isHidden`, `isActive`, `isRoute` (full route vs hash anchor), and `displayOrder` fields
 
-**Admin vs. public**: The admin panel (`/admin/*`) is isolated inside `src/admin/` — it has its own Redux store (`adminStore`), its own React Query client, and its own Axios API layer. The public site uses React Query only (no Redux).
+`HomePage.jsx` reads `pagesConfig.home.sections`, filters by `isVisible`, and conditionally renders each module. To add/remove/reorder a homepage section, only `pages.config.js` needs to change.
+
+### Module system (`src/modules/`)
+
+One folder per section: `hero`, `about`, `services`, `portfolio`, `why-choose-us`, `process`, `showreel`, `testimonials`, `clients`, `pricing`, `faq`, `contact`, `gallery`, `video-gallery`. Each module is self-contained with its own data import from `src/data/`.
+
+### Static content (`src/data/`)
+
+All content lives in plain JS files: `services.js`, `gallery.js`, `testimonials.js`, `pricing.js`, `faq.js`, `clients.js`, `videos.js`, `portfolio.js`, `pages.js`, `menus.js`. Editing copy means editing these files.
+
+### Contact form flow
+
+`ContactSection` → POST to `/contact.php` (form-encoded) → `contact.php` reads `config.php`, validates, sends two emails (owner notification + user confirmation) via PHPMailer. Cloudflare Turnstile token is submitted alongside form data for bot protection (skipped when `VITE_TURNSTILE_SITE_KEY` is empty).
+
+The PHP script has a honeypot field (`_hp`) — it must remain an invisible CSS-hidden input on the form and must never be populated or submitted to the server.
 
 ### Design system (Tailwind)
 
-Dark theme: `bg-ink` (`#0B0B0B`), `bg-charcoal` (`#1C1C1C`), gold accent (`#D4AF37` / `#FFB703`), text-paper (white), text-mist (gray). Custom classes: `section-container` (layout wrapper), `text-eyebrow` (small all-caps label). Fonts: Poppins. All defined in `tailwind.config.js`.
+Defined in `tailwind.config.js`:
 
-### Backend structure
+| Token | Value | Usage |
+|---|---|---|
+| `ink` | `#0B0B0B` | Page background |
+| `charcoal` | `#1C1C1C` | Alternate section background |
+| `gold` | `#D4AF37` | Brand accent / headings |
+| `amber` | `#FFB703` | Gold sweep endpoint |
+| `paper` | `#FFFFFF` | Headings and labels |
+| `mist` | `#BDBDBD` | Body copy |
 
-```
-src/
-  server.ts            # HTTP server bootstrap
-  app.ts               # Express app: middleware stack + route mounting
-  config/              # Env config, DB (Prisma), Redis
-  middleware/          # auth (JWT), error handler, rate limiter, Zod validation
-  modules/             # Feature modules — each has:
-    *.controller.ts    #   HTTP handlers (calls service)
-    *.service.ts       #   Business logic
-    *.repository.ts    #   Prisma queries
-    *.routes.ts        #   Express router
-    *.dto.ts           #   Zod schemas for validation
-  shared/
-    errors.ts          # AppError subclasses (NotFoundError, UnauthorizedError, etc.)
-    response.ts        # sendSuccess / sendError / sendCreated helpers
-  utils/               # logger (Winston), token (JWT), password (bcrypt), pagination
-prisma/
-  schema.prisma        # MySQL schema (all models)
-  seeds/               # Admin seed + page content seed
-uploads/               # Local file storage (logos, videos, thumbnails)
-```
+Custom type scale: `display-1`, `display-2`, `h1`–`h4`, `body-lg`, `body`, `small`, `eyebrow`. Custom spacing: `section` (8rem), `section-lg` (10rem), `section-sm` (5rem). Gradient utilities: `bg-gold-sweep`, `bg-gold-sweep-soft`, `bg-ink-fade`.
 
-**API base URL**: `/api/v1`
+### Key components
 
-**Auth**: JWT access tokens (15 min) + refresh tokens (7 days) stored in `refresh_token` table. `authenticate` middleware validates Bearer tokens; `requirePermission` and `requireRole` guard routes. `super_admin` role bypasses permission checks.
+- **`SEOHead.jsx`** — React Helmet wrapper emitting `<title>`, Open Graph, and JSON-LD `LocalBusiness` schema
+- **`BrandIcons.jsx`** — custom inline SVGs for Instagram, Facebook, LinkedIn, YouTube, TikTok. `lucide-react` v1.21 removed all brand icons; do not use lucide for social icons.
+- **`CustomCursor.jsx`** — desktop-only gold cursor glow; disabled on touch devices
+- **`PageLoader.jsx`** — full-screen intro animation; calls `onComplete` when done, which triggers `setAppReady(true)` in `App.jsx` to show the site
 
-**Error handling**: Throw `AppError` subclasses anywhere in service/repository code — the global `errorMiddleware` in `error.middleware.ts` catches them and calls `sendError`. Never call `res.json()` directly from service layer.
+### Accessibility / motion
 
-**Soft deletes**: Every model uses `is_deleted: Boolean` — never hard-delete records, always set `is_deleted = true` and `deleted_datetime`.
-
-**Response shape**: All responses follow `{ success, message, data, errors, pagination? }` from `shared/response.ts`.
-
-### Database (MySQL 8 via Prisma)
-
-Key models: `user`, `role`, `permission`, `role_permission` (RBAC) · `menu` (hierarchical nav) · `page` + `page_section` (CMS) · `seo` (per-page SEO/OG/Twitter/structured data) · `gallery_album` + `gallery_item` · `video` · `client` · `testimonial` · `contact_submission` · `site_setting` (key-value store) · `email_template` · `service` · `audit_log`.
-
-After any schema change: run `npm run db:generate` then `npm run db:migrate`.
+`usePrefersReducedMotion` hook is used by parallax effects, counters, the logo marquee, and the cursor glow — all disable when `prefers-reduced-motion: reduce` is set. Any new animation must respect this hook.
 
 ---
 
-## Security Conventions
+## Deployment
 
-### Backend
-- **All user-supplied data in email templates** must go through `escHtml()` / `safeMail()` / `safeTel()` helpers in `utils/email.util.ts` before interpolation into HTML strings.
-- **File uploads** (`storage.controller.ts`): extension is derived from the MIME→extension whitelist only — never from `file.originalname`. Magic bytes are checked to prevent MIME spoofing.
-- **Permissions** (`auth.middleware.ts`): `requirePermission()` checks Redis first, then falls back to the database. `super_admin` role bypasses all permission checks.
-- **Password reset tokens** must never be written to log files — only log the email address.
-- **Admin credentials** (`ADMIN_EMAIL`, `ADMIN_PASSWORD`) are `required()` — the application will not start if they are absent from the environment.
-- **Error responses** in production (`config.isProd`) always return `'Internal server error'` — never the raw exception message.
+- **[DEPLOY_GITHUB.md](./DEPLOY_GITHUB.md)** — GitHub Actions CI/CD to Hostinger on push to `main`
+- **[DEPLOY_MANUAL.md](./DEPLOY_MANUAL.md)** — Build locally, upload `dist/` via FTP
 
-### Frontend
-- **`dangerouslySetInnerHTML`** is only permitted with `DOMPurify.sanitize()` wrapped content — see `DynamicPage.jsx`. Never add a new `dangerouslySetInnerHTML` without sanitizing first.
-- **Contact form** includes a CSS-hidden honeypot field (`_hp`). It must remain invisible to users and must never be submitted to the server.
-- **JWT expiry** is validated client-side on app load (`isJwtExpired()` in `authSlice.ts`) to avoid initialising state with stale tokens. Signature verification always happens server-side.
+`dist/` is the full deployable artifact. `public/vendor/` (Composer output) must be installed separately on the server via `composer install` — it is git-ignored.

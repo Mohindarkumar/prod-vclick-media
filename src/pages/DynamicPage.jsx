@@ -21,6 +21,22 @@ import ContactSection from '../modules/contact/ContactSection'
 
 const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:4000/api/v1'
 
+const SAFE_IFRAME_ORIGINS = new Set([
+  'https://www.youtube.com',
+  'https://youtube.com',
+  'https://player.vimeo.com',
+  'https://vimeo.com',
+])
+
+function isSafeIframeUrl(url) {
+  if (!url) return false
+  try {
+    return SAFE_IFRAME_ORIGINS.has(new URL(url).origin)
+  } catch {
+    return false
+  }
+}
+
 async function fetchPageBySlug(slug) {
   const res = await fetch(`${API_URL}/pages/public/${slug}`)
   if (res.status === 404) return null
@@ -64,8 +80,8 @@ function GenericSectionRenderer({ section }) {
       return (
         <div className="section-container py-12">
           {title && <h2 className="text-2xl font-bold text-paper mb-6 text-center">{title}</h2>}
-          {video_url && (
-            <div className="aspect-video rounded-xl overflow-hidden bg-gray-900">
+          {video_url && isSafeIframeUrl(video_url) && (
+            <div className="aspect-video rounded-xl overflow-hidden bg-charcoal">
               <iframe src={video_url} title={title ?? 'Video'} className="w-full h-full" allowFullScreen />
             </div>
           )}
@@ -180,11 +196,21 @@ export default function DynamicPage() {
     (a, b) => (a.display_order ?? 0) - (b.display_order ?? 0)
   )
 
+  const pageUrl = `${window.location.origin}/${slug}`
+
   return (
     <>
       <SEOHead
         title={seo.meta_title || page.title}
         description={seo.meta_description || page.subtitle}
+        url={seo.canonical_url || pageUrl}
+        canonical={seo.canonical_url || pageUrl}
+        image={seo.og_image || undefined}
+        noIndex={seo.no_index ?? false}
+        breadcrumbs={[
+          { name: 'Home', url: window.location.origin },
+          { name: page.title, url: pageUrl },
+        ]}
       />
       <Navbar />
       <main className="bg-ink text-paper min-h-screen pt-20">

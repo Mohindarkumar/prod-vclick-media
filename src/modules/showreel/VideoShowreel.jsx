@@ -3,8 +3,11 @@ import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
 import { Play, X } from 'lucide-react'
 import SectionEyebrow from '../../components/common/SectionEyebrow'
 import usePrefersReducedMotion from '../../hooks/usePrefersReducedMotion'
+import { homeSectionContents } from '../../data/home_section_contents'
 
-const STATIC_BG = 'https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=1920&auto=format&fit=crop'
+const { showreel: CONTENT } = homeSectionContents
+
+const STATIC_BG = '/uploads/images/gallery/events-exhibitions/DSC_4108.webp'
 
 const isTouchDevice = typeof window !== 'undefined'
   ? window.matchMedia('(pointer: coarse)').matches
@@ -16,10 +19,8 @@ function isEmbedUrl(url) {
 
 function toEmbedUrl(url) {
   if (!url) return null
-  // youtube.com/watch?v=ID → youtube.com/embed/ID
   const ytMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&?/]+)/)
   if (ytMatch) return `https://www.youtube.com/embed/${ytMatch[1]}?autoplay=1`
-  // vimeo.com/ID → player.vimeo.com/video/ID
   const vmMatch = url.match(/vimeo\.com\/(\d+)/)
   if (vmMatch) return `https://player.vimeo.com/video/${vmMatch[1]}?autoplay=1`
   return url
@@ -32,17 +33,14 @@ function VideoShowreel({ section = null }) {
 
   const disableParallax = prefersReducedMotion || isTouchDevice
 
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start end', 'end start'],
-  })
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start end', 'end start'] })
   const parallaxY = useTransform(scrollYProgress, [0, 1], disableParallax ? [0, 0] : [-40, 40])
 
-  const bgImage   = section?.image_url || STATIC_BG
-  const videoUrl  = section?.video_url || null
-  const heading   = section?.title     || 'Video Showreel'
-  const subtext   = section?.subtitle  || 'Watch how we bring stories to life'
-  const embedUrl  = toEmbedUrl(videoUrl)
+  const bgImage  = section?.image_url || STATIC_BG
+  const videoUrl = section?.video_url || null
+  const heading  = section?.title     || CONTENT.heading
+  const subtext  = section?.subtitle  || CONTENT.subtitle
+  const embedUrl = toEmbedUrl(videoUrl)
   const useIframe = isEmbedUrl(videoUrl)
 
   return (
@@ -61,7 +59,7 @@ function VideoShowreel({ section = null }) {
       <div className="absolute inset-0 bg-gradient-to-b from-ink/60 via-ink/70 to-ink" />
 
       <div className="relative z-10 section-container text-center">
-        <SectionEyebrow>Our Reel</SectionEyebrow>
+        <SectionEyebrow>{CONTENT.eyebrow}</SectionEyebrow>
         <motion.h2
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}

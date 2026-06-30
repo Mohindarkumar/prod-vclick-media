@@ -4,14 +4,17 @@ import { ChevronDown } from 'lucide-react'
 import SectionEyebrow from '../../components/common/SectionEyebrow'
 import ServiceCard from './ServiceCard'
 import { services } from '../../data/services'
+import { homeSectionContents } from '../../data/home_section_contents'
+
+const { services: CONTENT } = homeSectionContents
 
 const FEATURED_COUNT = 6
 
 function ServicesSection({ section = null }) {
   const [showAll, setShowAll] = useState(false)
 
-  const heading = section?.title    || 'Our Services'
-  const subtext = section?.subtitle || 'From a single product shoot to a multi-day exhibition, our full catalogue covers every form of media and event production.'
+  const heading = section?.title    || CONTENT.heading
+  const subtext = section?.subtitle || CONTENT.subtitle
 
   const featured = services.slice(0, FEATURED_COUNT)
   const rest     = services.slice(FEATURED_COUNT)
@@ -20,7 +23,7 @@ function ServicesSection({ section = null }) {
     <section id="services" className="section-padding bg-charcoal">
       <div className="section-container">
         <div className="text-center max-w-2xl mx-auto">
-          <SectionEyebrow>What We Do</SectionEyebrow>
+          <SectionEyebrow>{CONTENT.eyebrow}</SectionEyebrow>
           <motion.h2
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -65,7 +68,7 @@ function ServicesSection({ section = null }) {
               className="inline-flex items-center gap-2 text-sm font-semibold text-gold hover:text-amber transition-colors duration-300"
               aria-expanded={showAll}
             >
-              {showAll ? 'Show Fewer Services' : `View All Services (${services.length})`}
+              {showAll ? CONTENT.showFewerLabel : CONTENT.showAllLabel(services.length)}
               <motion.span animate={{ rotate: showAll ? 180 : 0 }} transition={{ duration: 0.3 }}>
                 <ChevronDown size={18} />
               </motion.span>

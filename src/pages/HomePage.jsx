@@ -15,6 +15,30 @@ import FAQSection from '../modules/faq/FAQSection'
 import ContactSection from '../modules/contact/ContactSection'
 import { homePage } from '../data/pages'
 import { siteConfig } from '../config/site.config'
+import { services } from '../data/services'
+
+const SITE = 'https://www.vclickmedia.ae'
+
+// Service ItemList — helps AI engines and search understand what we offer
+const servicesSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'VClick Media & Events — Services',
+  description:
+    'Creative media production and event management services offered by VClick across the UAE.',
+  itemListElement: services.map((svc, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    item: {
+      '@type': 'Service',
+      '@id': `${SITE}/#service-${svc.id}`,
+      name: svc.title,
+      description: svc.description,
+      provider: { '@id': `${SITE}/#organization` },
+      areaServed: { '@type': 'Country', name: 'United Arab Emirates' },
+    },
+  })),
+}
 
 const VISIBLE = Object.fromEntries(
   homePage.sections
@@ -28,8 +52,11 @@ function HomePage() {
       <SEOHead
         title={`${siteConfig.name} — ${siteConfig.tagline}`}
         description="Premium photography, videography and full-service event production across the UAE. Weddings, corporate events, exhibitions and brand activations."
+        url={SITE}
+        canonical={`${SITE}/`}
         phone={siteConfig.contact.phone}
         socialLinks={Object.values(siteConfig.social).filter((s) => s.visible && s.url).map((s) => s.url)}
+        schemas={[servicesSchema]}
       />
       <Navbar />
 

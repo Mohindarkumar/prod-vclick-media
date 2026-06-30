@@ -3,11 +3,13 @@ import SectionEyebrow from '../../components/common/SectionEyebrow'
 import GoldDivider from '../../components/common/GoldDivider'
 import PricingCard from './PricingCard'
 import { pricingPackages as staticPackages } from '../../data/pricing'
+import { homeSectionContents } from '../../data/home_section_contents'
+
+const { pricing: CONTENT } = homeSectionContents
 
 function PricingSection({ section = null }) {
-  const heading = section?.title    || 'Pricing'
-  const subtext = section?.subtitle ||
-    'Transparent starting points for every kind of project. Final scope and pricing are always confirmed together before booking.'
+  const heading = section?.title    || CONTENT.heading
+  const subtext = section?.subtitle || CONTENT.subtitle
 
   const cmsPackages = section?.content?.items
   const packages = cmsPackages?.length
@@ -26,7 +28,7 @@ function PricingSection({ section = null }) {
       <div className="section-container">
         <GoldDivider className="mb-10 md:mb-14" />
         <div className="text-center max-w-2xl mx-auto">
-          <SectionEyebrow>Packages</SectionEyebrow>
+          <SectionEyebrow>{CONTENT.eyebrow}</SectionEyebrow>
           <motion.h2
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}

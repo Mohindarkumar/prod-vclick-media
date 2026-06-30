@@ -9,29 +9,22 @@ import {
   PackageCheck,
 } from 'lucide-react'
 import SectionEyebrow from '../../components/common/SectionEyebrow'
+import { homeSectionContents } from '../../data/home_section_contents'
 
-const STATIC_ICONS = [MessageCircle, ClipboardList, Lightbulb, Clapperboard, Camera, Edit3, PackageCheck]
+const { process: CONTENT } = homeSectionContents
 
-const STATIC_STEPS = [
-  { title: 'Consultation',     description: 'We learn your vision, goals and budget for the event.' },
-  { title: 'Planning',         description: 'Timelines, crew and logistics are mapped out in detail.' },
-  { title: 'Creative Concept', description: 'A shot list and visual direction are built around your story.' },
-  { title: 'Production',       description: 'Pre-production checks confirm every detail is locked in.' },
-  { title: 'Execution',        description: 'Our crew captures the event live, on the day.' },
-  { title: 'Editing',          description: 'Footage and photos are color-graded and refined.' },
-  { title: 'Delivery',         description: 'Final assets are delivered through your private gallery.' },
-]
+const STEP_ICONS = [MessageCircle, ClipboardList, Lightbulb, Clapperboard, Camera, Edit3, PackageCheck]
 
 function EventProcess({ section = null }) {
-  const heading = section?.title || 'Our Event Process'
+  const heading  = section?.title || CONTENT.heading
   const cmsSteps = section?.content?.items
-  const steps = cmsSteps?.length ? cmsSteps : STATIC_STEPS
+  const steps    = cmsSteps?.length ? cmsSteps : CONTENT.steps
 
   return (
     <section id="process" className="section-padding bg-charcoal">
       <div className="section-container">
         <div className="text-center max-w-2xl mx-auto">
-          <SectionEyebrow>How We Work</SectionEyebrow>
+          <SectionEyebrow>{CONTENT.eyebrow}</SectionEyebrow>
           <motion.h2
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -55,9 +48,9 @@ function EventProcess({ section = null }) {
               className="h-px bg-gold-sweep-soft w-full"
             />
           </div>
-          <div className={`grid gap-4`} style={{ gridTemplateColumns: `repeat(${steps.length}, 1fr)` }}>
+          <div className="grid gap-4" style={{ gridTemplateColumns: `repeat(${steps.length}, 1fr)` }}>
             {steps.map((step, index) => {
-              const Icon = STATIC_ICONS[index % STATIC_ICONS.length]
+              const Icon = STEP_ICONS[index % STEP_ICONS.length]
               return (
                 <motion.div
                   key={step.title}
@@ -93,7 +86,7 @@ function EventProcess({ section = null }) {
           </div>
           <div className="space-y-10">
             {steps.map((step, index) => {
-              const Icon = STATIC_ICONS[index % STATIC_ICONS.length]
+              const Icon = STEP_ICONS[index % STEP_ICONS.length]
               return (
                 <motion.div
                   key={step.title}

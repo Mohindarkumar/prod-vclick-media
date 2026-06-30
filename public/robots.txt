@@ -1,0 +1,23 @@
+User-agent: *
+Allow: /
+
+# No API routes or dynamic paths exist on this static deployment
+Disallow: /api/
+
+# Allow major AI crawlers to index all content (GEO — Generative Engine Optimization)
+User-agent: GPTBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+Sitemap: https://www.vclickmedia.ae/sitemap.xml

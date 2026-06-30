@@ -5,6 +5,9 @@ import { ChevronRight, Aperture, Image } from 'lucide-react'
 import GoldDivider from '../../components/common/GoldDivider'
 import usePrefersReducedMotion from '../../hooks/usePrefersReducedMotion'
 import { galleryItems } from '../../data/gallery'
+import { gallerySectionContents } from '../../data/gallery_section_contents'
+
+const { hero: CONTENT } = gallerySectionContents
 
 // Pick a few varied images for the animated background collage
 const BG_IMAGES = galleryItems
@@ -180,7 +183,7 @@ function GalleryHero({ totalCount }) {
               transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
               aria-hidden="true"
             />
-            <span className="eyebrow">VClick Portfolio</span>
+            <span className="eyebrow">{CONTENT.eyebrow}</span>
           </motion.div>
 
           {/* Headline */}
@@ -200,8 +203,7 @@ function GalleryHero({ totalCount }) {
             variants={fadeUp}
             className="mt-5 text-lg text-mist/75 leading-relaxed max-w-xl"
           >
-            A curated collection of our finest work — spanning weddings, corporate events,
-            fashion editorials, drone photography, and more.
+            {CONTENT.subtitle}
           </motion.p>
 
           {/* Count chip — clean borderless style */}
@@ -216,7 +218,7 @@ function GalleryHero({ totalCount }) {
                 </div>
                 <span className="text-sm text-mist/75">
                   <span className="text-gold font-bold mr-1">{totalCount}</span>
-                  images in collection
+                  {CONTENT.countSuffix}
                 </span>
               </div>
             </motion.div>

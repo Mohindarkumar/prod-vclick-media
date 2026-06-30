@@ -36,6 +36,40 @@ if (!empty($_POST['_hp'])) {
     exit(json_encode(['success' => true]));
 }
 
+// ── Cloudflare Turnstile server-side verification ─────────────────────────────
+// Only enforced when TURNSTILE_SECRET is defined and non-empty in config.php.
+if (defined('TURNSTILE_SECRET') && TURNSTILE_SECRET !== '') {
+    $token = trim($_POST['cf-turnstile-response'] ?? '');
+
+    if ($token === '') {
+        http_response_code(400);
+        exit(json_encode(['success' => false, 'message' => 'Security check failed. Please complete the verification and try again.']));
+    }
+
+    $verifyData = http_build_query([
+        'secret'   => TURNSTILE_SECRET,
+        'response' => $token,
+        'remoteip' => $_SERVER['REMOTE_ADDR'] ?? '',
+    ]);
+
+    $ctx = stream_context_create([
+        'http' => [
+            'method'  => 'POST',
+            'header'  => 'Content-Type: application/x-www-form-urlencoded',
+            'content' => $verifyData,
+            'timeout' => 5,
+        ],
+    ]);
+
+    $result = @file_get_contents('https://challenges.cloudflare.com/turnstile/v0/siteverify', false, $ctx);
+    $outcome = $result ? json_decode($result, true) : null;
+
+    if (!$outcome || !($outcome['success'] ?? false)) {
+        http_response_code(403);
+        exit(json_encode(['success' => false, 'message' => 'Security verification failed. Please try again.']));
+    }
+}
+
 // ── Read + validate inputs ────────────────────────────────────────────────────
 $name    = trim($_POST['name']    ?? '');
 $email   = trim($_POST['email']   ?? '');

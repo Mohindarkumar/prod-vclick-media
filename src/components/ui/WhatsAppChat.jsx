@@ -90,8 +90,7 @@ export default function WhatsAppChat() {
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder="Type your message..."
-                className="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-gray-800 resize-none focus:outline-none focus:ring-2"
-                style={{ '--tw-ring-color': color }}
+                className="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-gray-800 resize-none focus:outline-none focus:ring-2 focus:ring-yellow-500"
               />
               <button
                 onClick={handleSend}

@@ -1,5 +1,8 @@
 import { motion } from 'framer-motion'
 import { ArrowUpRight, Sparkles } from 'lucide-react'
+import { homeSectionContents } from '../../data/home_section_contents'
+
+const { services: CONTENT } = homeSectionContents
 
 function ServiceCard({ service, index }) {
   const Icon = service.icon ?? Sparkles
@@ -39,7 +42,7 @@ function ServiceCard({ service, index }) {
         <h3 className="text-base font-semibold text-paper">{service.title}</h3>
         <p className="mt-2 text-sm text-mist leading-relaxed flex-1">{service.description}</p>
         <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-gold group-hover:text-amber transition-colors duration-300">
-          Learn More
+          {CONTENT.cardCta}
           <ArrowUpRight size={15} />
         </span>
       </div>

@@ -8,10 +8,10 @@ const DEFAULT_DESCRIPTION =
 const DEFAULT_OG_IMAGE = `${SITE}/og-image.jpg`
 
 const SOCIAL_LINKS = [
-  'https://www.instagram.com/vclickmedia',
-  'https://www.facebook.com/vclickmedia',
+  'https://www.instagram.com/vclickmediauae',
+  'https://www.facebook.com/share/1EoJvp4fng/',
   'https://www.linkedin.com/company/vclickmedia',
-  'https://www.youtube.com/@vclickmedia',
+  'https://www.youtube.com/@vclickmediauae',
 ]
 
 // Stable Organisation node — referenced by @id from other schemas
@@ -30,7 +30,7 @@ const ORG_SCHEMA = {
   image: DEFAULT_OG_IMAGE,
   description:
     'UAE-based creative media production house and event management company delivering cinematic photography, videography, drone coverage and full-service event production across all seven Emirates.',
-  telephone: '+971-50-000-0000',
+  telephone: '+971554751644',
   email: 'vclickmediauae@gmail.com',
   address: {
     '@type': 'PostalAddress',

@@ -5,11 +5,9 @@ import {
   Video,
   Building2,
   LayoutGrid,
-  Sparkles,
   CalendarCheck,
   PartyPopper,
-  Clapperboard,
-  Smartphone,
+  Globe,
   Share2,
 } from 'lucide-react'
 
@@ -37,7 +35,7 @@ export const services = [
     title: 'Corporate Event Coverage',
     description:
       'Full media documentation of your conference, awards ceremony, or corporate milestone — stills and video delivered on a professional timeline.',
-    image: '/uploads/images/gallery/events-exhibitions/DSC_4108.webp',
+    image: '/uploads/images/gallery/events-exhibitions/DSC03602.webp',
   },
   {
     id: 'exhibition-coverage',
@@ -48,20 +46,12 @@ export const services = [
     image: '/uploads/images/services/exhibition.webp',
   },
   {
-    id: 'brand-activations',
-    icon: Sparkles,
-    title: 'Brand Activations',
-    description:
-      'Experiential event coverage and production that captures the energy of your brand the moment it steps into physical space.',
-    image: '/uploads/images/gallery/events-exhibitions/DSC03746.webp',
-  },
-  {
     id: 'event-planning-coverage',
     icon: CalendarCheck,
     title: 'Event Planning & Coverage',
     description:
       'Full-service event planning and logistics management — from concept to execution, with a crew that keeps everything running exactly to plan.',
-    image: '/uploads/images/services/events.webp',
+    image: '/uploads/images/gallery/events-exhibitions/DSC03257.webp',
   },
   {
     id: 'entertainment-activities',
@@ -72,22 +62,12 @@ export const services = [
     image: '/uploads/images/gallery/events-exhibitions/DSC09155-10122.webp',
   },
   {
-    id: 'creative-media-production',
-    icon: Clapperboard,
-    title: 'Creative Media Production',
+    id: 'panoramic-360-photo-tour',
+    icon: Globe,
+    title: 'Panoramic 360° Photo Tour',
     description:
-      'Concept-to-delivery creative production across formats and platforms — idea, script, shoot, edit, and deliver, all under one roof.',
-    image: '/uploads/images/gallery/events-exhibitions/1000418208.webp',
-    imagePosition: 'object-top',
-  },
-  {
-    id: 'digital-content-creation',
-    icon: Smartphone,
-    title: 'Digital Content Creation',
-    description:
-      'Platform-native content built for digital-first audiences — photography and video optimised for web, social, and streaming channels.',
-    image: '/uploads/images/gallery/fashion-lifestyle/DSC05192.webp',
-    imagePosition: 'object-top',
+      'Immersive 360-degree virtual tours for hotels, venues, showrooms, and real estate — let clients explore your space from anywhere in the world.',
+    image: '/uploads/images/services/panoramic-360.webp',
   },
   {
     id: 'social-media-content-creation',

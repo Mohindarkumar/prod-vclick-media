@@ -40,14 +40,14 @@
     color: #FFFFFF;
   }
 
-  /* Slim, gold-tinted scrollbar to match the brand instead of default grey browser chrome */
-  ::-webkit-scrollbar {
+  /* Gold scrollbar — only active when customScrollbar:1 adds .custom-scrollbar to <html> */
+  html.custom-scrollbar ::-webkit-scrollbar {
     width: 10px;
   }
-  ::-webkit-scrollbar-track {
+  html.custom-scrollbar ::-webkit-scrollbar-track {
     background: #0B0B0B;
   }
-  ::-webkit-scrollbar-thumb {
+  html.custom-scrollbar ::-webkit-scrollbar-thumb {
     background: linear-gradient(180deg, #D4AF37, #FFB703);
     border-radius: 8px;
   }

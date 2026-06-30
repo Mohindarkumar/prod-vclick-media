@@ -6,7 +6,7 @@ export const siteConfig = {
     email: 'vclickmediauae@gmail.com',
     phone: '+971 54 565 6291',
     whatsapp: '971545656291',
-    address: 'UAE Free Zone, United Arab Emirates',
+    address: 'UAE',
     hours: 'Sun – Thu, 9:00 AM – 7:00 PM',
   },
   social: {
@@ -34,6 +34,12 @@ export const siteConfig = {
    *               0 = disable — restores the default browser/system cursor
    */
   customCursor: 0,
+
+  /**
+   * customScrollbar: 1 = gold-branded scrollbar
+   *                  0 = default browser scrollbar (no styling)
+   */
+  customScrollbar: 0,
 
   whatsapp: {
     enabled: true,

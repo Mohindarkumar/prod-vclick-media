@@ -24,15 +24,21 @@ function ContactSection({ section = null }) {
       <div className="section-container">
         <div className="text-center max-w-2xl mx-auto">
           <SectionEyebrow>{CONTENT.eyebrow}</SectionEyebrow>
-          <motion.h2
+          <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="mt-5 text-2xl sm:text-3xl md:text-h2 font-extrabold text-paper text-balance"
+            className="mt-5"
           >
-            {heading}
-          </motion.h2>
+            <p className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-paper tracking-tight leading-tight">
+              We Click.
+            </p>
+            <p className="text-3xl sm:text-4xl md:text-5xl lg:text-display-2 font-extrabold italic gold-text-gradient tracking-tight leading-tight mt-1">
+              You Celebrate.
+            </p>
+            <span className="mt-3 block h-[3px] w-16 mx-auto rounded-full bg-gold-sweep" aria-hidden="true" />
+          </motion.div>
         </div>
 
         <div className="mt-10 md:mt-16 grid lg:grid-cols-2 gap-10">

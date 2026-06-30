@@ -14,8 +14,9 @@ function ServiceCard({ service, index }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: (index % 4) * 0.08 }}
-      whileHover={{ scale: 1.03, y: -4 }}
-      className="group glass-surface rounded-2xl overflow-hidden flex flex-col hover:border-gold/50 hover:shadow-gold transition-shadow duration-300"
+      whileHover={{ y: -6 }}
+      transition={{ type: 'spring', stiffness: 260, damping: 22 }}
+      className="group glass-surface rounded-2xl overflow-hidden flex flex-col border border-transparent hover:border-gold/50 hover:shadow-gold transition-[border-color,box-shadow] duration-300"
     >
       {service.image ? (
         <div className="relative h-40 overflow-hidden">

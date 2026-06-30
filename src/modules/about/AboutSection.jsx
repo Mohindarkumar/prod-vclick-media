@@ -46,15 +46,19 @@ function AboutSection({ section = null }) {
       <div className="section-container grid lg:grid-cols-2 gap-16 items-center">
         <div>
           <SectionEyebrow align="left">{CONTENT.eyebrow}</SectionEyebrow>
-          <motion.h2
+          <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="mt-5 text-3xl md:text-4xl lg:text-h2 font-extrabold text-paper text-balance"
+            className="mt-5"
           >
-            {heading}
-          </motion.h2>
+            <h2 className="text-3xl md:text-4xl lg:text-h2 font-extrabold leading-tight tracking-tight">
+              <span className="block text-paper">We Click.</span>
+              <span className="block italic gold-text-gradient">You Celebrate.</span>
+            </h2>
+            <span className="mt-4 block h-[3px] w-14 rounded-full bg-gold-sweep" aria-hidden="true" />
+          </motion.div>
 
           <motion.p
             initial={{ opacity: 0, y: 16 }}
@@ -93,31 +97,7 @@ function AboutSection({ section = null }) {
           </div>
         </div>
 
-        {/* Mobile: clean stacked grid */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="grid grid-cols-2 gap-2.5 lg:hidden mt-2"
-        >
-          {collageImages.slice(0, 3).map((img, i) => (
-            <img
-              key={img.src}
-              src={img.src}
-              alt={img.alt || ''}
-              loading="lazy"
-              onError={(e) => { e.currentTarget.style.opacity = '0' }}
-              className={
-                i === 0
-                  ? 'w-full rounded-2xl object-cover aspect-[3/4] col-span-1 row-span-2 bg-charcoal'
-                  : 'w-full rounded-2xl object-cover aspect-[4/3] bg-charcoal'
-              }
-            />
-          ))}
-        </motion.div>
-
-        {/* Desktop: asymmetric overlapping collage */}
+        {/* Desktop-only: asymmetric overlapping collage (hidden on mobile) */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}

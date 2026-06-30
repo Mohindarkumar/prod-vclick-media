@@ -7,8 +7,8 @@ export const homeSectionContents = {
   // ─── Hero ────────────────────────────────────────────────────────────────
   hero: {
     eyebrow: 'Premium Media & Events · UAE',
-    headlineLine1: 'We Click.',
-    headlineHighlight: 'You Celebrate.',
+    headlineLine1: '',
+    headlineHighlight: '',
     headlineLine2: '',
     subtitle:
       'VClick Media & Events FZA is a UAE-based creative media and event company specializing in high-end photography, videography, and full-service event management. We proudly serve corporate conferences, exhibitions, brand activations, private events, social media campaigns, e-commerce businesses, weddings, and product launches across all Emirates.',
@@ -25,7 +25,7 @@ export const homeSectionContents = {
   // ─── About ───────────────────────────────────────────────────────────────
   about: {
     eyebrow: 'Who We Are',
-    heading: 'Celebrate While We Capture Every Moment',
+    heading: 'We Click. You Celebrate.',
     body: 'At VClick Media & Events, we believe every celebration deserves to be experienced without distractions. While you focus on creating memories with your guests, our team captures every moment with precision, creativity, and professionalism. From media production to seamless event execution, we ensure your story is preserved beautifully — so you can celebrate with confidence, knowing every detail is in expert hands.',
     pillars: [
       {

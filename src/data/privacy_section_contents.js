@@ -51,6 +51,6 @@ export const privacySectionContents = {
 <p>We may update this Privacy Policy from time to time. When we do, we will post the revised version on this page with an updated effective date. We encourage you to review this page periodically.</p>
 
 <h2>9. Contact Us</h2>
-<p>If you have any questions about this Privacy Policy or how we handle your data, please contact us at <a href="mailto:hello@vclickmedia.ae">hello@vclickmedia.ae</a>.</p>
+<p>If you have any questions about this Privacy Policy or how we handle your data, please contact us at <a href="mailto:vclickmediauae@gmail.com">vclickmediauae@gmail.com</a>.</p>
 `,
 }

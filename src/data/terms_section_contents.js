@@ -51,6 +51,6 @@ export const termsSectionContents = {
 <p>We reserve the right to update these Terms of Service at any time. Continued use of our website following the posting of revised terms constitutes your acceptance of those changes.</p>
 
 <h2>11. Contact</h2>
-<p>If you have questions about these terms, please contact us at <a href="mailto:hello@vclickmedia.ae">hello@vclickmedia.ae</a>.</p>
+<p>If you have questions about these terms, please contact us at <a href="mailto:vclickmediauae@gmail.com">vclickmediauae@gmail.com</a>.</p>
 `,
 }

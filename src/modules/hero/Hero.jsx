@@ -109,24 +109,22 @@ function Hero({ section = null }) {
       id="home"
       ref={sectionRef}
       onMouseMove={handleMouseMove}
-      className="relative h-svh min-h-[700px] sm:min-h-[760px] w-full overflow-x-hidden flex flex-col pt-20 md:pt-24"
+      className="relative h-svh min-h-[580px] sm:min-h-[680px] w-full overflow-hidden flex flex-col pt-20 md:pt-24"
     >
-      {/* Background image — isolated clip so parallax never bleeds outside section */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-        <motion.div
-          style={{ y: bgParallaxY }}
-          className="absolute inset-x-0 -top-[8%] h-[116%] will-change-transform"
-        >
-          <img
-            src="/uploads/images/gallery/events-exhibitions/DSC07433.webp"
-            alt="VClick event production — luxury venue with Burj Khalifa view"
-            className="w-full h-full object-cover object-center"
-            loading="eager"
-            decoding="async"
-            fetchPriority="high"
-          />
-        </motion.div>
-      </div>
+      {/* Background image with parallax */}
+      <motion.div
+        style={{ y: bgParallaxY }}
+        className="absolute inset-x-0 -top-[8%] h-[116%] will-change-transform"
+      >
+        <img
+          src="/uploads/images/homepage/home_bg.jpeg"
+          alt="VClick Media — cinematic background"
+          className="w-full h-full object-cover object-center"
+          loading="eager"
+          decoding="async"
+          fetchPriority="high"
+        />
+      </motion.div>
 
       {/* Cinematic gradient overlays */}
       <motion.div
@@ -165,7 +163,7 @@ function Hero({ section = null }) {
       {/* Main content */}
       <motion.div
         style={{ y: contentParallaxY }}
-        className="relative z-10 section-container w-full will-change-transform flex-1 flex items-center"
+        className="relative z-10 section-container w-full will-change-transform flex-1 flex items-center overflow-hidden"
       >
         <motion.div
           className="max-w-3xl"
@@ -191,11 +189,16 @@ function Hero({ section = null }) {
                   variants={maskReveal}
                   className="text-4xl sm:text-5xl md:text-6xl lg:text-display-1 font-extrabold text-paper leading-[1.06] tracking-tight"
                 >
-                  {CONTENT.headlineLine1}{' '}
-                  <span className="relative inline-block whitespace-nowrap">
-                    {CONTENT.headlineHighlight}
-                    <GoldDivider variant="underline" className="absolute -bottom-1 left-0 w-full" delay={0.85} />
-                  </span>
+                  {CONTENT.headlineLine1}
+                  {CONTENT.headlineHighlight && (
+                    <>
+                      {' '}
+                      <span className="relative inline-block whitespace-nowrap">
+                        {CONTENT.headlineHighlight}
+                        <GoldDivider variant="underline" className="absolute -bottom-1 left-0 w-full" delay={0.85} />
+                      </span>
+                    </>
+                  )}
                 </motion.h1>
               </motion.div>
               {CONTENT.headlineLine2 && (
@@ -214,13 +217,13 @@ function Hero({ section = null }) {
           {/* Subtitle */}
           <motion.p
             variants={blurIn}
-            className="mt-5 md:mt-7 text-body-lg text-mist/90 max-w-xl leading-relaxed"
+            className="mt-4 md:mt-5 text-body text-mist/90 max-w-xl leading-relaxed"
           >
             {cmsSubtitle || CONTENT.subtitle}
           </motion.p>
 
           {/* Service tag chips */}
-          <motion.div variants={blurIn} className="mt-4 md:mt-6 flex flex-wrap gap-2">
+          <motion.div variants={blurIn} className="mt-3 md:mt-4 flex flex-wrap gap-2">
             {CONTENT.serviceTags.map(({ label }) => {
               const Icon = TAG_ICONS[label] || Sparkles
               return (
@@ -239,7 +242,7 @@ function Hero({ section = null }) {
           {/* CTA buttons */}
           <motion.div
             variants={blurIn}
-            className="mt-8 md:mt-10 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 sm:gap-4"
+            className="mt-5 md:mt-7 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 sm:gap-4"
           >
             <Button as="a" href="#contact" variant="primary" icon={ArrowRight} className="justify-center">
               {CONTENT.ctaPrimary}
@@ -267,31 +270,38 @@ function Hero({ section = null }) {
         aria-label="Key statistics"
       >
         <div
-          className="section-container pt-8 pb-8 sm:pt-9 sm:pb-10 md:pt-10 md:pb-12 border-t"
+          className="section-container pt-4 pb-4 sm:pt-8 sm:pb-8 border-t"
           style={{ borderColor: 'rgba(255,255,255,0.12)' }}
         >
-          <dl className="grid grid-cols-4">
+          <dl className="grid grid-cols-2 gap-y-5 sm:gap-y-8">
             {STATS.map(({ value, label }, i) => {
-              const pad =
-                i === 0
-                  ? 'pr-3 sm:pr-8 md:pr-10'
-                  : i === STATS.length - 1
-                  ? 'pl-3 sm:pl-8 md:pl-10'
-                  : 'px-3 sm:px-8 md:px-10'
-
+              const isRight  = i % 2 === 1
+              const isBottom = i >= 2
               return (
-                <div key={label} className={`relative flex flex-col ${pad}`}>
-                  {i > 0 && (
+                <div
+                  key={label}
+                  className={`relative flex flex-col ${isRight ? 'pl-4 sm:pl-10 md:pl-14' : 'pr-4 sm:pr-10 md:pr-14'}`}
+                >
+                  {/* Vertical divider — right column */}
+                  {isRight && (
                     <span
-                      className="absolute left-0 top-1 bottom-1"
+                      className="absolute left-0 top-0 bottom-0"
                       style={{ width: '1px', backgroundColor: 'rgba(255,255,255,0.14)' }}
                       aria-hidden="true"
                     />
                   )}
-                  <dd className="text-[1.1rem] sm:text-[2rem] md:text-[2.5rem] font-extrabold gold-text-gradient leading-none tabular-nums">
+                  {/* Horizontal divider — bottom row */}
+                  {isBottom && (
+                    <span
+                      className="absolute left-0 right-0 -top-2.5 sm:-top-4"
+                      style={{ height: '1px', backgroundColor: 'rgba(255,255,255,0.14)' }}
+                      aria-hidden="true"
+                    />
+                  )}
+                  <dd className="text-xl sm:text-3xl md:text-4xl font-extrabold gold-text-gradient leading-none tabular-nums">
                     {value}
                   </dd>
-                  <dt className="text-[10px] sm:text-[11px] md:text-[12px] text-mist/80 mt-1.5 sm:mt-2 md:mt-2.5 uppercase tracking-[0.05em] sm:tracking-[0.10em] leading-snug">
+                  <dt className="text-[9px] sm:text-[11px] md:text-[12px] text-mist/80 mt-1.5 sm:mt-2 uppercase tracking-[0.04em] sm:tracking-[0.10em] leading-snug">
                     {label}
                   </dt>
                 </div>

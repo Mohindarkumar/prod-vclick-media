@@ -31,7 +31,7 @@ const ORG_SCHEMA = {
   description:
     'UAE-based creative media production house and event management company delivering cinematic photography, videography, drone coverage and full-service event production across all seven Emirates.',
   telephone: '+971-50-000-0000',
-  email: 'hello@vclickmedia.ae',
+  email: 'vclickmediauae@gmail.com',
   address: {
     '@type': 'PostalAddress',
     streetAddress: 'Ajman Free Zone',
@@ -94,7 +94,7 @@ function buildLocalBusiness(phone, socialLinks) {
     image: DEFAULT_OG_IMAGE,
     url: SITE,
     telephone: phone || '+971-50-000-0000',
-    email: 'hello@vclickmedia.ae',
+    email: 'vclickmediauae@gmail.com',
     address: {
       '@type': 'PostalAddress',
       streetAddress: 'Ajman Free Zone',

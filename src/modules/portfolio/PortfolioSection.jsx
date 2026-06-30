@@ -1,8 +1,126 @@
 import { motion, AnimatePresence } from 'framer-motion'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowRight, Camera, Video } from 'lucide-react'
+import { ArrowRight, Camera, Video, Play } from 'lucide-react'
 import SectionEyebrow from '../../components/common/SectionEyebrow'
 import GoldDivider from '../../components/common/GoldDivider'
+
+const SHOWREEL_SLIDES = [
+  '/uploads/images/gallery/events-exhibitions/DSC07433.webp',
+  '/uploads/images/gallery/fashion-lifestyle/SIB-1002.webp',
+  '/uploads/images/gallery/events-exhibitions/DSC03817.webp',
+  '/uploads/images/homepage/DSC00897.webp',
+  '/uploads/images/gallery/events-exhibitions/DSC_4108.webp',
+  '/uploads/images/gallery/fashion-lifestyle/DSC04817.webp',
+  '/uploads/images/homepage/DSC05604.webp',
+  '/uploads/images/gallery/events-exhibitions/DSC03148.webp',
+  '/uploads/images/gallery/events-exhibitions/DSC06759.webp',
+  '/uploads/images/homepage/DSC06454.webp',
+  '/uploads/images/gallery/events-exhibitions/DSC_4230.webp',
+  '/uploads/images/gallery/events-exhibitions/1000417901.webp',
+]
+
+function ShowreelCard({ item, index }) {
+  const [activeSlide, setActiveSlide] = useState(0)
+  const href = buildLink(item.link_type, item.category)
+
+  useEffect(() => {
+    const id = setInterval(() => setActiveSlide(i => (i + 1) % SHOWREEL_SLIDES.length), 4500)
+    return () => clearInterval(id)
+  }, [])
+
+  return (
+    <motion.div
+      custom={index}
+      variants={cardVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      className="group relative overflow-hidden rounded-2xl border border-white/8 bg-charcoal hover:border-gold/35 transition-all duration-[400ms] flex flex-col h-[420px] sm:h-[500px] md:h-[560px] w-full"
+      onMouseEnter={(e) => { e.currentTarget.style.boxShadow = '0 8px 40px rgba(212,175,55,0.13)' }}
+      onMouseLeave={(e) => { e.currentTarget.style.boxShadow = '' }}
+    >
+      {/* ── 70 % — animated showreel ───────────────────── */}
+      <div className="relative overflow-hidden" style={{ flex: '0 0 70%' }}>
+        <AnimatePresence mode="sync">
+          <motion.img
+            key={activeSlide}
+            src={SHOWREEL_SLIDES[activeSlide]}
+            alt="VClick showreel"
+            loading="lazy"
+            initial={{ opacity: 0, scale: 1.06 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.9, ease: 'easeInOut' }}
+            className="absolute inset-0 w-full h-full object-cover object-center"
+          />
+        </AnimatePresence>
+
+        {/* cinematic vignette */}
+        <div className="absolute inset-0 bg-gradient-to-t from-charcoal/85 via-black/10 to-black/30" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-transparent h-1/3" />
+
+        {/* top-left SHOWREEL badge */}
+        <div className="absolute top-4 left-4 z-10 flex items-center gap-2">
+          <span className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest text-gold bg-black/50 backdrop-blur-sm border border-gold/40 rounded-full px-3 py-1">
+            <Play size={9} fill="currentColor" />
+            Showreel
+          </span>
+        </div>
+
+        {/* progress bar */}
+        <div className="absolute bottom-4 left-4 right-4 z-10 flex gap-1">
+          {SHOWREEL_SLIDES.map((_, i) => (
+            <button
+              key={i}
+              aria-label={`Slide ${i + 1}`}
+              onClick={() => setActiveSlide(i)}
+              className={`flex-1 h-[3px] rounded-full transition-all duration-300 ${i === activeSlide ? 'bg-gold' : 'bg-white/30'}`}
+            />
+          ))}
+        </div>
+
+        {/* stat pill */}
+        {item.stat_value && (
+          <div className="absolute top-4 right-4 z-10">
+            <div className="bg-black/50 backdrop-blur-sm border border-white/15 rounded-full px-3 py-1 text-center">
+              <p className="text-gold font-extrabold text-sm leading-none">{item.stat_value}</p>
+              {item.stat_label && (
+                <p className="text-white/55 text-[9px] uppercase tracking-wide leading-none mt-0.5">{item.stat_label}</p>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* ── 30 % — text ───────────────────────────────── */}
+      <div className="p-5 flex flex-col justify-center" style={{ flex: '0 0 30%' }}>
+        {item.category && (
+          <span className="text-[11px] font-semibold uppercase tracking-wider text-gold mb-1">
+            {item.category}
+          </span>
+        )}
+        <h3 className="text-lg md:text-xl font-bold text-paper leading-snug group-hover:text-gold/90 transition-colors duration-200">
+          {item.title}
+        </h3>
+        {item.description && (
+          <p className="text-mist/55 text-sm mt-2 leading-relaxed line-clamp-2">
+            {item.description}
+          </p>
+        )}
+        {href && (
+          <Link
+            to={href}
+            className="inline-flex items-center gap-1.5 mt-4 text-gold/60 group-hover:text-gold text-xs font-semibold transition-colors duration-200"
+          >
+            <Camera size={12} /> View Photos
+            <ArrowRight size={11} strokeWidth={2.5} className="group-hover:translate-x-0.5 transition-transform duration-200" />
+          </Link>
+        )}
+      </div>
+    </motion.div>
+  )
+}
 
 const STATIC_WORKS = [
   {
@@ -214,19 +332,23 @@ function PortfolioSection({ section = null }) {
           </motion.div>
         </div>
 
-        {/* Bento grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+        {/* Portfolio layout — full-width showreel, then cards below */}
+        <div className="flex flex-col gap-4 md:gap-5">
           <AnimatePresence>
-            {/* Featured (first item) — spans 2 cols on desktop */}
+            {/* Full-width showreel */}
             {featured && (
-              <WorkCard key={featured.featured_work_id} item={featured} index={0} isFeatured />
+              <ShowreelCard key={featured.featured_work_id} item={featured} index={0} />
             )}
-
-            {/* Remaining items */}
-            {rest.slice(0, 4).map((item, i) => (
-              <WorkCard key={item.featured_work_id} item={item} index={i + 1} />
-            ))}
           </AnimatePresence>
+
+          {/* Cards row below */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
+            <AnimatePresence>
+              {rest.slice(0, 4).map((item, i) => (
+                <WorkCard key={item.featured_work_id} item={item} index={i + 1} />
+              ))}
+            </AnimatePresence>
+          </div>
         </div>
 
         {/* Bottom CTA */}

@@ -7,47 +7,37 @@ import GoldDivider from '../../components/common/GoldDivider'
 const STATIC_WORKS = [
   {
     featured_work_id: 1,
-    title: 'Wedding Photography',
-    subtitle: 'Wedding Photography · UAE',
-    description: 'Timeless wedding photography capturing every detail — from intimate portraits to grand celebrations across the Emirates.',
-    category: 'Wedding',
-    cover_image_url: '/uploads/images/gallery/fashion-lifestyle/SIB-1007.webp',
+    title: 'Photography',
+    subtitle: 'Professional Photography · UAE',
+    description: 'Every frame tells a story. From brand shoots and product launches to portraits and live events, we capture the moments that matter most — beautifully lit, thoughtfully composed, and delivered with the detail your audience deserves.',
+    category: 'Photography',
+    cover_image_url: '/uploads/images/gallery/fashion-lifestyle/SIB-1002.webp',
+    image_position: 'object-top',
     stat_label: 'Photos',
     stat_value: '450+',
     link_type: 'gallery',
   },
   {
     featured_work_id: 2,
-    title: 'Events & Exhibitions',
-    subtitle: 'Corporate Events · UAE',
-    description: 'Full media coverage of conferences, expos, and corporate events — photography, videography, and live production.',
+    title: 'Videography',
+    subtitle: 'Cinematic Videography · UAE',
+    description: 'Cinematic video production for campaigns, events, and brand stories — from single-camera shoots to full multi-crew productions.',
+    category: 'Videography',
+    cover_image_url: '/uploads/images/gallery/events-exhibitions/DSC03817.webp',
+    stat_label: 'Films',
+    stat_value: '200+',
+    link_type: 'video',
+  },
+  {
+    featured_work_id: 3,
+    title: 'Events',
+    subtitle: 'Full-Service Events · UAE',
+    description: 'Complete event planning and coverage — from corporate conferences and exhibitions to brand activations and private celebrations.',
     category: 'Corporate',
     cover_image_url: '/uploads/images/gallery/events-exhibitions/DSC03148.webp',
     stat_label: 'Events',
     stat_value: '500+',
     link_type: 'video',
-  },
-  {
-    featured_work_id: 3,
-    title: 'Fashion & Lifestyle',
-    subtitle: 'Fashion Editorial · UAE',
-    description: 'Editorial and campaign photography for fashion brands, lifestyle products, and creative talent across the UAE.',
-    category: 'Fashion',
-    cover_image_url: '/uploads/images/gallery/fashion-lifestyle/DSC04879.webp',
-    stat_label: 'Shoots',
-    stat_value: '120+',
-    link_type: 'gallery',
-  },
-  {
-    featured_work_id: 4,
-    title: 'Desert Photography',
-    subtitle: 'Outdoor & Location Shoots · UAE',
-    description: 'Striking location photography across the UAE\'s desert landscapes — dramatic light, sweeping compositions.',
-    category: 'Desert',
-    cover_image_url: '/uploads/images/gallery/desert/SIB-3394.webp',
-    stat_label: 'Locations',
-    stat_value: '12+',
-    link_type: 'gallery',
   },
 ]
 
@@ -100,7 +90,7 @@ function WorkCard({ item, index, isFeatured = false }) {
           src={item.cover_image_url}
           alt={item.title}
           loading="lazy"
-          className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-700 ease-out"
+          className={`w-full h-full object-cover ${item.image_position ?? 'object-center'} group-hover:scale-[1.04] transition-transform duration-700 ease-out`}
         />
         {/* Gradient overlay */}
         <div
@@ -165,7 +155,7 @@ function PortfolioSection({ section = null }) {
   const items = STATIC_WORKS
   const [featured, ...rest] = items
 
-  const heading = section?.title || 'Selected Works'
+  const heading = section?.title || 'Recent Works'
 
   return (
     <section id="portfolio" className="py-14 md:py-20 bg-charcoal overflow-hidden">

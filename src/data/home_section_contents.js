@@ -7,11 +7,11 @@ export const homeSectionContents = {
   // ─── Hero ────────────────────────────────────────────────────────────────
   hero: {
     eyebrow: 'Premium Media & Events · UAE',
-    headlineLine1: 'Create',
-    headlineHighlight: 'Unforgettable',
-    headlineLine2: 'Experiences',
+    headlineLine1: 'We Click.',
+    headlineHighlight: 'You Celebrate.',
+    headlineLine2: '',
     subtitle:
-      'From intimate weddings to large-scale exhibitions, VClick brings cinematic quality and creative precision to every story worth telling across the UAE.',
+      'VClick Media & Events FZA is a UAE-based creative media and event company specializing in high-end photography, videography, and full-service event management. We proudly serve corporate conferences, exhibitions, brand activations, private events, social media campaigns, e-commerce businesses, weddings, and product launches across all Emirates.',
     serviceTags: [
       { label: 'Photography' },
       { label: 'Videography' },
@@ -25,24 +25,24 @@ export const homeSectionContents = {
   // ─── About ───────────────────────────────────────────────────────────────
   about: {
     eyebrow: 'Who We Are',
-    heading: 'Crafted for Every Milestone That Matters',
-    body: 'VClick Media & Events is a UAE-based creative production house headquartered in Ajman Free Zone. We bring cinematic quality to everything we touch — from intimate weddings and high-profile conferences to brand activations and large-scale exhibitions across all seven Emirates. Every project we take on is a story we are proud to help tell.',
+    heading: 'Celebrate While We Capture Every Moment',
+    body: 'At VClick Media & Events, we believe every celebration deserves to be experienced without distractions. While you focus on creating memories with your guests, our team captures every moment with precision, creativity, and professionalism. From media production to seamless event execution, we ensure your story is preserved beautifully — so you can celebrate with confidence, knowing every detail is in expert hands.',
     pillars: [
       {
         label: 'Our Mission',
-        copy: 'To capture every moment our clients entrust to us with the artistry and care it deserves — because some stories deserve more than just a photograph.',
+        copy: 'Creating unforgettable experiences through innovative media, creative storytelling, and seamless event execution.',
       },
       {
         label: 'Our Vision',
-        copy: 'To be the most trusted creative partner for clients across the UAE who refuse to settle for ordinary.',
+        copy: "To become the UAE's most trusted and innovative media and event solutions company, setting new standards in creativity, quality, and client satisfaction.",
       },
       {
-        label: 'Years of Experience',
-        copy: 'Eight years and hundreds of events later, we bring the calm confidence that only comes from having been in the room when it matters most.',
+        label: 'Our Values',
+        copy: 'Driven by creativity, professionalism, reliability, and a commitment to delivering excellence in every project and every event.',
       },
       {
         label: 'Our Team',
-        copy: 'A close-knit crew of photographers, videographers, editors, drone pilots, and event planners — all working in sync so nothing falls through the cracks.',
+        copy: 'A passionate team of skilled photographers, videographers, editors, designers, and event professionals dedicated to delivering exceptional results with creativity, precision, and professionalism.',
       },
     ],
   },
@@ -204,7 +204,7 @@ export const homeSectionContents = {
   // ─── Contact section ─────────────────────────────────────────────────────
   contact: {
     eyebrow: 'Start the Conversation',
-    heading: 'Ready to Bring Your Vision to Life?',
+    heading: 'We Click. You Celebrate.',
     quickContacts: [
       { label: 'WhatsApp' },
       { label: 'Call Us' },

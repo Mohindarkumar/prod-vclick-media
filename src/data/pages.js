@@ -206,7 +206,7 @@ export const homePage = {
       type: 'contact',
       displayOrder: 120,
       isVisible: true,
-      title: "Let's Create Something Unforgettable",
+      title: 'We Click. You Celebrate.',
       subtitle: 'Ready to create something extraordinary? Tell us about your project.',
       ctaLabel: 'Send Message',
     },

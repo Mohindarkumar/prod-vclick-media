@@ -5,7 +5,7 @@ export const faqItems = [
     id: 1,
     question: 'Which areas of the UAE do you cover?',
     answer:
-      'We are headquartered in Ajman Free Zone and work with clients across all seven Emirates — Dubai, Sharjah, Abu Dhabi, Ajman, Ras Al Khaimah, Umm Al Quwain, and Fujairah. Travel within the UAE is included in our standard packages. Events outside the UAE can be arranged on request.',
+      'We are UAE-based and work with clients across all seven Emirates — Dubai, Sharjah, Abu Dhabi, Ajman, Ras Al Khaimah, Umm Al Quwain, and Fujairah. Travel within the UAE is included in our standard packages. Events outside the UAE can be arranged on request.',
   },
   {
     id: 2,

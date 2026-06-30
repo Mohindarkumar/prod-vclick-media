@@ -10,18 +10,18 @@ const PILLAR_ICONS = [Target, Eye, Clock, Users]
 
 const COLLAGE_IMAGES = [
   {
-    src: '/uploads/images/gallery/events-exhibitions/DSC03273.webp',
-    alt: 'VClick event production — Purplefi stage setup at Ritz-Carlton Dubai',
+    src: '/uploads/images/homepage/DSC00897.webp',
+    alt: 'VClick Media & Events — professional event photography in the UAE',
     className: 'absolute top-0 left-0 w-3/5 rotate-[-3deg] z-20',
   },
   {
-    src: '/uploads/images/gallery/events-exhibitions/1000417901.webp',
-    alt: 'VClick covering a large-scale ADFW conference in Abu Dhabi',
+    src: '/uploads/images/homepage/DSC05604.webp',
+    alt: 'VClick Media & Events — cinematic videography and event coverage',
     className: 'absolute top-16 right-0 w-1/2 rotate-[4deg] z-10',
   },
   {
-    src: '/uploads/images/gallery/fashion-lifestyle/DSC04879.webp',
-    alt: 'VClick fashion and lifestyle editorial photography in the UAE',
+    src: '/uploads/images/homepage/DSC06454.webp',
+    alt: 'VClick Media & Events — creative media production across the UAE',
     className: 'absolute bottom-0 left-10 w-2/3 rotate-[2deg] z-0',
   },
 ]

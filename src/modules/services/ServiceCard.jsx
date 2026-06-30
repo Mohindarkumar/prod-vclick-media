@@ -23,7 +23,7 @@ function ServiceCard({ service, index }) {
             src={service.image}
             alt={service.title}
             loading="lazy"
-            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+            className={`w-full h-full object-cover ${service.imagePosition ?? 'object-center'} group-hover:scale-110 transition-transform duration-500`}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/20 to-transparent" />
           <div className="absolute bottom-3 left-4 w-10 h-10 rounded-xl bg-ink/70 backdrop-blur-md border border-gold/30 flex items-center justify-center text-gold">

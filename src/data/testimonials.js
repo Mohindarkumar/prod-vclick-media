@@ -24,7 +24,7 @@ export const testimonials = [
   {
     id: 3,
     name: 'Fatima Al Suwaidi',
-    role: 'Bride, Ajman',
+    role: 'Bride, UAE',
     rating: 5,
     quote:
       'Our wedding film made me cry happy tears. VClick understood exactly what we wanted before we even had to explain it fully.',

@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import ScrollToTop from './components/layout/ScrollToTop'
 import CustomCursor from './components/ui/CustomCursor'
 import PageLoader from './components/ui/PageLoader'
+import { siteConfig } from './config/site.config'
 import { PageSpinner } from './components/ui/LazyLoader'
 import WhatsAppChat from './components/ui/WhatsAppChat'
 const HomePage = lazy(() => import('./pages/HomePage'))
@@ -33,7 +34,7 @@ function App() {
       {!appReady && <PageLoader onComplete={() => setAppReady(true)} />}
       <div style={{ visibility: appReady ? 'visible' : 'hidden' }}>
         <BrowserRouter>
-          <CustomCursor />
+          {siteConfig.customCursor === 1 && <CustomCursor />}
           <ScrollToTop />
           <Suspense fallback={<SuspenseFallback />}>
             <Routes>

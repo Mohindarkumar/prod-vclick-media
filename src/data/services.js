@@ -4,18 +4,12 @@ import {
   Camera,
   Video,
   Building2,
-  Heart,
-  Film,
-  Mic2,
   LayoutGrid,
-  Rocket,
   Sparkles,
   CalendarCheck,
   PartyPopper,
-  Info,
   Clapperboard,
   Smartphone,
-  Plane,
   Share2,
 } from 'lucide-react'
 
@@ -26,7 +20,7 @@ export const services = [
     title: 'Professional Photography',
     description:
       'High-resolution photography for brands, products, events, and portraits — shot with precision and finished with a professional editorial eye.',
-    image: '/uploads/images/gallery/fashion-lifestyle/DSC04817.webp',
+    image: '/uploads/images/services/photography.webp',
   },
   {
     id: 'professional-videography',
@@ -34,7 +28,8 @@ export const services = [
     title: 'Professional Videography',
     description:
       'Cinematic video production for campaigns, events, and brand stories — from single-camera shoots to full multi-crew productions.',
-    image: '/uploads/images/gallery/events-exhibitions/DSC03817.webp',
+    image: '/uploads/images/services/video.webp',
+    imagePosition: 'object-top',
   },
   {
     id: 'corporate-event-coverage',
@@ -45,44 +40,12 @@ export const services = [
     image: '/uploads/images/gallery/events-exhibitions/DSC_4108.webp',
   },
   {
-    id: 'wedding-photography',
-    icon: Heart,
-    title: 'Wedding Photography',
-    description:
-      'Timeless, emotionally resonant wedding photography that preserves the details, moments, and people that made your day unforgettable.',
-    image: '/uploads/images/gallery/fashion-lifestyle/SIB-1000.webp',
-  },
-  {
-    id: 'wedding-videography',
-    icon: Film,
-    title: 'Wedding Videography',
-    description:
-      'Cinematic wedding films crafted with the care your day deserves — edited, colour-graded, and ready to watch for decades to come.',
-    image: '/uploads/images/gallery/fashion-lifestyle/SIB-1007.webp',
-  },
-  {
-    id: 'conference-coverage',
-    icon: Mic2,
-    title: 'Conference Coverage',
-    description:
-      'Multi-camera coverage of keynotes, panels, and breakout sessions — professional photography and live-edit video cuts for post-event use.',
-    image: '/uploads/images/gallery/events-exhibitions/1000417901.webp',
-  },
-  {
     id: 'exhibition-coverage',
     icon: LayoutGrid,
     title: 'Exhibition Coverage',
     description:
       'Stand, booth, and visitor coverage across UAE trade shows and expos — every display, speaker, and interaction documented with precision.',
-    image: '/uploads/images/gallery/events-exhibitions/DSC_4446.webp',
-  },
-  {
-    id: 'product-launch-events',
-    icon: Rocket,
-    title: 'Product Launch Events',
-    description:
-      'End-to-end media production for product reveals and launch events that demand to be noticed and remembered long after the day.',
-    image: '/uploads/images/gallery/events-exhibitions/DSC03273.webp',
+    image: '/uploads/images/services/exhibition.webp',
   },
   {
     id: 'brand-activations',
@@ -93,12 +56,12 @@ export const services = [
     image: '/uploads/images/gallery/events-exhibitions/DSC03746.webp',
   },
   {
-    id: 'event-planning',
+    id: 'event-planning-coverage',
     icon: CalendarCheck,
-    title: 'Event Planning',
+    title: 'Event Planning & Coverage',
     description:
       'Full-service event planning and logistics management — from concept to execution, with a crew that keeps everything running exactly to plan.',
-    image: '/uploads/images/gallery/events-exhibitions/DSC03257.webp',
+    image: '/uploads/images/services/events.webp',
   },
   {
     id: 'entertainment-activities',
@@ -109,20 +72,13 @@ export const services = [
     image: '/uploads/images/gallery/events-exhibitions/DSC09155-10122.webp',
   },
   {
-    id: 'commercial-information-services',
-    icon: Info,
-    title: 'Commercial Information Services',
-    description:
-      'Informational and promotional media for commercial applications — interviews, explainers, corporate profiles, and product showcases.',
-    image: '/uploads/images/gallery/events-exhibitions/SIB_7475.webp',
-  },
-  {
     id: 'creative-media-production',
     icon: Clapperboard,
     title: 'Creative Media Production',
     description:
       'Concept-to-delivery creative production across formats and platforms — idea, script, shoot, edit, and deliver, all under one roof.',
     image: '/uploads/images/gallery/events-exhibitions/1000418208.webp',
+    imagePosition: 'object-top',
   },
   {
     id: 'digital-content-creation',
@@ -131,14 +87,7 @@ export const services = [
     description:
       'Platform-native content built for digital-first audiences — photography and video optimised for web, social, and streaming channels.',
     image: '/uploads/images/gallery/fashion-lifestyle/DSC05192.webp',
-  },
-  {
-    id: 'drone-photography',
-    icon: Plane,
-    title: 'Drone Photography',
-    description:
-      'Licensed aerial photography and videography across UAE airspace — sweeping perspectives for events, real estate, and location shoots.',
-    image: '/uploads/images/gallery/desert/SIB-3291.webp',
+    imagePosition: 'object-top',
   },
   {
     id: 'social-media-content-creation',
@@ -147,5 +96,6 @@ export const services = [
     description:
       'Scroll-stopping short-form and feed content engineered for digital engagement — made to perform on every platform, not just look good.',
     image: '/uploads/images/gallery/fashion-lifestyle/SIB-1004.webp',
+    imagePosition: 'object-top',
   },
 ]

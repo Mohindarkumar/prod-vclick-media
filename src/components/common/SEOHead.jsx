@@ -2,9 +2,9 @@ import { Helmet } from 'react-helmet-async'
 
 const SITE = 'https://www.vclickmedia.ae'
 const DEFAULT_TITLE =
-  'VClick Media & Events | Premium Photography, Videography & Event Management in Ajman, UAE'
+  'VClick Media & Events | Premium Photography, Videography & Event Management in UAE'
 const DEFAULT_DESCRIPTION =
-  'VClick Media & Events delivers cinematic photography, videography and full-service event production for corporate clients, weddings, exhibitions and brand activations across the UAE. Based in Ajman Free Zone.'
+  'VClick Media & Events delivers cinematic photography, videography and full-service event production for corporate clients, weddings, exhibitions and brand activations across the UAE.'
 const DEFAULT_OG_IMAGE = `${SITE}/og-image.jpg`
 
 const SOCIAL_LINKS = [

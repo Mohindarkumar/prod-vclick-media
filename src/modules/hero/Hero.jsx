@@ -16,7 +16,7 @@ const STATS = [
   { value: siteConfig.stats.events,   label: 'Events Delivered' },
   { value: siteConfig.stats.years,    label: 'Years Experience' },
   { value: siteConfig.stats.clients,  label: 'Happy Clients' },
-  { value: siteConfig.stats.location, label: 'Based in Ajman' },
+  { value: siteConfig.stats.location, label: 'Based in UAE' },
 ]
 
 const staggerContainer = {
@@ -109,22 +109,24 @@ function Hero({ section = null }) {
       id="home"
       ref={sectionRef}
       onMouseMove={handleMouseMove}
-      className="relative h-svh min-h-[700px] sm:min-h-[760px] w-full overflow-hidden flex flex-col pt-20 md:pt-24"
+      className="relative h-svh min-h-[700px] sm:min-h-[760px] w-full overflow-x-hidden flex flex-col pt-20 md:pt-24"
     >
-      {/* Background image with parallax */}
-      <motion.div
-        style={{ y: bgParallaxY }}
-        className="absolute inset-x-0 -top-[8%] h-[116%] will-change-transform"
-      >
-        <img
-          src="/uploads/images/gallery/events-exhibitions/DSC07433.webp"
-          alt="VClick event production — luxury venue with Burj Khalifa view"
-          className="w-full h-full object-cover object-center"
-          loading="eager"
-          decoding="async"
-          fetchPriority="high"
-        />
-      </motion.div>
+      {/* Background image — isolated clip so parallax never bleeds outside section */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+        <motion.div
+          style={{ y: bgParallaxY }}
+          className="absolute inset-x-0 -top-[8%] h-[116%] will-change-transform"
+        >
+          <img
+            src="/uploads/images/gallery/events-exhibitions/DSC07433.webp"
+            alt="VClick event production — luxury venue with Burj Khalifa view"
+            className="w-full h-full object-cover object-center"
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
+          />
+        </motion.div>
+      </div>
 
       {/* Cinematic gradient overlays */}
       <motion.div
@@ -196,14 +198,16 @@ function Hero({ section = null }) {
                   </span>
                 </motion.h1>
               </motion.div>
-              <motion.div variants={{ hidden: {}, visible: {} }} className="overflow-hidden pb-2 mb-1">
-                <motion.h1
-                  variants={maskReveal}
-                  className="text-4xl sm:text-5xl md:text-6xl lg:text-display-1 font-extrabold text-paper leading-[1.06] tracking-tight"
-                >
-                  {CONTENT.headlineLine2}
-                </motion.h1>
-              </motion.div>
+              {CONTENT.headlineLine2 && (
+                <motion.div variants={{ hidden: {}, visible: {} }} className="overflow-hidden pb-2 mb-1">
+                  <motion.h1
+                    variants={maskReveal}
+                    className="text-4xl sm:text-5xl md:text-6xl lg:text-display-1 font-extrabold text-paper leading-[1.06] tracking-tight"
+                  >
+                    {CONTENT.headlineLine2}
+                  </motion.h1>
+                </motion.div>
+              )}
             </>
           )}
 
@@ -287,7 +291,7 @@ function Hero({ section = null }) {
                   <dd className="text-[1.1rem] sm:text-[2rem] md:text-[2.5rem] font-extrabold gold-text-gradient leading-none tabular-nums">
                     {value}
                   </dd>
-                  <dt className="text-[10px] sm:text-[11px] md:text-[12px] text-mist/60 mt-1.5 sm:mt-2 md:mt-2.5 uppercase tracking-[0.05em] sm:tracking-[0.10em] leading-snug">
+                  <dt className="text-[10px] sm:text-[11px] md:text-[12px] text-mist/80 mt-1.5 sm:mt-2 md:mt-2.5 uppercase tracking-[0.05em] sm:tracking-[0.10em] leading-snug">
                     {label}
                   </dt>
                 </div>

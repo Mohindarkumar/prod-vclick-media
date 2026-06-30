@@ -4,8 +4,8 @@ export const siteConfig = {
   logoUrl: '/uploads/images/logos/logo.png',
   contact: {
     email: 'vclickmediauae@gmail.com',
-    phone: '+971 54 565 6291',
-    whatsapp: '971545656291',
+    phone: '+971 55 475 1644',
+    whatsapp: '971554751644',
     address: 'UAE',
     hours: 'Sun – Thu, 9:00 AM – 7:00 PM',
   },

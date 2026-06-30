@@ -109,7 +109,7 @@ function Hero({ section = null }) {
       id="home"
       ref={sectionRef}
       onMouseMove={handleMouseMove}
-      className="relative h-svh min-h-[580px] sm:min-h-[680px] w-full overflow-hidden flex flex-col pt-20 md:pt-24"
+      className="relative h-svh min-h-[580px] sm:min-h-[680px] 2xl:max-h-[800px] w-full overflow-hidden flex flex-col pt-20 md:pt-24"
     >
       {/* Background image with parallax */}
       <motion.div
@@ -163,7 +163,7 @@ function Hero({ section = null }) {
       {/* Main content */}
       <motion.div
         style={{ y: contentParallaxY }}
-        className="relative z-10 section-container w-full will-change-transform flex-1 flex items-start sm:items-center overflow-hidden"
+        className="relative z-10 section-container w-full will-change-transform flex-1 flex items-end 2xl:items-center overflow-hidden pb-6 md:pb-10 2xl:pb-0"
       >
         <motion.div
           className="max-w-3xl"

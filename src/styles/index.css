@@ -61,7 +61,7 @@
 
   /* Standard section container: full-bleed background, constrained content */
   .section-container {
-    @apply max-w-7xl mx-auto px-6 sm:px-8 lg:px-12;
+    @apply max-w-7xl xl:max-w-[1440px] 2xl:max-w-[1760px] mx-auto px-6 sm:px-8 lg:px-12;
   }
 
   .section-padding {

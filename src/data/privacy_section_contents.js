@@ -8,7 +8,7 @@ export const privacySectionContents = {
     title: 'Privacy Policy — VClick Media & Events',
     description:
       'Read the VClick Media & Events privacy policy — how we collect, use, and protect your personal information.',
-    url: 'https://www.vclickmedia.ae/privacy-policy',
+    url: 'https://www.vclickmedia.com/privacy-policy',
   },
 
   // ─── Page hero ───────────────────────────────────────────────────────────

@@ -17,7 +17,7 @@ import { homePage } from '../data/pages'
 import { siteConfig } from '../config/site.config'
 import { services } from '../data/services'
 
-const SITE = 'https://www.vclickmedia.ae'
+const SITE = 'https://www.vclickmedia.com'
 
 // Service ItemList — helps AI engines and search understand what we offer
 const servicesSchema = {

@@ -14,7 +14,7 @@ import { videoSectionContents } from '../data/video_section_contents'
 
 const { search: SEARCH, seo: SEO_CONTENT } = videoSectionContents
 
-const SITE = 'https://www.vclickmedia.ae'
+const SITE = 'https://www.vclickmedia.com'
 
 // VideoObject schemas for each static video
 const videoSchemas = allVideos.map((v) => ({

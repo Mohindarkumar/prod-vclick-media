@@ -16,7 +16,7 @@ import {
 import SEOHead from '../components/common/SEOHead'
 import { portfolioSectionContents } from '../data/portfolio_section_contents'
 
-const SITE = 'https://www.vclickmedia.ae'
+const SITE = 'https://www.vclickmedia.com'
 const PC   = portfolioSectionContents
 
 const PORTFOLIO_PAGE_SCHEMA = {

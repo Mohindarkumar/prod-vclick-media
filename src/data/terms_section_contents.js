@@ -8,7 +8,7 @@ export const termsSectionContents = {
     title: 'Terms of Service — VClick Media & Events',
     description:
       'Read the VClick Media & Events terms of service — the conditions governing use of our website and creative production services.',
-    url: 'https://www.vclickmedia.ae/terms-of-service',
+    url: 'https://www.vclickmedia.com/terms-of-service',
   },
 
   // ─── Page hero ───────────────────────────────────────────────────────────

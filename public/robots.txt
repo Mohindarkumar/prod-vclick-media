@@ -20,4 +20,4 @@ Allow: /
 User-agent: cohere-ai
 Allow: /
 
-Sitemap: https://www.vclickmedia.ae/sitemap.xml
+Sitemap: https://www.vclickmedia.com/sitemap.xml

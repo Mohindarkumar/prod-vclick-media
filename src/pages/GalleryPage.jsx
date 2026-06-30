@@ -9,7 +9,7 @@ import GalleryFilter from '../modules/gallery/GalleryFilter'
 import GalleryGrid from '../modules/gallery/GalleryGrid'
 import { galleryAlbums, galleryItems } from '../data/gallery'
 
-const SITE = 'https://www.vclickmedia.ae'
+const SITE = 'https://www.vclickmedia.com'
 
 const GALLERY_PAGE_SCHEMA = {
   '@context': 'https://schema.org',

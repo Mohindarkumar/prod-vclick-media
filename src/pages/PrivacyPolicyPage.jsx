@@ -9,7 +9,7 @@ import { privacySectionContents } from '../data/privacy_section_contents'
 const { seo: SEO, hero: HERO, content: CONTENT } = privacySectionContents
 
 const BREADCRUMBS = [
-  { name: 'Home', url: 'https://www.vclickmedia.ae' },
+  { name: 'Home', url: 'https://www.vclickmedia.com' },
   { name: HERO.heading, url: SEO.url },
 ]
 

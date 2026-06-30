@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet-async'
+import { siteConfig } from '../../config/site.config'
 
-const SITE = 'https://www.vclickmedia.ae'
+const SITE = 'https://www.vclickmedia.com'
 const DEFAULT_TITLE =
   'VClick Media & Events | Premium Photography, Videography & Event Management in UAE'
 const DEFAULT_DESCRIPTION =
@@ -30,8 +31,8 @@ const ORG_SCHEMA = {
   image: DEFAULT_OG_IMAGE,
   description:
     'UAE-based creative media production house and event management company delivering cinematic photography, videography, drone coverage and full-service event production across all seven Emirates.',
-  telephone: '+971554751644',
-  email: 'vclickmediauae@gmail.com',
+  telephone: siteConfig.contact.phone,
+  email: siteConfig.contact.email,
   address: {
     '@type': 'PostalAddress',
     streetAddress: 'Ajman Free Zone',
@@ -93,8 +94,8 @@ function buildLocalBusiness(phone, socialLinks) {
     name: 'VClick Media & Events',
     image: DEFAULT_OG_IMAGE,
     url: SITE,
-    telephone: phone || '+971-50-000-0000',
-    email: 'vclickmediauae@gmail.com',
+    telephone: phone || siteConfig.contact.phone,
+    email: siteConfig.contact.email,
     address: {
       '@type': 'PostalAddress',
       streetAddress: 'Ajman Free Zone',

@@ -76,7 +76,7 @@ export const services = [
     title: 'Special Occasions',
     description:
       'Beautifully crafted coverage for birthdays, anniversaries, baby showers, and life\'s most cherished milestones — every frame preserved with cinematic quality to relive the moment forever.',
-    image: '/uploads/images/services/events.webp',
+    image: '/uploads/images/services/special-occasions.webp',
   },
   {
     id: 'social-media-content-creation',

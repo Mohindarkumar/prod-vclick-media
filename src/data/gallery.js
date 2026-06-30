@@ -8,6 +8,7 @@ export const galleryAlbumOrder = [
   'Events & Exhibitions',
   'Fashion & Lifestyle',
   'Desert',
+  'Special Occasions',
   'Sports',
   'Weddings',
 ]
@@ -126,4 +127,24 @@ export const galleryItems = [
   { id: 'sports-14', image: '/uploads/images/gallery/sports/DSC_9124.webp',   album: 'Sports', orientation: 'landscape', title: '', caption: null },
   { id: 'sports-15', image: '/uploads/images/gallery/sports/DSC_9326.webp',   album: 'Sports', orientation: 'landscape', title: '', caption: null },
   { id: 'sports-16', image: '/uploads/images/gallery/sports/DSC_9654.webp',   album: 'Sports', orientation: 'landscape', title: '', caption: null },
+
+  // ── Special Occasions (18 images) ────────────────────────────────────────
+  { id: 'special-1',  image: '/uploads/images/gallery/special-occasions/1000253192.webp', album: 'Special Occasions', orientation: 'portrait',  title: '', caption: null },
+  { id: 'special-2',  image: '/uploads/images/gallery/special-occasions/1000253314.webp', album: 'Special Occasions', orientation: 'landscape', title: '', caption: null },
+  { id: 'special-3',  image: '/uploads/images/gallery/special-occasions/1000467508.webp', album: 'Special Occasions', orientation: 'portrait',  title: '', caption: null },
+  { id: 'special-4',  image: '/uploads/images/gallery/special-occasions/1000476947.webp', album: 'Special Occasions', orientation: 'portrait',  title: '', caption: null },
+  { id: 'special-5',  image: '/uploads/images/gallery/special-occasions/1000476963.webp', album: 'Special Occasions', orientation: 'portrait',  title: '', caption: null },
+  { id: 'special-6',  image: '/uploads/images/gallery/special-occasions/DSC00626.webp',   album: 'Special Occasions', orientation: 'landscape', title: '', caption: null },
+  { id: 'special-7',  image: '/uploads/images/gallery/special-occasions/DSC00698.webp',   album: 'Special Occasions', orientation: 'landscape', title: '', caption: null },
+  { id: 'special-8',  image: '/uploads/images/gallery/special-occasions/DSC00897.webp',   album: 'Special Occasions', orientation: 'landscape', title: '', caption: null },
+  { id: 'special-9',  image: '/uploads/images/gallery/special-occasions/DSC01041.webp',   album: 'Special Occasions', orientation: 'landscape', title: '', caption: null },
+  { id: 'special-10', image: '/uploads/images/gallery/special-occasions/DSC04696.webp',   album: 'Special Occasions', orientation: 'landscape', title: '', caption: null },
+  { id: 'special-11', image: '/uploads/images/gallery/special-occasions/DSC05604.webp',   album: 'Special Occasions', orientation: 'landscape', title: '', caption: null },
+  { id: 'special-12', image: '/uploads/images/gallery/special-occasions/DSC05932.webp',   album: 'Special Occasions', orientation: 'landscape', title: '', caption: null },
+  { id: 'special-13', image: '/uploads/images/gallery/special-occasions/DSC07089.webp',   album: 'Special Occasions', orientation: 'portrait',  title: '', caption: null },
+  { id: 'special-14', image: '/uploads/images/gallery/special-occasions/DSC_1186.webp',   album: 'Special Occasions', orientation: 'landscape', title: '', caption: null },
+  { id: 'special-15', image: '/uploads/images/gallery/special-occasions/DSC_1275.webp',   album: 'Special Occasions', orientation: 'portrait',  title: '', caption: null },
+  { id: 'special-16', image: '/uploads/images/gallery/special-occasions/DSC_1957.webp',   album: 'Special Occasions', orientation: 'landscape', title: '', caption: null },
+  { id: 'special-17', image: '/uploads/images/gallery/special-occasions/DSC_2057.webp',   album: 'Special Occasions', orientation: 'landscape', title: '', caption: null },
+  { id: 'special-18', image: '/uploads/images/gallery/special-occasions/DSC_7668.webp',   album: 'Special Occasions', orientation: 'landscape', title: '', caption: null },
 ]

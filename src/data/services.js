@@ -67,7 +67,7 @@ export const services = [
     title: 'Panoramic 360° Photo Tour',
     description:
       'Immersive 360-degree virtual tours for hotels, venues, showrooms, and real estate — let clients explore your space from anywhere in the world.',
-    image: '/uploads/images/services/panoramic-360.webp',
+    image: '/uploads/images/services/360-photo.webp',
   },
   {
     id: 'social-media-content-creation',
@@ -75,7 +75,6 @@ export const services = [
     title: 'Social Media Content Creation',
     description:
       'Scroll-stopping short-form and feed content engineered for digital engagement — made to perform on every platform, not just look good.',
-    image: '/uploads/images/gallery/fashion-lifestyle/SIB-1004.webp',
-    imagePosition: 'object-top',
+    image: '/uploads/images/services/social-media-content.webp',
   },
 ]

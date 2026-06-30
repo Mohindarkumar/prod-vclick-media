@@ -3,6 +3,7 @@ import { Target, Eye, Clock, Users } from 'lucide-react'
 import SectionEyebrow from '../../components/common/SectionEyebrow'
 import GoldDivider from '../../components/common/GoldDivider'
 import { homeSectionContents } from '../../data/home_section_contents'
+import { siteConfig } from '../../config/site.config'
 
 const { about: CONTENT } = homeSectionContents
 
@@ -32,6 +33,15 @@ const COLLAGE_CLASSES = [
   'absolute bottom-0 left-10 w-2/3 rotate-[2deg] z-0',
 ]
 
+// Resolve pillar visibility → Tailwind class
+// Breakpoint: mobile = <lg, website = lg+
+function pillarsVisibilityClass(website, mobile) {
+  if (website && mobile)   return 'grid'          // both visible
+  if (website && !mobile)  return 'hidden lg:grid' // desktop only
+  if (!website && mobile)  return 'grid lg:hidden'  // mobile only
+  return 'hidden'                                   // both 0 → hidden
+}
+
 function AboutSection({ section = null }) {
   const heading       = section?.title    || CONTENT.heading
   const bodyText      = section?.subtitle || CONTENT.body
@@ -39,6 +49,9 @@ function AboutSection({ section = null }) {
   const pillars       = cmsPillars?.length ? cmsPillars : CONTENT.pillars
   const cmsImages     = section?.content?.images
   const collageImages = cmsImages?.length ? cmsImages : COLLAGE_IMAGES
+
+  const { website: pweb = 0, mobile: pmob = 0 } = siteConfig.sections?.about?.pillars ?? {}
+  const pillarsClass = pillarsVisibilityClass(pweb, pmob)
 
   return (
     <section id="about" className="pt-6 md:pt-8 pb-14 md:pb-20 bg-ink overflow-hidden">
@@ -70,7 +83,7 @@ function AboutSection({ section = null }) {
             {bodyText}
           </motion.p>
 
-          <div className="mt-8 md:mt-12 grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
+          <div className={`mt-8 md:mt-12 ${pillarsClass} grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8`}>
             {pillars.map((pillar, index) => {
               const Icon  = PILLAR_ICONS[index % PILLAR_ICONS.length]
               const label = pillar.label || pillar.title

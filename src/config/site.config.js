@@ -30,6 +30,21 @@ export const siteConfig = {
     fontFamily: 'Poppins',
   },
   /**
+   * sections — per-section visibility flags
+   *
+   * about.pillars controls the "Our Vision & Our Values" card grid.
+   *   website: 1 = show on desktop (lg+)   | 0 = hide on desktop
+   *   mobile:  1 = show on mobile  (<lg)   | 0 = hide on mobile
+   *   both 0 → hidden everywhere (default)
+   *   both 1 → visible everywhere
+   */
+  sections: {
+    about: {
+      pillars: { website: 0, mobile: 0 },
+    },
+  },
+
+  /**
    * customCursor: 1 = enable the custom animated cursor (desktop only)
    *               0 = disable — restores the default browser/system cursor
    */

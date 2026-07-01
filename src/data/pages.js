@@ -11,7 +11,7 @@ export const homePage = {
       subtitle: 'VClick delivers cinematic photography, videography, and full-service event production for brands, weddings, and exhibitions across the UAE.',
       content: {
         eyebrow: 'Premium Media & Events · UAE',
-        cta_primary:   { label: 'Get a Consultation', href: '#contact' },
+        cta_primary:   { label: 'Book Now', href: '#contact' },
         cta_secondary: { label: 'Call Us Now', href: 'tel:+97150000000' },
         service_tags: ['Photography', 'Videography', 'Luxury Events', 'Media Production'],
       },

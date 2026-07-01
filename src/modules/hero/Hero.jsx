@@ -73,7 +73,7 @@ const isTouchDevice = typeof window !== 'undefined'
 function Hero({ section = null }) {
   const prefersReducedMotion = usePrefersReducedMotion()
   const sectionRef = useRef(null)
-  const [glowPosition, setGlowPosition]           = useState({ x: 50, y: 50 })
+  const glowRef    = useRef(null)
   const [showScrollIndicator, setShowScrollIndicator] = useState(true)
 
   const cmsTitle    = section?.title    || null
@@ -93,22 +93,30 @@ function Hero({ section = null }) {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const handleMouseMove = (event) => {
-    if (disableParallax || !sectionRef.current) return
-    const rect = sectionRef.current.getBoundingClientRect()
-    setGlowPosition({
-      x: ((event.clientX - rect.left) / rect.width) * 100,
-      y: ((event.clientY - rect.top)  / rect.height) * 100,
-    })
-  }
+  // Direct DOM update on mousemove — no React re-renders, same pattern as CustomCursor
+  useEffect(() => {
+    const section = sectionRef.current
+    if (!section) return
 
-  const showGlow = !disableParallax
+    const onMove = (e) => {
+      const glow = glowRef.current
+      if (!glow) return
+      const rect = section.getBoundingClientRect()
+      const x = ((e.clientX - rect.left) / rect.width) * 100
+      const y = ((e.clientY - rect.top)  / rect.height) * 100
+      glow.style.background = `radial-gradient(350px circle at ${x}% ${y}%, rgba(212,175,55,0.06), rgba(255,183,3,0.02) 48%, transparent 72%)`
+    }
+
+    section.addEventListener('mousemove', onMove, { passive: true })
+    return () => section.removeEventListener('mousemove', onMove)
+  }, [])
+
+  const showGlow = true
 
   return (
     <section
       id="home"
       ref={sectionRef}
-      onMouseMove={handleMouseMove}
       className="relative h-svh min-h-[580px] sm:min-h-[680px] 2xl:max-h-[800px] w-full overflow-x-hidden flex flex-col pt-20 md:pt-24"
     >
       {/* Background image with parallax — clipped independently so stats bar is never affected */}
@@ -150,14 +158,11 @@ function Hero({ section = null }) {
         aria-hidden="true"
       />
 
-      {/* Ambient gold cursor glow */}
+      {/* Ambient gold cursor glow — background written directly via glowRef, no re-renders */}
       {showGlow && (
         <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: `radial-gradient(500px circle at ${glowPosition.x}% ${glowPosition.y}%, rgba(212,175,55,0.14), rgba(255,183,3,0.06) 48%, transparent 72%)`,
-            transition: 'background 0.4s ease',
-          }}
+          ref={glowRef}
+          className="absolute inset-0 pointer-events-none z-[5]"
           aria-hidden="true"
         />
       )}

@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import SEOHead from '../components/common/SEOHead'
 import Navbar from '../components/layout/Navbar'
@@ -33,6 +33,14 @@ function GalleryPage() {
   const [searchParams] = useSearchParams()
   const [activeAlbum, setActiveAlbum] = useState(searchParams.get('album') || 'All')
   const [lightboxIndex, setLightboxIndex] = useState(null)
+
+  useEffect(() => {
+    const album = searchParams.get('album')
+    if (album) setActiveAlbum(album)
+    else setActiveAlbum('All')
+    setLightboxIndex(null)
+    window.scrollTo({ top: 0, behavior: 'instant' })
+  }, [searchParams])
 
   const filteredItems = useMemo(() => {
     if (activeAlbum === 'All') return galleryItems

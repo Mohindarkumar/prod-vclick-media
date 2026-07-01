@@ -50,7 +50,10 @@ function Navbar() {
     return () => { document.body.style.overflow = '' }
   }, [isMobileMenuOpen])
 
-  const handleLinkClick = () => setIsMobileMenuOpen(false)
+  const handleLinkClick = () => {
+    document.body.style.overflow = ''  // restore immediately so anchor hash-scroll fires before useEffect
+    setIsMobileMenuOpen(false)
+  }
   const hasMobileMenu = VISIBLE_NAV_LINKS.length > 0
 
   /**
@@ -157,7 +160,7 @@ function Navbar() {
           {/* Desktop CTA */}
           <div className="hidden lg:block flex-shrink-0">
             <Button as="a" href={pathname === '/' ? '#contact' : '/#contact'} variant="primary">
-              Get a Consultation
+              Book Now
             </Button>
           </div>
 
@@ -239,7 +242,7 @@ function Navbar() {
                   variant="primary"
                   onClick={handleLinkClick}
                 >
-                  Get a Consultation
+                  Book Now
                 </Button>
               </motion.li>
             </motion.ul>

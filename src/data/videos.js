@@ -29,6 +29,18 @@ export const videos = [
 
   // ─── Events ──────────────────────────────────────────────────────────────
   {
+    id: 'event-2',
+    title: 'Events in Motion',
+    description:
+      'Real moments. Real energy. Watch how we capture every handshake, every cheer, and every emotion that makes your event truly come alive — turning a single occasion into a cinematic story worth reliving.',
+    category: 'Events',
+    video_type: 'youtube',
+    video_url: 'https://youtu.be/cHWgMzJ72PU?si=5VDvCSQQdNZrzU9k',
+    thumbnail_url: '/uploads/videos/gallery/events/event_thumb2.webp',
+    is_featured: true,
+    duration: 162,
+  },
+  {
     id: 'event-1',
     title: 'Live Event Coverage',
     description:

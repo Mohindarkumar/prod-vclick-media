@@ -18,7 +18,7 @@ export const homeSectionContents = {
       { label: 'Luxury Events' },
       { label: 'Media Production' },
     ],
-    ctaPrimary: 'Get a Consultation',
+    ctaPrimary: 'Book Now',
     ctaSecondary: 'Call Us Now',
   },
 

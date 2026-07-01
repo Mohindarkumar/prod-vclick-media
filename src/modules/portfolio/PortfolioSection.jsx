@@ -29,7 +29,7 @@ const SHOWREEL_SLIDES = [
 const SHOWREEL_ITEM = {
   title: 'Recent Captures',
   description: 'A curated look at our finest photography — events, fashion, and unforgettable moments captured across the UAE.',
-  category: 'Photography',
+  category: '',
   stat_value: `${galleryItems.length}`,
   stat_label: 'Photos',
   link_type: 'gallery',

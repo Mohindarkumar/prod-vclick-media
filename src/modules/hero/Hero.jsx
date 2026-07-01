@@ -16,7 +16,7 @@ const STATS = [
   { value: siteConfig.stats.events,   label: 'Events Delivered' },
   { value: siteConfig.stats.years,    label: 'Years Experience' },
   { value: siteConfig.stats.clients,  label: 'Happy Clients' },
-  { value: siteConfig.stats.location, label: 'Based in UAE' },
+  { value: siteConfig.stats.location, label: 'Presence' },
 ]
 
 const staggerContainer = {
@@ -109,22 +109,24 @@ function Hero({ section = null }) {
       id="home"
       ref={sectionRef}
       onMouseMove={handleMouseMove}
-      className="relative h-svh min-h-[580px] sm:min-h-[680px] 2xl:max-h-[800px] w-full overflow-hidden flex flex-col pt-20 md:pt-24"
+      className="relative h-svh min-h-[580px] sm:min-h-[680px] 2xl:max-h-[800px] w-full overflow-x-hidden flex flex-col pt-20 md:pt-24"
     >
-      {/* Background image with parallax */}
-      <motion.div
-        style={{ y: bgParallaxY }}
-        className="absolute inset-x-0 -top-[8%] h-[116%] will-change-transform"
-      >
-        <img
-          src="/uploads/images/homepage/home_bg.jpeg"
-          alt="VClick Media — cinematic background"
-          className="w-full h-full object-cover object-center"
-          loading="eager"
-          decoding="async"
-          fetchPriority="high"
-        />
-      </motion.div>
+      {/* Background image with parallax — clipped independently so stats bar is never affected */}
+      <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
+        <motion.div
+          style={{ y: bgParallaxY }}
+          className="absolute inset-x-0 -top-[8%] h-[116%] will-change-transform"
+        >
+          <img
+            src="/uploads/images/homepage/home_bg.jpeg"
+            alt=""
+            className="w-full h-full object-cover object-center"
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
+          />
+        </motion.div>
+      </div>
 
       {/* Cinematic gradient overlays */}
       <motion.div
@@ -263,17 +265,17 @@ function Hero({ section = null }) {
 
       {/* Stats bar */}
       <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 1.1, ease: [0.22, 1, 0.36, 1] }}
-        className="relative z-10 w-full"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, delay: 1.1, ease: 'easeOut' }}
+        className="relative z-10 w-full flex-none"
         aria-label="Key statistics"
       >
         <div
-          className="section-container pt-2 pb-2 sm:pt-8 sm:pb-8 border-t"
+          className="section-container pt-3 pb-4 sm:pt-6 sm:pb-8 border-t"
           style={{ borderColor: 'rgba(255,255,255,0.12)' }}
         >
-          <dl className="grid grid-cols-2 gap-y-3 sm:gap-y-8">
+          <dl className="grid grid-cols-2 gap-y-4 sm:gap-y-8">
             {STATS.map(({ value, label }, i) => {
               const isRight  = i % 2 === 1
               const isBottom = i >= 2
@@ -282,7 +284,6 @@ function Hero({ section = null }) {
                   key={label}
                   className={`relative flex flex-col ${isRight ? 'pl-4 sm:pl-10 md:pl-14' : 'pr-4 sm:pr-10 md:pr-14'}`}
                 >
-                  {/* Vertical divider — right column */}
                   {isRight && (
                     <span
                       className="absolute left-0 top-0 bottom-0"
@@ -290,10 +291,9 @@ function Hero({ section = null }) {
                       aria-hidden="true"
                     />
                   )}
-                  {/* Horizontal divider — bottom row (hidden on mobile to prevent visual break) */}
                   {isBottom && (
                     <span
-                      className="absolute left-0 right-0 -top-1.5 sm:-top-4 hidden sm:block"
+                      className="absolute left-0 right-0 -top-2 sm:-top-4"
                       style={{ height: '1px', backgroundColor: 'rgba(255,255,255,0.14)' }}
                       aria-hidden="true"
                     />

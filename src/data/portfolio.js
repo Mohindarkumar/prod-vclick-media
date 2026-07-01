@@ -48,7 +48,7 @@ export const portfolioItems = [
     id: 5,
     title: 'Desert Photography',
     categories: ['Drone Shots', 'Commercial'],
-    image: '/uploads/images/gallery/desert/SIB-3291.webp',
+    image: '/uploads/images/gallery/desert/SIB-3349.webp',
     span: 'row-span-1',
   },
   {

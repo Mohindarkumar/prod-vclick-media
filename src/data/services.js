@@ -36,7 +36,7 @@ export const services = [
     title: 'Corporate Event Coverage',
     description:
       'Full media documentation of your conference, awards ceremony, or corporate milestone — stills and video delivered on a professional timeline.',
-    image: '/uploads/images/gallery/events-exhibitions/DSC03602.webp',
+    image: '/uploads/images/services/business-team-in-dubai.webp',
   },
   {
     id: 'exhibition-coverage',
@@ -52,7 +52,7 @@ export const services = [
     title: 'Event Planning & Coverage',
     description:
       'Full-service event planning and logistics management — from concept to execution, with a crew that keeps everything running exactly to plan.',
-    image: '/uploads/images/gallery/events-exhibitions/DSC03257.webp',
+    image: '/uploads/images/services/banquet-hall.webp',
   },
   {
     id: 'entertainment-activities',

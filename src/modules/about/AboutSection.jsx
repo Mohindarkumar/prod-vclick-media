@@ -21,7 +21,7 @@ const COLLAGE_IMAGES = [
     className: 'absolute top-16 right-0 w-1/2 rotate-[4deg] z-10',
   },
   {
-    src: '/uploads/images/homepage/DSC06454.webp',
+    src: '/uploads/images/homepage/DSC_1320.webp',
     alt: 'VClick Media & Events — creative media production across the UAE',
     className: 'absolute bottom-0 left-10 w-2/3 rotate-[2deg] z-0',
   },

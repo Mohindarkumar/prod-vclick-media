@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { ArrowRight, Camera, Video } from 'lucide-react'
 import SectionEyebrow from '../../components/common/SectionEyebrow'
 import GoldDivider from '../../components/common/GoldDivider'
+import { galleryItems } from '../../data/gallery'
 
 // ─── YouTube video config ──────────────────────────────────────────────────
 // Replace YOUTUBE_VIDEO_ID with VClick's actual YouTube video ID
@@ -11,26 +12,26 @@ const YOUTUBE_VIDEO_ID = 'cHWgMzJ72PU'
 
 // ─── Showreel slide images ─────────────────────────────────────────────────
 const SHOWREEL_SLIDES = [
-  '/uploads/images/gallery/events-exhibitions/DSC07433.webp',
+  '/uploads/images/gallery/exhibitions/DSC_4136.webp',
   '/uploads/images/gallery/fashion-lifestyle/SIB-1002.webp',
-  '/uploads/images/gallery/events-exhibitions/DSC03817.webp',
+  '/uploads/images/gallery/events/DSC03817.webp',
   '/uploads/images/homepage/DSC00897.webp',
-  '/uploads/images/gallery/events-exhibitions/DSC_4108.webp',
+  '/uploads/images/gallery/events/DSC_4108.webp',
   '/uploads/images/gallery/fashion-lifestyle/DSC04817.webp',
   '/uploads/images/homepage/DSC05604.webp',
-  '/uploads/images/gallery/events-exhibitions/DSC03148.webp',
-  '/uploads/images/gallery/events-exhibitions/DSC06759.webp',
+  '/uploads/images/gallery/events/DSC03148.webp',
+  '/uploads/images/gallery/exhibitions/DSC06759.webp',
   '/uploads/images/homepage/DSC06454.webp',
-  '/uploads/images/gallery/events-exhibitions/DSC_4230.webp',
-  '/uploads/images/gallery/events-exhibitions/1000417901.webp',
+  '/uploads/images/gallery/exhibitions/DSC_4231.webp',
+  '/uploads/images/gallery/events/1000417901.webp',
 ]
 
 const SHOWREEL_ITEM = {
   title: 'Recent Captures',
   description: 'A curated look at our finest photography — events, fashion, and unforgettable moments captured across the UAE.',
   category: 'Photography',
-  stat_value: '450+',
-  stat_label: 'Captures',
+  stat_value: `${galleryItems.length}`,
+  stat_label: 'Photos',
   link_type: 'gallery',
 }
 

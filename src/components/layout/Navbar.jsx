@@ -110,81 +110,85 @@ function Navbar() {
   }
 
   return (
-    <header
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
-        isScrolled
-          ? 'bg-ink/85 backdrop-blur-xl shadow-[0_1px_0_rgba(255,255,255,0.08)]'
-          : 'bg-transparent'
-      }`}
-    >
-      {/* ── Scroll progress bar ──────────────────────────────────────────── */}
-      <motion.div
-        className="absolute bottom-0 left-0 right-0 h-[2px] bg-gold-sweep origin-left"
-        style={{ scaleX }}
-        aria-hidden="true"
-      />
-
-      <nav
-        className="section-container flex items-center justify-between py-4 md:py-5"
-        aria-label="Primary"
+    <>
+      <header
+        className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
+          isScrolled
+            ? 'bg-ink/85 backdrop-blur-xl shadow-[0_1px_0_rgba(255,255,255,0.08)]'
+            : 'bg-transparent'
+        }`}
       >
-        {/* Logo — always navigates to root */}
-        <motion.div whileHover={{ opacity: 0.82 }} transition={{ duration: 0.2 }}>
-          <Link
-            to="/"
-            className="flex-shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded"
-          >
-            <img
-              src={siteConfig.logoUrl || logo}
-              alt={siteConfig.name}
-              className="h-10 w-auto object-contain"
-            />
-          </Link>
-        </motion.div>
+        {/* ── Scroll progress bar ──────────────────────────────────────────── */}
+        <motion.div
+          className="absolute bottom-0 left-0 right-0 h-[2px] bg-gold-sweep origin-left"
+          style={{ scaleX }}
+          aria-hidden="true"
+        />
 
-        {/* Desktop nav links — visible at lg (1024px+) */}
-        {VISIBLE_NAV_LINKS.length > 0 && (
-          <ul className="hidden lg:flex items-center gap-5 xl:gap-7" role="list">
-            {VISIBLE_NAV_LINKS.map((link) => (
-              <li key={link.href}>
-                {renderLink(link)}
-              </li>
-            ))}
-          </ul>
-        )}
+        <nav
+          className="section-container flex items-center justify-between py-4 md:py-5"
+          aria-label="Primary"
+        >
+          {/* Logo — always navigates to root */}
+          <motion.div whileHover={{ opacity: 0.82 }} transition={{ duration: 0.2 }}>
+            <Link
+              to="/"
+              className="flex-shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded"
+            >
+              <img
+                src={siteConfig.logoUrl || logo}
+                alt={siteConfig.name}
+                className="h-10 w-auto object-contain"
+              />
+            </Link>
+          </motion.div>
 
-        {/* Desktop CTA */}
-        <div className="hidden lg:block flex-shrink-0">
-          <Button as="a" href={pathname === '/' ? '#contact' : '/#contact'} variant="primary">
-            Get a Consultation
-          </Button>
-        </div>
+          {/* Desktop nav links — visible at lg (1024px+) */}
+          {VISIBLE_NAV_LINKS.length > 0 && (
+            <ul className="hidden lg:flex items-center gap-5 xl:gap-7" role="list">
+              {VISIBLE_NAV_LINKS.map((link) => (
+                <li key={link.href}>
+                  {renderLink(link)}
+                </li>
+              ))}
+            </ul>
+          )}
 
-        {/* Mobile/tablet hamburger — hidden at lg+ */}
-        {hasMobileMenu && (
-          <button
-            type="button"
-            onClick={() => setIsMobileMenuOpen(true)}
-            className="lg:hidden text-paper p-2.5 -mr-1 touch-manipulation"
-            aria-label="Open navigation menu"
-            aria-expanded={isMobileMenuOpen}
-            aria-controls="mobile-menu"
-          >
-            <HamburgerIcon />
-          </button>
-        )}
-      </nav>
+          {/* Desktop CTA */}
+          <div className="hidden lg:block flex-shrink-0">
+            <Button as="a" href={pathname === '/' ? '#contact' : '/#contact'} variant="primary">
+              Get a Consultation
+            </Button>
+          </div>
 
-      {/* ── Mobile full-screen overlay ─────────────────────────────────────── */}
+          {/* Mobile/tablet hamburger — hidden at lg+ and when menu is open */}
+          {hasMobileMenu && !isMobileMenuOpen && (
+            <button
+              type="button"
+              onClick={() => setIsMobileMenuOpen(true)}
+              className="lg:hidden text-paper p-2.5 -mr-1 touch-manipulation"
+              aria-label="Open navigation menu"
+              aria-expanded={false}
+              aria-controls="mobile-menu"
+            >
+              <HamburgerIcon />
+            </button>
+          )}
+        </nav>
+      </header>
+
+      {/* ── Mobile full-screen overlay — rendered outside <header> so it sits
+           in the root stacking context and covers all page sections ─────── */}
       <AnimatePresence>
         {isMobileMenuOpen && hasMobileMenu && (
           <motion.div
             id="mobile-menu"
+            key="mobile-menu"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-50 bg-ink/96 backdrop-blur-xl lg:hidden overflow-y-auto"
+            className="fixed inset-0 z-[200] bg-ink/96 backdrop-blur-xl lg:hidden overflow-y-auto"
             role="dialog"
             aria-modal="true"
             aria-label="Mobile navigation"
@@ -242,7 +246,7 @@ function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </>
   )
 }
 

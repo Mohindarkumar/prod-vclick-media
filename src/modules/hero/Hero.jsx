@@ -163,7 +163,7 @@ function Hero({ section = null }) {
       {/* Main content */}
       <motion.div
         style={{ y: contentParallaxY }}
-        className="relative z-10 section-container w-full will-change-transform flex-1 flex items-end 2xl:items-center overflow-hidden pb-6 md:pb-10 2xl:pb-0"
+        className="relative z-10 section-container w-full will-change-transform flex-1 flex items-end 2xl:items-center pb-6 md:pb-10 2xl:pb-0"
       >
         <motion.div
           className="max-w-3xl"
@@ -270,10 +270,10 @@ function Hero({ section = null }) {
         aria-label="Key statistics"
       >
         <div
-          className="section-container pt-4 pb-4 sm:pt-8 sm:pb-8 border-t"
+          className="section-container pt-2 pb-2 sm:pt-8 sm:pb-8 border-t"
           style={{ borderColor: 'rgba(255,255,255,0.12)' }}
         >
-          <dl className="grid grid-cols-2 gap-y-5 sm:gap-y-8">
+          <dl className="grid grid-cols-2 gap-y-3 sm:gap-y-8">
             {STATS.map(({ value, label }, i) => {
               const isRight  = i % 2 === 1
               const isBottom = i >= 2
@@ -290,10 +290,10 @@ function Hero({ section = null }) {
                       aria-hidden="true"
                     />
                   )}
-                  {/* Horizontal divider — bottom row */}
+                  {/* Horizontal divider — bottom row (hidden on mobile to prevent visual break) */}
                   {isBottom && (
                     <span
-                      className="absolute left-0 right-0 -top-2.5 sm:-top-4"
+                      className="absolute left-0 right-0 -top-1.5 sm:-top-4 hidden sm:block"
                       style={{ height: '1px', backgroundColor: 'rgba(255,255,255,0.14)' }}
                       aria-hidden="true"
                     />

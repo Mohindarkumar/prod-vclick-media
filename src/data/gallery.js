@@ -10,6 +10,7 @@ export const galleryAlbumOrder = [
   'Fashion & Lifestyle',
   'Desert',
   'Special Occasions',
+  'Outdoor Ad',
   'Sports',
   'Weddings',
 ]
@@ -100,6 +101,24 @@ export const galleryItems = [
   { id: 'wedding-3', image: '/uploads/images/gallery/wedding/wedding-3.webp', album: 'Weddings', orientation: 'landscape', title: '', caption: null },
   { id: 'wedding-4', image: '/uploads/images/gallery/wedding/wedding-4.webp', album: 'Weddings', orientation: 'landscape', title: '', caption: null },
   { id: 'wedding-5', image: '/uploads/images/gallery/wedding/wedding-5.webp', album: 'Weddings', orientation: 'landscape', title: '', caption: null },
+
+  // ── Outdoor Ad (16 images) ────────────────────────────────────────────────
+  { id: 'outdoor-ad-1',  image: '/uploads/images/gallery/outdoor-ad/SIB_Ad-1000.webp', album: 'Outdoor Ad', orientation: 'landscape', title: '', caption: null },
+  { id: 'outdoor-ad-2',  image: '/uploads/images/gallery/outdoor-ad/SIB_Ad-1001.webp', album: 'Outdoor Ad', orientation: 'landscape', title: '', caption: null },
+  { id: 'outdoor-ad-3',  image: '/uploads/images/gallery/outdoor-ad/SIB_Ad-1002.webp', album: 'Outdoor Ad', orientation: 'landscape', title: '', caption: null },
+  { id: 'outdoor-ad-4',  image: '/uploads/images/gallery/outdoor-ad/SIB_Ad-1003.webp', album: 'Outdoor Ad', orientation: 'landscape', title: '', caption: null },
+  { id: 'outdoor-ad-5',  image: '/uploads/images/gallery/outdoor-ad/SIB_Ad-1004.webp', album: 'Outdoor Ad', orientation: 'landscape', title: '', caption: null },
+  { id: 'outdoor-ad-6',  image: '/uploads/images/gallery/outdoor-ad/SIB_Ad-1005.webp', album: 'Outdoor Ad', orientation: 'landscape', title: '', caption: null },
+  { id: 'outdoor-ad-7',  image: '/uploads/images/gallery/outdoor-ad/SIB_Ad-1006.webp', album: 'Outdoor Ad', orientation: 'landscape', title: '', caption: null },
+  { id: 'outdoor-ad-8',  image: '/uploads/images/gallery/outdoor-ad/SIB_Ad-1007.webp', album: 'Outdoor Ad', orientation: 'landscape', title: '', caption: null },
+  { id: 'outdoor-ad-9',  image: '/uploads/images/gallery/outdoor-ad/SIB_Ad-1008.webp', album: 'Outdoor Ad', orientation: 'landscape', title: '', caption: null },
+  { id: 'outdoor-ad-10', image: '/uploads/images/gallery/outdoor-ad/SIB_Ad-1009.webp', album: 'Outdoor Ad', orientation: 'landscape', title: '', caption: null },
+  { id: 'outdoor-ad-11', image: '/uploads/images/gallery/outdoor-ad/SIB_Ad-1010.webp', album: 'Outdoor Ad', orientation: 'landscape', title: '', caption: null },
+  { id: 'outdoor-ad-12', image: '/uploads/images/gallery/outdoor-ad/SIB_Ad-1012.webp', album: 'Outdoor Ad', orientation: 'landscape', title: '', caption: null },
+  { id: 'outdoor-ad-13', image: '/uploads/images/gallery/outdoor-ad/SIB_Ad-1013.webp', album: 'Outdoor Ad', orientation: 'landscape', title: '', caption: null },
+  { id: 'outdoor-ad-14', image: '/uploads/images/gallery/outdoor-ad/SIB_Ad-1014.webp', album: 'Outdoor Ad', orientation: 'landscape', title: '', caption: null },
+  { id: 'outdoor-ad-15', image: '/uploads/images/gallery/outdoor-ad/SIB_Ad-1015.webp', album: 'Outdoor Ad', orientation: 'landscape', title: '', caption: null },
+  { id: 'outdoor-ad-16', image: '/uploads/images/gallery/outdoor-ad/SIB_Ad-1016.webp', album: 'Outdoor Ad', orientation: 'landscape', title: '', caption: null },
 
   // ── Sports (16 images) ────────────────────────────────────────────────────
   { id: 'sports-1',  image: '/uploads/images/gallery/sports/1000345518.webp', album: 'Sports', orientation: 'landscape', title: '', caption: null },

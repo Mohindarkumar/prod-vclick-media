@@ -138,7 +138,7 @@ function ShowreelCard({ item, index }) {
       onMouseLeave={onHoverEnd}
     >
       {/* Full-height image container */}
-      <div className="relative w-full h-[420px] sm:h-[540px] md:h-[660px] xl:h-[700px]">
+      <div className="relative w-full h-[420px] sm:h-[540px] md:h-[660px] xl:h-[820px] 2xl:h-[960px]">
 
         {/* Animated slides — fills entire container */}
         <AnimatePresence mode="sync">
@@ -151,7 +151,7 @@ function ShowreelCard({ item, index }) {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.9, ease: 'easeInOut' }}
-            className="absolute inset-0 w-full h-full object-cover object-center"
+            className="absolute inset-0 w-full h-full object-cover object-top"
           />
         </AnimatePresence>
 

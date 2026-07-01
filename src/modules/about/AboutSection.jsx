@@ -13,24 +13,15 @@ const COLLAGE_IMAGES = [
   {
     src: '/uploads/images/homepage/DSC00897.webp',
     alt: 'VClick Media & Events — professional event photography in the UAE',
-    className: 'absolute top-0 left-0 w-3/5 rotate-[-3deg] z-20',
   },
   {
     src: '/uploads/images/homepage/DSC05604.webp',
     alt: 'VClick Media & Events — cinematic videography and event coverage',
-    className: 'absolute top-16 right-0 w-1/2 rotate-[4deg] z-10',
   },
   {
-    src: '/uploads/images/homepage/DSC_1320.webp',
+    src: '/uploads/images/homepage/DSC00589.webp',
     alt: 'VClick Media & Events — creative media production across the UAE',
-    className: 'absolute bottom-0 left-10 w-2/3 rotate-[2deg] z-0',
   },
-]
-
-const COLLAGE_CLASSES = [
-  'absolute top-0 left-0 w-3/5 rotate-[-3deg] z-20',
-  'absolute top-16 right-0 w-1/2 rotate-[4deg] z-10',
-  'absolute bottom-0 left-10 w-2/3 rotate-[2deg] z-0',
 ]
 
 // Resolve pillar visibility → Tailwind class
@@ -110,27 +101,62 @@ function AboutSection({ section = null }) {
           </div>
         </div>
 
-        {/* Desktop-only: asymmetric overlapping collage (hidden on mobile) */}
+        {/* Desktop-only: themed 3-image grid (hidden on mobile) */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="relative h-[520px] w-full hidden lg:block"
+          className="relative hidden lg:grid grid-cols-[3fr_2fr] gap-3 h-[520px] 2xl:h-[580px] w-full"
         >
-          {collageImages.slice(0, 3).map((img, i) => {
-            const cls = img.className || COLLAGE_CLASSES[i % COLLAGE_CLASSES.length]
-            return (
+          {/* Gold corner brackets */}
+          <span className="absolute -top-px -left-px w-10 h-10 border-t-2 border-l-2 border-gold/55 rounded-tl-2xl pointer-events-none z-10" aria-hidden="true" />
+          <span className="absolute -bottom-px -right-px w-10 h-10 border-b-2 border-r-2 border-gold/55 rounded-br-2xl pointer-events-none z-10" aria-hidden="true" />
+
+          {/* Left — main tall image */}
+          <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-charcoal group">
+            <img
+              src={collageImages[0]?.src}
+              alt={collageImages[0]?.alt || ''}
+              loading="lazy"
+              onError={(e) => { e.currentTarget.style.opacity = '0' }}
+              className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent pointer-events-none" aria-hidden="true" />
+            <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gold-sweep pointer-events-none" aria-hidden="true" />
+          </div>
+
+          {/* Right — two stacked images */}
+          <div className="flex flex-col gap-3">
+            {/* Top-right */}
+            <div className="flex-1 relative overflow-hidden rounded-2xl border border-white/10 bg-charcoal group">
               <img
-                key={img.src}
-                src={img.src}
-                alt={img.alt || ''}
+                src={collageImages[1]?.src}
+                alt={collageImages[1]?.alt || ''}
                 loading="lazy"
                 onError={(e) => { e.currentTarget.style.opacity = '0' }}
-                className={`${cls} rounded-3xl shadow-2xl shadow-black/60 border border-white/10 object-cover aspect-[4/3] bg-charcoal`}
+                className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
               />
-            )
-          })}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/45 to-transparent pointer-events-none" aria-hidden="true" />
+            </div>
+
+            {/* Bottom-right — gold accent border */}
+            <div className="flex-1 relative overflow-hidden rounded-2xl border border-gold/35 bg-charcoal group">
+              <img
+                src={collageImages[2]?.src}
+                alt={collageImages[2]?.alt || ''}
+                loading="lazy"
+                onError={(e) => { e.currentTarget.style.opacity = '0' }}
+                className="w-full h-full object-cover object-bottom transition-transform duration-700 ease-out group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none" aria-hidden="true" />
+              {/* Stat badge */}
+              <div className="absolute top-3 right-3 bg-black/55 backdrop-blur-sm border border-gold/30 rounded-xl px-3 py-1.5 text-center">
+                <p className="text-gold font-extrabold text-sm leading-none tabular-nums">{siteConfig.stats.events}</p>
+                <p className="text-white/55 text-[9px] uppercase tracking-wide leading-none mt-0.5">Events</p>
+              </div>
+            </div>
+          </div>
         </motion.div>
       </div>
     </section>

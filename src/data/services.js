@@ -60,7 +60,7 @@ export const services = [
     title: 'Entertainment Activities',
     description:
       'Curated entertainment coverage and production for corporate events, gala dinners, and public activations that need to make an impact.',
-    image: '/uploads/images/gallery/events-exhibitions/DSC09155-10122.webp',
+    image: '/uploads/images/gallery/events/DSC09155-10122.webp',
   },
   {
     id: 'panoramic-360-photo-tour',

@@ -117,7 +117,7 @@ function Hero({ section = null }) {
     <section
       id="home"
       ref={sectionRef}
-      className="relative h-svh min-h-[580px] sm:min-h-[680px] 2xl:max-h-[800px] w-full overflow-x-hidden flex flex-col pt-20 md:pt-24"
+      className="relative h-svh min-h-[580px] sm:min-h-[680px] 2xl:max-h-[800px] w-full flex flex-col pt-20 md:pt-24"
     >
       {/* Background image with parallax — clipped independently so stats bar is never affected */}
       <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
@@ -280,25 +280,33 @@ function Hero({ section = null }) {
           className="section-container pt-3 pb-4 sm:pt-6 sm:pb-8 border-t"
           style={{ borderColor: 'rgba(255,255,255,0.12)' }}
         >
-          <dl className="grid grid-cols-2 gap-y-4 sm:gap-y-8">
+          <dl className="grid grid-cols-2 lg:grid-cols-4 gap-y-4 sm:gap-y-8 lg:gap-y-0">
             {STATS.map(({ value, label }, i) => {
-              const isRight  = i % 2 === 1
-              const isBottom = i >= 2
+              const isRightMobile  = i % 2 === 1
+              const isBottomMobile = i >= 2
+              const isRightDesktop = i >= 1
               return (
                 <div
                   key={label}
-                  className={`relative flex flex-col ${isRight ? 'pl-4 sm:pl-10 md:pl-14' : 'pr-4 sm:pr-10 md:pr-14'}`}
+                  className={`relative flex flex-col ${isRightMobile ? 'pl-4 sm:pl-10 md:pl-14' : 'pr-4 sm:pr-10 md:pr-14'} lg:px-8 lg:first:pl-0 lg:last:pr-0`}
                 >
-                  {isRight && (
+                  {isRightMobile && (
                     <span
-                      className="absolute left-0 top-0 bottom-0"
+                      className="absolute left-0 top-0 bottom-0 lg:hidden"
                       style={{ width: '1px', backgroundColor: 'rgba(255,255,255,0.14)' }}
                       aria-hidden="true"
                     />
                   )}
-                  {isBottom && (
+                  {isRightDesktop && (
                     <span
-                      className="absolute left-0 right-0 -top-2 sm:-top-4"
+                      className="hidden lg:block absolute left-0 top-0 bottom-0"
+                      style={{ width: '1px', backgroundColor: 'rgba(255,255,255,0.14)' }}
+                      aria-hidden="true"
+                    />
+                  )}
+                  {isBottomMobile && (
+                    <span
+                      className="absolute left-0 right-0 -top-2 sm:-top-4 lg:hidden"
                       style={{ height: '1px', backgroundColor: 'rgba(255,255,255,0.14)' }}
                       aria-hidden="true"
                     />

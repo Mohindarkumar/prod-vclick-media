@@ -69,7 +69,7 @@ function AboutSection({ section = null }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="mt-6 text-body-lg text-mist max-w-xl"
+            className="mt-6 text-body-lg text-mist max-w-xl lg:max-w-none"
           >
             {bodyText}
           </motion.p>

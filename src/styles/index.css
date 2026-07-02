@@ -4,14 +4,26 @@
 
 @layer base {
   html {
-    scroll-behavior: smooth;
+    /* Not scroll-behavior: smooth here — that smooths EVERY scroll change,
+       including raw wheel/trackpad ticks, which reads as laggy/"dragging"
+       scrolling. Anchor-link jumps (App.jsx, PortfolioPage.jsx) already
+       request smooth behavior explicitly per-call via scrollIntoView. */
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
+    /* Scroll-reveal animations (fadeLeft/fadeRight) translate elements off-canvas
+       before they enter view; browsers count that transform offset toward the
+       page's scrollable area, which opens up horizontal scroll on narrow
+       viewports. Clamp it here instead of taming every animated element. */
+    overflow-x: hidden;
   }
 
   body {
     font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
     background-color: #0B0B0B;
+    /* Do NOT also set overflow-x here — declaring a non-visible overflow on both
+       html and body makes each resolve its own overflow-y to auto and become a
+       separate scroll container, which breaks wheel/trackpad scrolling. html's
+       overflow-x above is enough to clip horizontal overflow for the page. */
     /* Prevent scroll chaining / rubber-band bounce on Android */
     overscroll-behavior-y: none;
     /* Remove tap flash on iOS/Android */

@@ -7,7 +7,7 @@ export const homeSectionContents = {
   // ─── Hero ────────────────────────────────────────────────────────────────
   hero: {
     eyebrow: 'Premium Media & Events · UAE',
-    headlineLine1: 'About Us',
+    headlineLine1: 'Where Stories Begin',
     headlineHighlight: '',
     headlineLine2: '',
     subtitle:

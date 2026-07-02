@@ -4,14 +4,25 @@
       <stop offset="0%" stop-color="#D4AF37" />
       <stop offset="100%" stop-color="#FFB703" />
     </linearGradient>
+    <radialGradient id="goldGlow" cx="50%" cy="38%" r="65%">
+      <stop offset="0%" stop-color="#D4AF37" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#D4AF37" stop-opacity="0" />
+    </radialGradient>
   </defs>
+
   <rect width="64" height="64" rx="14" fill="#0B0B0B" />
+  <rect width="64" height="64" rx="14" fill="url(#goldGlow)" />
+
+  <!-- V chevron — primary brand mark -->
   <path
-    d="M18 18 L32 46 L46 18"
+    d="M15 15 L30 45 L45 15"
     fill="none"
     stroke="url(#goldSweep)"
-    stroke-width="6"
+    stroke-width="6.5"
     stroke-linecap="round"
     stroke-linejoin="round"
   />
+
+  <!-- Play-button accent, echoing the full VClick logo's "V + play" mark -->
+  <path d="M35 33 L35 45 L46 39 Z" fill="url(#goldSweep)" stroke-linejoin="round" />
 </svg>

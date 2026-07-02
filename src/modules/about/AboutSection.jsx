@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { Target, Eye, Clock, Users } from 'lucide-react'
 import SectionEyebrow from '../../components/common/SectionEyebrow'
 import GoldDivider from '../../components/common/GoldDivider'
+import AboutHighlightsSlider from './AboutHighlightsSlider'
 import { homeSectionContents } from '../../data/home_section_contents'
 import { siteConfig } from '../../config/site.config'
 
@@ -159,6 +160,17 @@ function AboutSection({ section = null }) {
           </div>
         </motion.div>
       </div>
+
+      {/* Full-width auto-sliding showcase: Mission / Vision / Values / Team */}
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="section-container mt-14 md:mt-20"
+      >
+        <AboutHighlightsSlider />
+      </motion.div>
     </section>
   )
 }

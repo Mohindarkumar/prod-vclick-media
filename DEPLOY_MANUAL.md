@@ -25,7 +25,7 @@ On your local machine:
 
 ```bash
 # Make sure your .env has production values
-# VITE_API_URL=https://api.vclickmedia.ae/api/v1
+# VITE_API_URL=https://api.vclickmedia.com/api/v1
 # VITE_TURNSTILE_SITE_KEY=your_cloudflare_site_key
 
 npm run build
@@ -56,7 +56,7 @@ npm run preview
 ## Step 2 — Add the `.htaccess` file for React Router
 
 React Router requires all URL requests to serve `index.html` — without this, any
-direct link (e.g. `vclickmedia.ae/gallery`) returns a 404 from Apache.
+direct link (e.g. `vclickmedia.com/gallery`) returns a 404 from Apache.
 
 Create `public/.htaccess` if it doesn't exist yet:
 
@@ -85,7 +85,7 @@ cp public/.htaccess dist/.htaccess
 ### Option A — Hostinger File Manager (no extra tools needed)
 
 1. Log in to **hPanel** → [hpanel.hostinger.com](https://hpanel.hostinger.com)
-2. Go to **Hosting** → select `vclickmedia.ae` → **Files** → **File Manager**
+2. Go to **Hosting** → select `vclickmedia.com` → **Files** → **File Manager**
 3. Navigate to `/home/YOUR_USERNAME/public_html/`
 4. **Delete** the old site files (keep `uploads/` and `vendor/` if they exist)
 5. Click **Upload** → select all files from your local `dist/` folder → upload
@@ -108,7 +108,7 @@ cd ..
 
 | Field | Value |
 |---|---|
-| Host | `ftp.vclickmedia.ae` (or IP shown in hPanel) |
+| Host | `ftp.vclickmedia.com` (or IP shown in hPanel) |
 | Username | Your FTP username |
 | Password | Your FTP password |
 | Port | `21` (FTP) or `22` (SFTP — more secure) |
@@ -286,10 +286,10 @@ Open your browser and test:
 
 | URL | Expected |
 |---|---|
-| `https://www.vclickmedia.ae/` | Home page loads with loader animation |
-| `https://www.vclickmedia.ae/gallery` | Gallery page (not a 404) |
-| `https://www.vclickmedia.ae/videos` | Videos page (not a 404) |
-| `https://www.vclickmedia.ae/contact.php` | Returns `{"error":"Method not allowed"}` (POST-only) |
+| `https://www.vclickmedia.com/` | Home page loads with loader animation |
+| `https://www.vclickmedia.com/gallery` | Gallery page (not a 404) |
+| `https://www.vclickmedia.com/videos` | Videos page (not a 404) |
+| `https://www.vclickmedia.com/contact.php` | Returns `{"error":"Method not allowed"}` (POST-only) |
 | Contact form submission | You receive email at your inbox |
 | `http://` version | Redirects to `https://` |
 

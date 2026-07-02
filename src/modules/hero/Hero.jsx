@@ -4,7 +4,7 @@ import { ArrowRight, Phone, Camera, Video, Sparkles, Award } from 'lucide-react'
 import Button from '../../components/common/Button'
 import GoldDivider from '../../components/common/GoldDivider'
 import ScrollIndicator from './ScrollIndicator'
-import BrandArtMark from '../../components/common/BrandArtMark'
+import brandLogo from '../../assets/images/logos/Logo_transparennt.png'
 import usePrefersReducedMotion from '../../hooks/usePrefersReducedMotion'
 import { siteConfig } from '../../config/site.config'
 import { homeSectionContents } from '../../data/home_section_contents'
@@ -268,15 +268,19 @@ function Hero({ section = null }) {
           </motion.div>
         </motion.div>
 
-        {/* Decorative art mark — fills the empty right-side space next to the
-            copy on large screens. Desktop/laptop only; kept low-opacity so the
-            background photo stays dominant and the mark never reads as a second
-            focal point. */}
+        {/* Brand logo — fills the empty right-side space next to the copy on
+            large screens. Desktop/laptop only; drop-shadow lifts the gold/grey
+            marks off the black background without the logo becoming a second
+            focal point over the headline. */}
         <div
           className="hidden lg:block absolute right-6 xl:right-12 top-1/2 -translate-y-1/2 pointer-events-none select-none"
           aria-hidden="true"
         >
-          <BrandArtMark className="w-[320px] xl:w-[380px] 2xl:w-[440px] h-auto opacity-40" />
+          <img
+            src={siteConfig.logoUrl || brandLogo}
+            alt=""
+            className="w-[340px] xl:w-[440px] 2xl:w-[520px] h-auto object-contain opacity-60 drop-shadow-[0_4px_30px_rgba(212,175,55,0.25)]"
+          />
         </div>
       </motion.div>
 

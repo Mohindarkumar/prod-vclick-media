@@ -36,7 +36,7 @@ define('SMTP_USER', 'you@gmail.com');
 define('SMTP_PASS', 'your-app-password');
 define('OWNER_EMAIL', 'leads@example.com');
 define('SITE_NAME',  'VClick Media & Events');
-define('SITE_URL',   'https://www.vclickmedia.ae');
+define('SITE_URL',   'https://www.vclickmedia.com');
 ```
 
 On the server `config.php` must live **one directory above** `public_html/` — `contact.php` loads it via `dirname(__DIR__) . '/config.php'`. Never place it inside the web root.

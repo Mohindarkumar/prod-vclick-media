@@ -45,6 +45,31 @@ export const homeSectionContents = {
         copy: 'A passionate team of skilled photographers, videographers, editors, designers, and event professionals dedicated to delivering exceptional results with creativity, precision, and professionalism.',
       },
     ],
+    // Content for the full-width Mission / Vision / Values / Team slider
+    // (AboutHighlightsSlider). Kept separate from `pillars` above since the
+    // slider needs richer per-slide content (CTAs, a multi-card value grid).
+    highlights: {
+      mission: {
+        title: 'Our Mission',
+        description:
+          'Creating unforgettable experiences through innovative media, creative storytelling, and seamless event execution — capturing every moment so our clients can celebrate without distraction.',
+        cta: { label: 'Explore Our Services', href: '#services' },
+      },
+      vision: {
+        title: 'Our Vision',
+        description:
+          "To become the UAE's most trusted and innovative media and event solutions company, setting new standards in creativity, quality, and client satisfaction across every Emirate.",
+        cta: { label: 'See Our Work', href: '#portfolio' },
+      },
+      values: [
+        { label: 'Integrity', copy: 'We deliver on every promise, with honesty and transparency in how we work with every client.' },
+        { label: 'Innovation', copy: 'We push past convention, blending creative technology with cinematic storytelling.' },
+        { label: 'Quality', copy: "Every frame, edit, and event detail meets a standard we'd put our own name on." },
+        { label: 'Trust', copy: 'Clients hand us their most important moments — we treat that responsibility as sacred.' },
+        { label: 'Creativity', copy: 'We see stories others miss, and tell them in ways that stay with people.' },
+        { label: 'Customer First', copy: 'Your vision drives every decision, from first call to final delivery.' },
+      ],
+    },
   },
 
   // ─── Services ────────────────────────────────────────────────────────────

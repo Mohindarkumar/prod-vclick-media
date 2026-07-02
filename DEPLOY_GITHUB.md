@@ -43,7 +43,7 @@ git push -u origin main
 1. Log in to **hPanel** → [hpanel.hostinger.com](https://hpanel.hostinger.com)
 2. Go to **Hosting** → select your site → **Files** → **FTP Accounts**
 3. Note down:
-   - **FTP Server / Host** — looks like `ftp.vclickmedia.ae` or an IP
+   - **FTP Server / Host** — looks like `ftp.vclickmedia.com` or an IP
    - **Username** — your FTP username
    - **Password** — create/reset if needed
    - **Server directory** — usually `/public_html`
@@ -58,7 +58,7 @@ Add these four secrets:
 
 | Secret Name | Value |
 |---|---|
-| `FTP_SERVER` | Your FTP hostname (e.g. `ftp.vclickmedia.ae`) |
+| `FTP_SERVER` | Your FTP hostname (e.g. `ftp.vclickmedia.com`) |
 | `FTP_USERNAME` | Your FTP username |
 | `FTP_PASSWORD` | Your FTP password |
 | `FTP_SERVER_DIR` | `/public_html/` |

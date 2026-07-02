@@ -3,7 +3,7 @@
 Premium cinematic marketing website for **VClick Media & Events**, a creative media production
 and event management company headquartered in Ajman Free Zone, UAE.
 
-> **Live domain:** `https://www.vclickmedia.ae`
+> **Live domain:** `https://www.vclickmedia.com`
 > **Hosting:** Hostinger Web Hosting — Premium Plan
 > **Stack:** React 19 · Vite 8 · Tailwind CSS v3 · Framer Motion v12 · PHP 8 (contact form)
 
@@ -79,14 +79,14 @@ cp config.example.php config.php
 ```php
 <?php
 define('SITE_NAME', 'VClick Media & Events');
-define('SITE_URL',  'https://www.vclickmedia.ae');
+define('SITE_URL',  'https://www.vclickmedia.com');
 define('SMTP_HOST', 'smtp.gmail.com');
 define('SMTP_USER', 'your-gmail@gmail.com');
 define('SMTP_PASS', 'your-16-char-app-password');
 define('SMTP_PORT', 587);
 define('MAIL_FROM_NAME',  'VClick Media & Events');
-define('MAIL_REPLY_TO',   'hello@vclickmedia.ae');
-define('MAIL_INBOX',      'hello@vclickmedia.ae');
+define('MAIL_REPLY_TO',   'hello@vclickmedia.com');
+define('MAIL_INBOX',      'hello@vclickmedia.com');
 ```
 
 > **Security:** `config.php` must live **one directory above** `public_html/` on the server
@@ -334,7 +334,7 @@ Search the codebase for `// TODO:` — all instances are listed here:
 | Client logos | `src/data/clients.js` | Replace placeholder blocks |
 | Real pricing | `src/data/pricing.js` | Edit AED values |
 | WhatsApp number | `src/config/site.config.js` | Replace `+971 50 000 0000` |
-| Business email | `src/config/site.config.js` | Replace `hello@vclickmedia.ae` |
+| Business email | `src/config/site.config.js` | Replace `hello@vclickmedia.com` |
 | Office address / map pin | `src/modules/contact/MapEmbed.jsx` | Add precise Google Maps embed URL |
 | Social profile URLs | `src/components/layout/Footer.jsx` | Replace root domain links |
 | Favicon | `public/favicon.svg` | Replace with real brand mark |

@@ -4,6 +4,7 @@ import { ArrowRight, Phone, Camera, Video, Sparkles, Award } from 'lucide-react'
 import Button from '../../components/common/Button'
 import GoldDivider from '../../components/common/GoldDivider'
 import ScrollIndicator from './ScrollIndicator'
+import BrandArtMark from '../../components/common/BrandArtMark'
 import usePrefersReducedMotion from '../../hooks/usePrefersReducedMotion'
 import { siteConfig } from '../../config/site.config'
 import { homeSectionContents } from '../../data/home_section_contents'
@@ -266,6 +267,17 @@ function Hero({ section = null }) {
             </Button>
           </motion.div>
         </motion.div>
+
+        {/* Decorative art mark — fills the empty right-side space next to the
+            copy on large screens. Desktop/laptop only; kept low-opacity so the
+            background photo stays dominant and the mark never reads as a second
+            focal point. */}
+        <div
+          className="hidden lg:block absolute right-6 xl:right-12 top-1/2 -translate-y-1/2 pointer-events-none select-none"
+          aria-hidden="true"
+        >
+          <BrandArtMark className="w-[320px] xl:w-[380px] 2xl:w-[440px] h-auto opacity-40" />
+        </div>
       </motion.div>
 
       {/* Stats bar */}
@@ -280,7 +292,7 @@ function Hero({ section = null }) {
           className="section-container pt-3 pb-4 sm:pt-6 sm:pb-8 border-t"
           style={{ borderColor: 'rgba(255,255,255,0.12)' }}
         >
-          <dl className="grid grid-cols-2 lg:grid-cols-4 gap-y-4 sm:gap-y-8 lg:gap-y-0">
+          <dl className="grid grid-cols-2 lg:grid-cols-4 gap-y-0 lg:gap-y-0">
             {STATS.map(({ value, label }, i) => {
               const isRightMobile  = i % 2 === 1
               const isBottomMobile = i >= 2
@@ -288,7 +300,8 @@ function Hero({ section = null }) {
               return (
                 <div
                   key={label}
-                  className={`relative flex flex-col ${isRightMobile ? 'pl-4 sm:pl-10 md:pl-14' : 'pr-4 sm:pr-10 md:pr-14'} lg:px-8 lg:first:pl-0 lg:last:pr-0`}
+                  className={`relative flex flex-col ${isRightMobile ? 'pl-4 sm:pl-10 md:pl-14' : 'pr-4 sm:pr-10 md:pr-14'} ${isBottomMobile ? 'pt-4 sm:pt-8 lg:pt-0 border-t lg:border-t-0' : ''} lg:px-8 lg:first:pl-0 lg:last:pr-0`}
+                  style={isBottomMobile ? { borderTopColor: 'rgba(255,255,255,0.14)' } : undefined}
                 >
                   {isRightMobile && (
                     <span
@@ -304,17 +317,10 @@ function Hero({ section = null }) {
                       aria-hidden="true"
                     />
                   )}
-                  {isBottomMobile && (
-                    <span
-                      className="absolute left-0 right-0 -top-2 sm:-top-4 lg:hidden"
-                      style={{ height: '1px', backgroundColor: 'rgba(255,255,255,0.14)' }}
-                      aria-hidden="true"
-                    />
-                  )}
                   <dd className="text-xl sm:text-3xl md:text-4xl font-extrabold gold-text-gradient leading-none tabular-nums">
                     {value}
                   </dd>
-                  <dt className="text-[9px] sm:text-[11px] md:text-[12px] text-mist/80 mt-1.5 sm:mt-2 uppercase tracking-[0.04em] sm:tracking-[0.10em] leading-snug">
+                  <dt className="text-[9px] sm:text-[11px] md:text-[12px] text-mist/80 mt-1.5 sm:mt-2 pb-1 sm:pb-0 uppercase tracking-[0.04em] sm:tracking-[0.10em] leading-snug">
                     {label}
                   </dt>
                 </div>

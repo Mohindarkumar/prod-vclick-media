@@ -11,7 +11,9 @@ export const galleryAlbumOrder = [
   'Desert',
   'Special Occasions',
   'Portraits',
+  'Real Estate',
   'Products',
+  'Cityscape',
   'Outdoor Ad',
   'Sports',
   'Weddings',
@@ -139,6 +141,20 @@ export const galleryItems = [
   { id: 'portrait-23', image: '/uploads/images/gallery/portraits/SIB_Port-1020.webp', album: 'Portraits', orientation: 'portrait', title: '', caption: null },
   { id: 'portrait-24', image: '/uploads/images/gallery/portraits/SIB_Port-1021.webp', album: 'Portraits', orientation: 'portrait', title: '', caption: null },
 
+  // ── Real Estate (12 images) ──────────────────────────────────────────────
+  { id: 'real-estate-1',  image: '/uploads/images/gallery/real-estate/SIB_real-1000.webp', album: 'Real Estate', orientation: 'landscape', title: '', caption: null },
+  { id: 'real-estate-2',  image: '/uploads/images/gallery/real-estate/SIB_real-1001.webp', album: 'Real Estate', orientation: 'landscape', title: '', caption: null },
+  { id: 'real-estate-3',  image: '/uploads/images/gallery/real-estate/SIB_real-1002.webp', album: 'Real Estate', orientation: 'landscape', title: '', caption: null },
+  { id: 'real-estate-4',  image: '/uploads/images/gallery/real-estate/SIB_real-1003.webp', album: 'Real Estate', orientation: 'landscape', title: '', caption: null },
+  { id: 'real-estate-5',  image: '/uploads/images/gallery/real-estate/SIB_real-1004.webp', album: 'Real Estate', orientation: 'landscape', title: '', caption: null },
+  { id: 'real-estate-6',  image: '/uploads/images/gallery/real-estate/SIB_real-1005.webp', album: 'Real Estate', orientation: 'landscape', title: '', caption: null },
+  { id: 'real-estate-7',  image: '/uploads/images/gallery/real-estate/SIB_real-1008.webp', album: 'Real Estate', orientation: 'landscape', title: '', caption: null },
+  { id: 'real-estate-8',  image: '/uploads/images/gallery/real-estate/SIB_real-1009.webp', album: 'Real Estate', orientation: 'landscape', title: '', caption: null },
+  { id: 'real-estate-9',  image: '/uploads/images/gallery/real-estate/SIB_real-1010.webp', album: 'Real Estate', orientation: 'landscape', title: '', caption: null },
+  { id: 'real-estate-10', image: '/uploads/images/gallery/real-estate/SIB_real-1011.webp', album: 'Real Estate', orientation: 'landscape', title: '', caption: null },
+  { id: 'real-estate-11', image: '/uploads/images/gallery/real-estate/SIB_real-1012.webp', album: 'Real Estate', orientation: 'landscape', title: '', caption: null },
+  { id: 'real-estate-12', image: '/uploads/images/gallery/real-estate/SIB_real-1013.webp', album: 'Real Estate', orientation: 'landscape', title: '', caption: null },
+
   // ── Products (9 images) ───────────────────────────────────────────────────
   { id: 'product-1', image: '/uploads/images/gallery/products/SIB_Prod-1000-2.webp', album: 'Products', orientation: 'landscape', title: '', caption: null },
   { id: 'product-2', image: '/uploads/images/gallery/products/SIB_Prod-1001.webp',   album: 'Products', orientation: 'landscape', title: '', caption: null },
@@ -149,6 +165,21 @@ export const galleryItems = [
   { id: 'product-7', image: '/uploads/images/gallery/products/SIB_Prod-1007.webp',   album: 'Products', orientation: 'landscape', title: '', caption: null },
   { id: 'product-8', image: '/uploads/images/gallery/products/SIB_Prod-1008.webp',   album: 'Products', orientation: 'landscape', title: '', caption: null },
   { id: 'product-9', image: '/uploads/images/gallery/products/SIB_Prod-1009.webp',   album: 'Products', orientation: 'landscape', title: '', caption: null },
+
+  // ── Cityscape (13 images) ────────────────────────────────────────────────
+  { id: 'cityscape-1',  image: '/uploads/images/gallery/cityscape/SIB_real-1000.webp', album: 'Cityscape', orientation: 'landscape', title: '', caption: null },
+  { id: 'cityscape-2',  image: '/uploads/images/gallery/cityscape/SIB_real-1001.webp', album: 'Cityscape', orientation: 'landscape', title: '', caption: null },
+  { id: 'cityscape-3',  image: '/uploads/images/gallery/cityscape/SIB_real-1002.webp', album: 'Cityscape', orientation: 'landscape', title: '', caption: null },
+  { id: 'cityscape-4',  image: '/uploads/images/gallery/cityscape/SIB_real-1003.webp', album: 'Cityscape', orientation: 'landscape', title: '', caption: null },
+  { id: 'cityscape-5',  image: '/uploads/images/gallery/cityscape/SIB_real-1004.webp', album: 'Cityscape', orientation: 'landscape', title: '', caption: null },
+  { id: 'cityscape-6',  image: '/uploads/images/gallery/cityscape/SIB_real-1005.webp', album: 'Cityscape', orientation: 'landscape', title: '', caption: null },
+  { id: 'cityscape-7',  image: '/uploads/images/gallery/cityscape/SIB_real-1006.webp', album: 'Cityscape', orientation: 'landscape', title: '', caption: null },
+  { id: 'cityscape-8',  image: '/uploads/images/gallery/cityscape/SIB_real-1007.webp', album: 'Cityscape', orientation: 'landscape', title: '', caption: null },
+  { id: 'cityscape-9',  image: '/uploads/images/gallery/cityscape/SIB_real-1008.webp', album: 'Cityscape', orientation: 'landscape', title: '', caption: null },
+  { id: 'cityscape-10', image: '/uploads/images/gallery/cityscape/SIB_real-1009.webp', album: 'Cityscape', orientation: 'portrait',  title: '', caption: null },
+  { id: 'cityscape-11', image: '/uploads/images/gallery/cityscape/SIB_real-1010.webp', album: 'Cityscape', orientation: 'landscape', title: '', caption: null },
+  { id: 'cityscape-12', image: '/uploads/images/gallery/cityscape/SIB_real-1011.webp', album: 'Cityscape', orientation: 'landscape', title: '', caption: null },
+  { id: 'cityscape-13', image: '/uploads/images/gallery/cityscape/SIB_real-1012.webp', album: 'Cityscape', orientation: 'landscape', title: '', caption: null },
 
   // ── Outdoor Ad (16 images) ────────────────────────────────────────────────
   { id: 'outdoor-ad-1',  image: '/uploads/images/gallery/outdoor-ad/SIB_Ad-1000.webp', album: 'Outdoor Ad', orientation: 'landscape', title: '', caption: null },

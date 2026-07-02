@@ -1,9 +1,15 @@
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { siteConfig } from '../../config/site.config'
+import logo from '../../assets/images/logos/Logo_transparennt.png'
 
 export default function PageLoader({ onComplete }) {
   const [progress, setProgress] = useState(0)
   const [visible, setVisible] = useState(true)
+
+  // logoLoader takes priority — when enabled, the text/wordmark loader is hidden.
+  const showLogoLoader = siteConfig.pageLoader?.logoLoader === 1
+  const showTextLoader = !showLogoLoader && siteConfig.pageLoader?.textLoader === 1
 
   useEffect(() => {
     const steps = [
@@ -40,37 +46,52 @@ export default function PageLoader({ onComplete }) {
           role="status"
         >
           {/* Logo mark */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="flex flex-col items-center gap-4"
-          >
-            <svg width="64" height="64" viewBox="0 0 64 64" fill="none" aria-hidden="true">
-              <polygon
-                points="32,4 58,18 58,46 32,60 6,46 6,18"
-                fill="none"
-                stroke="url(#goldGrad)"
-                strokeWidth="2"
+          {showLogoLoader ? (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              className="flex flex-col items-center gap-4"
+            >
+              <img
+                src={siteConfig.logoUrl || logo}
+                alt={siteConfig.name}
+                className="h-16 w-auto object-contain"
               />
-              <circle cx="32" cy="32" r="10" fill="url(#goldGrad)" opacity="0.9" />
-              <defs>
-                <linearGradient id="goldGrad" x1="6" y1="4" x2="58" y2="60" gradientUnits="userSpaceOnUse">
-                  <stop stopColor="#f0c040" />
-                  <stop offset="1" stopColor="#c9a227" />
-                </linearGradient>
-              </defs>
-            </svg>
+            </motion.div>
+          ) : showTextLoader ? (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              className="flex flex-col items-center gap-4"
+            >
+              <svg width="64" height="64" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+                <polygon
+                  points="32,4 58,18 58,46 32,60 6,46 6,18"
+                  fill="none"
+                  stroke="url(#goldGrad)"
+                  strokeWidth="2"
+                />
+                <circle cx="32" cy="32" r="10" fill="url(#goldGrad)" opacity="0.9" />
+                <defs>
+                  <linearGradient id="goldGrad" x1="6" y1="4" x2="58" y2="60" gradientUnits="userSpaceOnUse">
+                    <stop stopColor="#f0c040" />
+                    <stop offset="1" stopColor="#c9a227" />
+                  </linearGradient>
+                </defs>
+              </svg>
 
-            <div className="text-center">
-              <h1 className="text-3xl font-extrabold tracking-tight gold-text-gradient">
-                VClick
-              </h1>
-              <p className="text-xs text-mist/50 mt-1 tracking-widest uppercase">
-                Media &amp; Events
-              </p>
-            </div>
-          </motion.div>
+              <div className="text-center">
+                <h1 className="text-3xl font-extrabold tracking-tight gold-text-gradient">
+                  VClick
+                </h1>
+                <p className="text-xs text-mist/50 mt-1 tracking-widest uppercase">
+                  Media &amp; Events
+                </p>
+              </div>
+            </motion.div>
+          ) : null}
 
           {/* Pulsing dots */}
           <motion.div

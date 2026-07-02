@@ -56,6 +56,19 @@ export const siteConfig = {
    */
   customScrollbar: 0,
 
+  /**
+   * pageLoader — controls the full-screen intro loader shown on first paint
+   *   textLoader: 1 = show the wordmark loader (SVG mark + "VClick" text)
+   *               0 = hide it
+   *   logoLoader: 1 = show the site logo image instead of the wordmark
+   *               0 = hide it
+   *   logoLoader takes priority when both are enabled.
+   */
+  pageLoader: {
+    textLoader: 0,
+    logoLoader: 1,
+  },
+
   whatsapp: {
     enabled: true,
     phone: '+971545656291',

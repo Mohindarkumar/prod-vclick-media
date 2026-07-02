@@ -6,6 +6,7 @@ import PageLoader from './components/ui/PageLoader'
 import { siteConfig } from './config/site.config'
 import { PageSpinner } from './components/ui/LazyLoader'
 import WhatsAppChat from './components/ui/WhatsAppChat'
+import useContentProtection from './hooks/useContentProtection'
 const HomePage = lazy(() => import('./pages/HomePage'))
 const GalleryPage = lazy(() => import('./pages/GalleryPage'))
 const VideoGalleryPage = lazy(() => import('./pages/VideoGalleryPage'))
@@ -17,6 +18,8 @@ const SuspenseFallback = () => <PageSpinner />
 
 function App() {
   const [appReady, setAppReady] = useState(false)
+
+  useContentProtection(siteConfig.contentProtection === 1)
 
   useEffect(() => {
     if (!appReady) return

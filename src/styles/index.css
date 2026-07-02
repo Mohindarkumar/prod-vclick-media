@@ -107,6 +107,14 @@
   cursor: none !important;
 }
 
+/* ── Content protection — deter image drag/save & text-select when
+   contentProtection:1 adds .content-protected to <html> ─────────────────── */
+.content-protected img {
+  -webkit-user-drag: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
 /* ── Gallery skeleton shimmer ────────────────────────────────────────────── */
 @keyframes shimmer {
   0%   { background-position: -200% 0; }

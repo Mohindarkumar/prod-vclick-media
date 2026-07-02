@@ -69,6 +69,15 @@ export const siteConfig = {
     logoLoader: 1,
   },
 
+  /**
+   * contentProtection: 1 = deter right-click / devtools shortcuts / image
+   *                        drag-drop-save site-wide
+   *                    0 = disable — default browser behavior
+   *   Note: this is a UX-level deterrent only, not a real security control —
+   *   it cannot stop view-source, browser devtools, or JS-disabled browsing.
+   */
+  contentProtection: 1,
+
   whatsapp: {
     enabled: true,
     phone: '+971545656291',

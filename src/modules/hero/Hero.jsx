@@ -118,7 +118,7 @@ function Hero({ section = null }) {
     <section
       id="home"
       ref={sectionRef}
-      className="relative h-svh min-h-[580px] sm:min-h-[680px] 2xl:max-h-[800px] w-full flex flex-col pt-20 md:pt-24"
+      className="relative min-h-svh sm:min-h-[680px] 2xl:max-h-[800px] w-full flex flex-col pt-20 md:pt-24"
     >
       {/* Background image with parallax — clipped independently so stats bar is never affected */}
       <div className="absolute inset-0 overflow-hidden" aria-hidden="true">

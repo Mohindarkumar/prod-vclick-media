@@ -27,7 +27,7 @@ export const homePage = {
         items: [
           { title: 'Cinematic Quality',   description: 'Every shoot is executed with cinematic precision — RED cameras, cinema lenses, and post-production that matches global broadcast standards.' },
           { title: 'Full-Service Studio', description: 'Photography, videography, drone, lighting, sound — all under one roof. One partner from pre-production to final delivery.' },
-          { title: 'UAE & GCC Reach',     description: 'Based in Ajman with a network spanning Dubai, Abu Dhabi, Sharjah, and beyond. We travel anywhere your event takes us.' },
+          { title: 'UAE & GCC Reach',     description: 'Based in the UAE with a network spanning Dubai, Abu Dhabi, Sharjah, and beyond. We travel anywhere your event takes us.' },
           { title: 'Rapid Turnaround',    description: 'Same-day social cuts available. Full production delivered within agreed timelines, without compromising on quality.' },
         ],
       },
@@ -38,7 +38,7 @@ export const homePage = {
       displayOrder: 20,
       isVisible: true,
       title: 'Who We Are',
-      subtitle: 'VClick Media & Events is a UAE-based creative production house headquartered in Ajman Free Zone. We specialize in high-end photography, videography and full-service event management — covering weddings, corporate conferences, exhibitions, brand activations and product launches across all seven Emirates. Every project is treated as a story worth telling well, backed by a crew that brings cinematic standards to every brief, big or small.',
+      subtitle: 'VClick Media & Events is a UAE-based creative production house. We specialize in high-end photography, videography and full-service event management — covering weddings, corporate conferences, exhibitions, brand activations and product launches across all seven Emirates. Every project is treated as a story worth telling well, backed by a crew that brings cinematic standards to every brief, big or small.',
       content: {
         items: [
           { title: 'Mission',             description: 'To document every milestone our clients trust us with as a cinematic, lasting memory.' },
@@ -150,7 +150,7 @@ export const homePage = {
           { value: '500+', label: 'Events Delivered' },
           { value: '8+',   label: 'Years Experience'  },
           { value: '200+', label: 'Happy Clients'     },
-          { value: 'UAE',  label: 'Based in Ajman'    },
+          { value: 'UAE',  label: 'Based in the UAE'  },
         ],
       },
     },

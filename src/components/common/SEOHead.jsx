@@ -35,15 +35,7 @@ const ORG_SCHEMA = {
   email: siteConfig.contact.email,
   address: {
     '@type': 'PostalAddress',
-    streetAddress: 'Ajman Free Zone',
-    addressLocality: 'Ajman',
-    addressRegion: 'Ajman',
     addressCountry: 'AE',
-  },
-  geo: {
-    '@type': 'GeoCoordinates',
-    latitude: 25.4052,
-    longitude: 55.5136,
   },
   openingHoursSpecification: [
     {
@@ -98,16 +90,7 @@ function buildLocalBusiness(phone, socialLinks) {
     email: siteConfig.contact.email,
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'Ajman Free Zone',
-      addressLocality: 'Ajman',
-      addressRegion: 'Ajman',
-      postalCode: '',
       addressCountry: 'AE',
-    },
-    geo: {
-      '@type': 'GeoCoordinates',
-      latitude: 25.4052,
-      longitude: 55.5136,
     },
     openingHoursSpecification: [
       {
@@ -130,7 +113,7 @@ function buildLocalBusiness(phone, socialLinks) {
     currenciesAccepted: 'AED',
     paymentAccepted: 'Cash, Bank Transfer',
     description:
-      'UAE-based creative media production house delivering cinematic photography, videography, drone coverage and full-service event production across all seven Emirates. Based in Ajman Free Zone.',
+      'UAE-based creative media production house delivering cinematic photography, videography, drone coverage and full-service event production across all seven Emirates.',
     sameAs: socialLinks?.length ? socialLinks : SOCIAL_LINKS,
   }
 }

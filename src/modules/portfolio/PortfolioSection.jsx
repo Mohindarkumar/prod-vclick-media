@@ -54,13 +54,7 @@ const CARD_BASE = [
   'hover:border-gold/35 transition-all duration-[400ms]',
 ].join(' ')
 
-// Data Saver / metered connections should never trigger an autoplaying
-// video — that's exactly the audience an eager stream would hurt most.
-function prefersReducedData() {
-  if (typeof navigator === 'undefined' || !navigator.connection) return false
-  const conn = navigator.connection
-  return Boolean(conn.saveData) || ['slow-2g', '2g'].includes(conn.effectiveType)
-}
+
 
 // ─── YouTubeCard ───────────────────────────────────────────────────────────
 // aspect-video (16:9) ensures the full video is always visible at every width.
@@ -72,29 +66,39 @@ function prefersReducedData() {
 // the rest of the session.
 function YouTubeCard({ index }) {
   const containerRef = useRef(null)
-  const [shouldLoad, setShouldLoad] = useState(false)
+  const [isIntersecting, setIsIntersecting] = useState(false)
   const [userWantsPlay, setUserWantsPlay] = useState(false)
-  const [allowAutoplay] = useState(() => !prefersReducedData())
 
   useEffect(() => {
     const el = containerRef.current
     if (!el) return
 
     const observer = new IntersectionObserver(
-      ([entry]) => setShouldLoad(entry.isIntersecting),
-      { rootMargin: '300px', threshold: 0 }
+      ([entry]) => {
+        setIsIntersecting(entry.isIntersecting)
+      },
+      { rootMargin: '0px', threshold: 0 }
     )
 
     observer.observe(el)
-    return () => observer.disconnect()
+    return () => {
+      observer.disconnect()
+    }
   }, [])
 
-  const showIframe = shouldLoad && (allowAutoplay || userWantsPlay)
+  // If the user scrolls away, stop the video by resetting userWantsPlay
+  useEffect(() => {
+    if (!isIntersecting) {
+      setUserWantsPlay(false)
+    }
+  }, [isIntersecting])
+
+  const showIframe = userWantsPlay && isIntersecting
 
   const src = [
-    `https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}`,
-    `?autoplay=1&mute=1&loop=1&playlist=${YOUTUBE_VIDEO_ID}`,
-    `&controls=0&playsinline=1&modestbranding=1&rel=0`,
+    `https://www.youtube-nocookie.com/embed/${YOUTUBE_VIDEO_ID}`,
+    `?autoplay=1&mute=0&loop=1&playlist=${YOUTUBE_VIDEO_ID}`,
+    `&controls=1&playsinline=1&modestbranding=1&rel=0`,
   ].join('')
 
   return (
@@ -108,7 +112,7 @@ function YouTubeCard({ index }) {
       onMouseEnter={onHoverStart}
       onMouseLeave={onHoverEnd}
     >
-      {/* 16:9 container — iframe fills it completely */}
+      {/* 16:9 container — iframe or preview image */}
       <div ref={containerRef} className="relative w-full aspect-video bg-black">
         {showIframe ? (
           <iframe
@@ -122,25 +126,24 @@ function YouTubeCard({ index }) {
         ) : (
           <>
             <img
-              src={`https://i.ytimg.com/vi/${YOUTUBE_VIDEO_ID}/hqdefault.jpg`}
+              src={`https://i.ytimg.com/vi/${YOUTUBE_VIDEO_ID}/maxresdefault.jpg`}
               alt="Recent Video Showreel preview"
               loading="lazy"
-              width={480}
-              height={360}
-              className="absolute inset-0 w-full h-full object-cover"
+              width={1280}
+              height={720}
+              className="absolute inset-0 w-full h-full object-cover cursor-pointer"
+              onClick={() => setUserWantsPlay(true)}
             />
-            {!allowAutoplay && (
-              <button
-                type="button"
-                onClick={() => setUserWantsPlay(true)}
-                aria-label="Play video"
-                className="absolute inset-0 flex items-center justify-center z-10"
-              >
-                <span className="w-16 h-16 rounded-full bg-black/60 border border-white/30 flex items-center justify-center hover:bg-gold/80 hover:border-gold transition-colors duration-200">
-                  <Play size={22} className="text-white ml-0.5" fill="currentColor" />
-                </span>
-              </button>
-            )}
+            <button
+              type="button"
+              onClick={() => setUserWantsPlay(true)}
+              aria-label="Play video"
+              className="absolute inset-0 flex items-center justify-center z-10 bg-black/10 hover:bg-black/30 transition-colors duration-300"
+            >
+              <span className="w-16 h-16 rounded-full bg-black/60 border border-white/30 flex items-center justify-center hover:bg-gold/80 hover:border-gold transition-colors duration-200">
+                <Play size={22} className="text-white ml-0.5" fill="currentColor" />
+              </span>
+            </button>
           </>
         )}
 
@@ -158,14 +161,29 @@ function YouTubeCard({ index }) {
           <p className="text-white/55 text-sm mt-1 line-clamp-1 hidden sm:block">
             A cinematic showcase of our recent events, brand stories, and productions across the UAE.
           </p>
-          <Link
-            to="/videos"
-            className="inline-flex items-center gap-1.5 mt-3 text-gold/70 hover:text-gold text-xs font-semibold transition-colors duration-200 pointer-events-auto"
-          >
-            <Video size={12} />
-            Watch Films
-            <ArrowRight size={11} strokeWidth={2.5} className="group-hover:translate-x-0.5 transition-transform duration-200" />
-          </Link>
+          <div className="flex gap-4 mt-3">
+            <Link
+              to="/videos"
+              className="inline-flex items-center gap-1.5 text-gold/70 hover:text-gold text-xs font-semibold transition-colors duration-200 pointer-events-auto"
+            >
+              <Video size={12} />
+              Watch Films
+              <ArrowRight size={11} strokeWidth={2.5} className="group-hover:translate-x-0.5 transition-transform duration-200" />
+            </Link>
+            <a
+              href="https://youtube.com/@vclickmediauae?si=ga2Yt-tvZwdviun2"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="inline-flex items-center gap-1.5 text-white/70 hover:text-gold text-xs font-semibold transition-colors duration-200 pointer-events-auto"
+            >
+              <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.518 3.545 12 3.545 12 3.545s-7.518 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.87.508 9.388.508 9.388.508s7.518 0 9.388-.508a3.003 3.003 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+              </svg>
+              YouTube Channel
+              <ArrowRight size={11} strokeWidth={2.5} className="group-hover:translate-x-0.5 transition-transform duration-200" />
+            </a>
+          </div>
         </div>
       </div>
     </motion.article>

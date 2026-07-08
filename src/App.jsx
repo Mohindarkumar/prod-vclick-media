@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import ScrollToTop from './components/layout/ScrollToTop'
 import CustomCursor from './components/ui/CustomCursor'
 import PageLoader from './components/ui/PageLoader'
+import ChunkErrorBoundary from './components/ui/ChunkErrorBoundary'
 import { siteConfig } from './config/site.config'
 import { PageSpinner } from './components/ui/LazyLoader'
 import WhatsAppChat from './components/ui/WhatsAppChat'
@@ -39,18 +40,20 @@ function App() {
         <BrowserRouter>
           {siteConfig.customCursor === 1 && <CustomCursor />}
           <ScrollToTop />
-          <Suspense fallback={<SuspenseFallback />}>
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/gallery" element={<GalleryPage />} />
-              <Route path="/videos" element={<VideoGalleryPage />} />
-              <Route path="/portfolio" element={<PortfolioPage />} />
-              <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
-              <Route path="/terms-of-service" element={<TermsOfServicePage />} />
-              <Route path="/home" element={<Navigate to="/" replace />} />
-              <Route path="*" element={<Navigate to="/" replace />} />
-            </Routes>
-          </Suspense>
+          <ChunkErrorBoundary>
+            <Suspense fallback={<SuspenseFallback />}>
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/gallery" element={<GalleryPage />} />
+                <Route path="/videos" element={<VideoGalleryPage />} />
+                <Route path="/portfolio" element={<PortfolioPage />} />
+                <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+                <Route path="/terms-of-service" element={<TermsOfServicePage />} />
+                <Route path="/home" element={<Navigate to="/" replace />} />
+                <Route path="*" element={<Navigate to="/" replace />} />
+              </Routes>
+            </Suspense>
+          </ChunkErrorBoundary>
           <WhatsAppChat />
         </BrowserRouter>
       </div>

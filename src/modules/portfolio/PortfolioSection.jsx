@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowRight, Camera, Video } from 'lucide-react'
+import { ArrowRight, Camera, Video, Play } from 'lucide-react'
 import SectionEyebrow from '../../components/common/SectionEyebrow'
 import GoldDivider from '../../components/common/GoldDivider'
 import { galleryItems } from '../../data/gallery'
@@ -54,9 +54,43 @@ const CARD_BASE = [
   'hover:border-gold/35 transition-all duration-[400ms]',
 ].join(' ')
 
+// Data Saver / metered connections should never trigger an autoplaying
+// video — that's exactly the audience an eager stream would hurt most.
+function prefersReducedData() {
+  if (typeof navigator === 'undefined' || !navigator.connection) return false
+  const conn = navigator.connection
+  return Boolean(conn.saveData) || ['slow-2g', '2g'].includes(conn.effectiveType)
+}
+
 // ─── YouTubeCard ───────────────────────────────────────────────────────────
 // aspect-video (16:9) ensures the full video is always visible at every width.
+// The iframe only mounts while this card is actually in/near the viewport —
+// an eagerly autoplaying embed here was pulling tens of MB in the background
+// on every page load regardless of whether it was ever seen, and kept
+// streaming indefinitely even after being scrolled past. Unmounting it once
+// scrolled away stops that stream immediately instead of letting it run for
+// the rest of the session.
 function YouTubeCard({ index }) {
+  const containerRef = useRef(null)
+  const [shouldLoad, setShouldLoad] = useState(false)
+  const [userWantsPlay, setUserWantsPlay] = useState(false)
+  const [allowAutoplay] = useState(() => !prefersReducedData())
+
+  useEffect(() => {
+    const el = containerRef.current
+    if (!el) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setShouldLoad(entry.isIntersecting),
+      { rootMargin: '300px', threshold: 0 }
+    )
+
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
+  const showIframe = shouldLoad && (allowAutoplay || userWantsPlay)
+
   const src = [
     `https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}`,
     `?autoplay=1&mute=1&loop=1&playlist=${YOUTUBE_VIDEO_ID}`,
@@ -75,16 +109,40 @@ function YouTubeCard({ index }) {
       onMouseLeave={onHoverEnd}
     >
       {/* 16:9 container — iframe fills it completely */}
-      <div className="relative w-full aspect-video">
-        <iframe
-          src={src}
-          title="Recent Video Showreel"
-          allow="autoplay; encrypted-media; picture-in-picture"
-          allowFullScreen
-          loading="lazy"
-          className="absolute inset-0 w-full h-full border-0"
-          aria-label="VClick Media — Recent Video Showreel"
-        />
+      <div ref={containerRef} className="relative w-full aspect-video bg-black">
+        {showIframe ? (
+          <iframe
+            src={src}
+            title="Recent Video Showreel"
+            allow="autoplay; encrypted-media; picture-in-picture"
+            allowFullScreen
+            className="absolute inset-0 w-full h-full border-0"
+            aria-label="VClick Media — Recent Video Showreel"
+          />
+        ) : (
+          <>
+            <img
+              src={`https://i.ytimg.com/vi/${YOUTUBE_VIDEO_ID}/hqdefault.jpg`}
+              alt="Recent Video Showreel preview"
+              loading="lazy"
+              width={480}
+              height={360}
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+            {!allowAutoplay && (
+              <button
+                type="button"
+                onClick={() => setUserWantsPlay(true)}
+                aria-label="Play video"
+                className="absolute inset-0 flex items-center justify-center z-10"
+              >
+                <span className="w-16 h-16 rounded-full bg-black/60 border border-white/30 flex items-center justify-center hover:bg-gold/80 hover:border-gold transition-colors duration-200">
+                  <Play size={22} className="text-white ml-0.5" fill="currentColor" />
+                </span>
+              </button>
+            )}
+          </>
+        )}
 
         {/* Gradient overlay — pointer-events-none so iframe stays interactive */}
         <div

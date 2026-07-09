@@ -1,13 +1,16 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowRight, Camera, Video, Play } from 'lucide-react'
+import { ArrowRight, Camera, Video, Play, Volume2, VolumeX } from 'lucide-react'
 import SectionEyebrow from '../../components/common/SectionEyebrow'
 import GoldDivider from '../../components/common/GoldDivider'
 import { galleryItems } from '../../data/gallery'
 
-// ─── YouTube video config ──────────────────────────────────────────────────
-// Replace YOUTUBE_VIDEO_ID with VClick's actual YouTube video ID
+// ─── Video config ───────────────────────────────────────────────────────────
+// P1: a locally-hosted file autoplays inline — no external embed, no network
+// round-trip to YouTube, so it's the reliable/fast path.
+// P2: if no local file is set, we fall back to the YouTube embed below.
+const LOCAL_VIDEO_SRC = '/uploads/video/showreel.mp4'
 const YOUTUBE_VIDEO_ID = 'cHWgMzJ72PU'
 
 // ─── Showreel slide images ─────────────────────────────────────────────────
@@ -54,52 +57,112 @@ const CARD_BASE = [
   'hover:border-gold/35 transition-all duration-[400ms]',
 ].join(' ')
 
-
-
-// ─── YouTubeCard ───────────────────────────────────────────────────────────
-// aspect-video (16:9) ensures the full video is always visible at every width.
-// The iframe only mounts while this card is actually in/near the viewport —
-// an eagerly autoplaying embed here was pulling tens of MB in the background
-// on every page load regardless of whether it was ever seen, and kept
-// streaming indefinitely even after being scrolled past. Unmounting it once
-// scrolled away stops that stream immediately instead of letting it run for
-// the rest of the session.
-function YouTubeCard({ index }) {
-  const containerRef = useRef(null)
-  const [isIntersecting, setIsIntersecting] = useState(false)
-  const [userWantsPlay, setUserWantsPlay] = useState(false)
+// Shared viewport-visibility hook — a single IntersectionObserver per card
+// (not per scroll event), so play/pause decisions are cheap and don't thrash.
+function useInView(threshold = 0.35) {
+  const ref = useRef(null)
+  const [inView, setInView] = useState(false)
 
   useEffect(() => {
-    const el = containerRef.current
+    const el = ref.current
     if (!el) return
 
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsIntersecting(entry.isIntersecting)
-      },
-      { rootMargin: '0px', threshold: 0 }
+      ([entry]) => setInView(entry.isIntersecting),
+      { threshold }
     )
 
     observer.observe(el)
-    return () => {
-      observer.disconnect()
-    }
+    return () => observer.disconnect()
+  }, [threshold])
+
+  return [ref, inView]
+}
+
+// Pause playback whenever the browser tab itself is backgrounded — no point
+// decoding/streaming a video nobody can see.
+function usePageVisible() {
+  const [visible, setVisible] = useState(
+    typeof document === 'undefined' || document.visibilityState !== 'hidden'
+  )
+
+  useEffect(() => {
+    const onChange = () => setVisible(document.visibilityState === 'visible')
+    document.addEventListener('visibilitychange', onChange)
+    return () => document.removeEventListener('visibilitychange', onChange)
   }, [])
 
-  // If the user scrolls away, stop the video by resetting userWantsPlay
+  return visible
+}
+
+// ─── RecentVideoCard ────────────────────────────────────────────────────────
+// aspect-video (16:9) ensures the full video is always visible at every width.
+//
+// P1 — local file: a plain <video> element that autoplays (muted, so every
+// browser allows it without a click) driven purely by play()/pause() calls.
+// The element itself is mounted once and never torn down, so entering/leaving
+// the viewport is just a play()/pause() call — no re-fetching, no reload
+// storm, regardless of how many times the observer fires.
+//
+// P2 — YouTube fallback (only used when LOCAL_VIDEO_SRC is unset): the iframe
+// is lazily mounted the first time it comes into view and then, critically,
+// left mounted. Visibility changes after that are relayed to the already-
+// loaded embed via postMessage (YouTube's IFrame Player API) instead of
+// remounting the iframe — remounting on every intersection toggle is what
+// previously caused the embed to reload dozens of times per scroll and hang
+// the page.
+function RecentVideoCard({ index }) {
+  const [containerRef, isInView] = useInView(0.35)
+  const pageVisible = usePageVisible()
+  const shouldPlay = isInView && pageVisible
+
+  const hasLocalVideo = Boolean(LOCAL_VIDEO_SRC)
+  const videoRef = useRef(null)
+  const iframeRef = useRef(null)
+  const [youtubeLoaded, setYoutubeLoaded] = useState(false)
+  const [isMuted, setIsMuted] = useState(true)
+
+  // P1 — local video: play/pause the existing element, never remount it.
   useEffect(() => {
-    if (!isIntersecting) {
-      setUserWantsPlay(false)
+    if (!hasLocalVideo) return
+    const video = videoRef.current
+    if (!video) return
+    if (shouldPlay) {
+      video.play().catch(() => {})
+    } else {
+      video.pause()
     }
-  }, [isIntersecting])
+  }, [shouldPlay, hasLocalVideo])
 
-  const showIframe = userWantsPlay && isIntersecting
+  const toggleMute = () => {
+    const video = videoRef.current
+    if (!video) return
+    video.muted = !video.muted
+    setIsMuted(video.muted)
+  }
 
-  const src = [
+  // P2 — YouTube: mount once on first appearance, then only ever postMessage.
+  useEffect(() => {
+    if (hasLocalVideo) return
+    if (isInView && !youtubeLoaded) setYoutubeLoaded(true)
+  }, [isInView, youtubeLoaded, hasLocalVideo])
+
+  useEffect(() => {
+    if (hasLocalVideo || !youtubeLoaded) return
+    const win = iframeRef.current?.contentWindow
+    if (!win) return
+    const func = shouldPlay ? 'playVideo' : 'pauseVideo'
+    win.postMessage(JSON.stringify({ event: 'command', func, args: [] }), '*')
+  }, [shouldPlay, youtubeLoaded, hasLocalVideo])
+
+  const youtubeSrc = [
     `https://www.youtube-nocookie.com/embed/${YOUTUBE_VIDEO_ID}`,
-    `?autoplay=1&mute=0&loop=1&playlist=${YOUTUBE_VIDEO_ID}`,
-    `&controls=1&playsinline=1&modestbranding=1&rel=0`,
+    `?autoplay=1&mute=1&loop=1&playlist=${YOUTUBE_VIDEO_ID}`,
+    `&controls=1&playsinline=1&modestbranding=1&rel=0&enablejsapi=1`,
+    `&origin=${typeof window !== 'undefined' ? window.location.origin : ''}`,
   ].join('')
+
+  const posterUrl = `https://i.ytimg.com/vi/${YOUTUBE_VIDEO_ID}/maxresdefault.jpg`
 
   return (
     <motion.article
@@ -112,11 +175,38 @@ function YouTubeCard({ index }) {
       onMouseEnter={onHoverStart}
       onMouseLeave={onHoverEnd}
     >
-      {/* 16:9 container — iframe or preview image */}
+      {/* 16:9 container — local video, YouTube embed, or preview image */}
       <div ref={containerRef} className="relative w-full aspect-video bg-black">
-        {showIframe ? (
+        {hasLocalVideo ? (
+          <>
+            <video
+              ref={videoRef}
+              src={LOCAL_VIDEO_SRC}
+              poster={posterUrl}
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              onClick={() => videoRef.current?.play().catch(() => {})}
+              className="absolute inset-0 w-full h-full object-cover cursor-pointer"
+            />
+            <button
+              type="button"
+              onClick={toggleMute}
+              aria-label={isMuted ? 'Unmute video' : 'Mute video'}
+              className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-black/55 border border-white/20 flex items-center justify-center hover:bg-gold/80 hover:border-gold transition-colors duration-200"
+            >
+              {isMuted ? (
+                <VolumeX size={16} className="text-white" />
+              ) : (
+                <Volume2 size={16} className="text-white" />
+              )}
+            </button>
+          </>
+        ) : youtubeLoaded ? (
           <iframe
-            src={src}
+            ref={iframeRef}
+            src={youtubeSrc}
             title="Recent Video Showreel"
             allow="autoplay; encrypted-media; picture-in-picture"
             allowFullScreen
@@ -126,17 +216,17 @@ function YouTubeCard({ index }) {
         ) : (
           <>
             <img
-              src={`https://i.ytimg.com/vi/${YOUTUBE_VIDEO_ID}/maxresdefault.jpg`}
+              src={posterUrl}
               alt="Recent Video Showreel preview"
               loading="lazy"
               width={1280}
               height={720}
               className="absolute inset-0 w-full h-full object-cover cursor-pointer"
-              onClick={() => setUserWantsPlay(true)}
+              onClick={() => setYoutubeLoaded(true)}
             />
             <button
               type="button"
-              onClick={() => setUserWantsPlay(true)}
+              onClick={() => setYoutubeLoaded(true)}
               aria-label="Play video"
               className="absolute inset-0 flex items-center justify-center z-10 bg-black/10 hover:bg-black/30 transition-colors duration-300"
             >
@@ -193,15 +283,19 @@ function YouTubeCard({ index }) {
 // ─── ShowreelCard ──────────────────────────────────────────────────────────
 // Full-height image slideshow — text + progress bar overlaid at bottom.
 function ShowreelCard({ item, index }) {
+  const [containerRef, isInView] = useInView(0.15)
   const [activeSlide, setActiveSlide] = useState(0)
   const href = item.link_type === 'gallery'
     ? (item.category ? `/gallery?album=${encodeURIComponent(item.category)}` : '/gallery')
     : null
 
+  // Only cycle slides while the card is actually visible — no point
+  // re-rendering an off-screen slideshow every 4.5s for the whole session.
   useEffect(() => {
+    if (!isInView) return
     const id = setInterval(() => setActiveSlide(i => (i + 1) % SHOWREEL_SLIDES.length), 4500)
     return () => clearInterval(id)
-  }, [])
+  }, [isInView])
 
   return (
     <motion.article
@@ -215,7 +309,7 @@ function ShowreelCard({ item, index }) {
       onMouseLeave={onHoverEnd}
     >
       {/* Full-height image container */}
-      <div className="relative w-full h-[420px] sm:h-[540px] md:h-[660px] xl:h-[900px] 2xl:h-[1080px]">
+      <div ref={containerRef} className="relative w-full h-[420px] sm:h-[540px] md:h-[660px] xl:h-[900px] 2xl:h-[1080px]">
 
         {/* Animated slides — fills entire container */}
         <AnimatePresence mode="sync">
@@ -357,7 +451,7 @@ function PortfolioSection({ section = null }) {
 
         {/* Two full-width showcase cards */}
         <div className="flex flex-col gap-4 md:gap-6">
-          <YouTubeCard index={0} />
+          <RecentVideoCard index={0} />
           <ShowreelCard item={SHOWREEL_ITEM} index={1} />
         </div>
 

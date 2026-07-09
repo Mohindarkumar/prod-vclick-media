@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import logo from '../../assets/images/logos/Logo_transparennt.png'
+import logo from '../../assets/images/logos/Logo_transparennt.webp'
 import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion'
 import Button from '../common/Button'
 
@@ -141,6 +141,8 @@ function Navbar() {
               <img
                 src={siteConfig.logoUrl || logo}
                 alt={siteConfig.name}
+                width={1106}
+                height={482}
                 className="h-10 w-auto object-contain"
               />
             </Link>

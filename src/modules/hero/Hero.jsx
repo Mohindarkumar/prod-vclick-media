@@ -4,7 +4,7 @@ import { ArrowRight, Phone, Camera, Video, Sparkles, Award } from 'lucide-react'
 import Button from '../../components/common/Button'
 import GoldDivider from '../../components/common/GoldDivider'
 import ScrollIndicator from './ScrollIndicator'
-import brandLogo from '../../assets/images/logos/Logo_transparennt.png'
+import brandLogo from '../../assets/images/logos/Logo_transparennt.webp'
 import usePrefersReducedMotion from '../../hooks/usePrefersReducedMotion'
 import { siteConfig } from '../../config/site.config'
 import { homeSectionContents } from '../../data/home_section_contents'
@@ -127,8 +127,10 @@ function Hero({ section = null }) {
           className="absolute inset-x-0 -top-[8%] h-[116%] will-change-transform"
         >
           <img
-            src="/uploads/images/homepage/home_bg.jpeg"
+            src="/uploads/images/homepage/home_bg.avif"
             alt=""
+            width={1920}
+            height={2401}
             className="w-full h-full object-cover object-center"
             loading="eager"
             decoding="async"
@@ -279,6 +281,8 @@ function Hero({ section = null }) {
           <img
             src={siteConfig.logoUrl || brandLogo}
             alt=""
+            width={1106}
+            height={482}
             className="w-[340px] xl:w-[440px] 2xl:w-[520px] h-auto object-contain opacity-60 drop-shadow-[0_4px_30px_rgba(212,175,55,0.25)]"
           />
         </div>

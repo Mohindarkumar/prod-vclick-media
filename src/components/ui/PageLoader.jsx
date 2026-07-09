@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { siteConfig } from '../../config/site.config'
-import logo from '../../assets/images/logos/Logo_transparennt.png'
+import logo from '../../assets/images/logos/Logo_transparennt.webp'
 
 export default function PageLoader({ onComplete }) {
   const [progress, setProgress] = useState(0)
@@ -11,12 +11,16 @@ export default function PageLoader({ onComplete }) {
   const showLogoLoader = siteConfig.pageLoader?.logoLoader === 1
   const showTextLoader = !showLogoLoader && siteConfig.pageLoader?.textLoader === 1
 
+  // This overlay hides the whole app (visibility:hidden) until onComplete fires,
+  // which gates Largest Contentful Paint behind however long it runs — it was
+  // previously a fixed 2.4s (1800ms hold + 600ms fade) added to every single
+  // load regardless of connection speed. Trimmed to keep the same brand beat
+  // without taxing mobile Core Web Vitals.
   useEffect(() => {
     const steps = [
-      { target: 30, delay: 0 },
-      { target: 65, delay: 300 },
-      { target: 85, delay: 700 },
-      { target: 100, delay: 1200 },
+      { target: 45, delay: 0 },
+      { target: 80, delay: 120 },
+      { target: 100, delay: 280 },
     ]
 
     const timers = steps.map(({ target, delay }) =>
@@ -25,8 +29,8 @@ export default function PageLoader({ onComplete }) {
 
     const hideTimer = setTimeout(() => {
       setVisible(false)
-      setTimeout(() => onComplete?.(), 600)
-    }, 1800)
+      setTimeout(() => onComplete?.(), 350)
+    }, 550)
 
     return () => {
       timers.forEach(clearTimeout)
@@ -40,7 +44,7 @@ export default function PageLoader({ onComplete }) {
         <motion.div
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.6, ease: 'easeInOut' }}
+          transition={{ duration: 0.35, ease: 'easeInOut' }}
           className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#0a0a0a]"
           aria-label="Loading VClick Media & Events"
           role="status"
@@ -56,6 +60,8 @@ export default function PageLoader({ onComplete }) {
               <img
                 src={siteConfig.logoUrl || logo}
                 alt={siteConfig.name}
+                width={1106}
+                height={482}
                 className="h-16 w-auto object-contain"
               />
             </motion.div>

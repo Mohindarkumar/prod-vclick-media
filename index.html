@@ -39,12 +39,32 @@
     <meta name="twitter:image" content="https://www.vclickmedia.com/og-image.jpg" />
     <meta name="twitter:image:alt" content="VClick Media & Events" />
 
-    <!-- Google Fonts: Poppins -->
+    <!-- Google Fonts: Poppins — loaded non-render-blocking (media=print swapped to
+         all on load); the URL already carries display=swap so text still uses the
+         fallback font immediately instead of staying invisible while this loads. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
+
+    <!-- Preload the hero LCP image — this is a client-rendered SPA, so without this
+         hint the browser can't discover the image until the JS bundle has downloaded,
+         parsed and rendered <Hero>. Preloading lets it fetch in parallel with the JS. -->
+    <link
+      rel="preload"
+      as="image"
+      href="/uploads/images/homepage/home_bg.avif"
+      fetchpriority="high"
     />
 
     <!-- Preconnect for external image/video assets -->

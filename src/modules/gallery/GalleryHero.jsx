@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { m, useScroll, useTransform } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { ChevronRight, Aperture, Image } from 'lucide-react'
 import GoldDivider from '../../components/common/GoldDivider'
@@ -61,7 +61,7 @@ function GalleryHero({ totalCount }) {
       className="relative pt-24 pb-8 md:pt-32 md:pb-10 bg-ink overflow-hidden"
     >
       {/* ── Parallax background layer ──────────────────────────────────── */}
-      <motion.div
+      <m.div
         style={{ y: bgY }}
         className="absolute inset-0 will-change-transform pointer-events-none"
         aria-hidden="true"
@@ -91,10 +91,10 @@ function GalleryHero({ totalCount }) {
             backgroundSize: '44px 44px',
           }}
         />
-      </motion.div>
+      </m.div>
 
       {/* ── Animated image collage — right panel ─────────────────────── */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.8, delay: 0.3 }}
@@ -103,7 +103,7 @@ function GalleryHero({ totalCount }) {
       >
         <div className="grid grid-cols-2 h-full gap-0.5">
           {BG_IMAGES.map((src, i) => (
-            <motion.div
+            <m.div
               key={i}
               className="relative overflow-hidden"
               animate={{ scale: [1, 1.04, 1] }}
@@ -121,7 +121,7 @@ function GalleryHero({ totalCount }) {
                 fetchPriority="low"
                 className="absolute inset-0 w-full h-full object-cover blur-sm scale-110"
               />
-            </motion.div>
+            </m.div>
           ))}
         </div>
         {/* Gradient fade — text side */}
@@ -134,10 +134,10 @@ function GalleryHero({ totalCount }) {
         />
         {/* Overall dark overlay — keeps images subtle */}
         <div className="absolute inset-0 bg-ink/78" />
-      </motion.div>
+      </m.div>
 
       {/* ── Rotating aperture icon ────────────────────────────────────── */}
-      <motion.div
+      <m.div
         style={{ rotate: iconRotate }}
         className="absolute right-4 md:right-12 top-1/2 -translate-y-1/2 w-[200px] h-[200px] md:w-[340px] md:h-[340px] pointer-events-none will-change-transform hidden sm:block"
         initial={{ opacity: 0, scale: 0.82 }}
@@ -146,12 +146,12 @@ function GalleryHero({ totalCount }) {
         aria-hidden="true"
       >
         <Aperture className="w-full h-full text-gold" strokeWidth={0.28} />
-      </motion.div>
+      </m.div>
 
       {/* ── Content ─────────────────────────────────────────────────── */}
       <div className="section-container relative z-10">
         {/* Breadcrumb */}
-        <motion.nav
+        <m.nav
           initial={{ opacity: 0, x: -12 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
@@ -171,12 +171,12 @@ function GalleryHero({ totalCount }) {
               Gallery
             </li>
           </ol>
-        </motion.nav>
+        </m.nav>
 
-        <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-3xl">
+        <m.div variants={stagger} initial="hidden" animate="visible" className="max-w-3xl">
           {/* Eyebrow */}
-          <motion.div variants={fadeUp} className="flex items-center gap-3 mb-5">
-            <motion.span
+          <m.div variants={fadeUp} className="flex items-center gap-3 mb-5">
+            <m.span
               className="block h-px bg-gold-sweep"
               initial={{ width: 0 }}
               animate={{ width: 32 }}
@@ -184,10 +184,10 @@ function GalleryHero({ totalCount }) {
               aria-hidden="true"
             />
             <span className="eyebrow">{CONTENT.eyebrow}</span>
-          </motion.div>
+          </m.div>
 
           {/* Headline */}
-          <motion.h1
+          <m.h1
             variants={fadeUp}
             className="text-4xl sm:text-h1 md:text-display-2 font-extrabold text-paper leading-[1.04] tracking-tight"
           >
@@ -196,19 +196,19 @@ function GalleryHero({ totalCount }) {
               <span className="gold-text-gradient">Gallery</span>
               <GoldDivider variant="underline" className="absolute -bottom-1.5 left-0 w-full" />
             </span>
-          </motion.h1>
+          </m.h1>
 
           {/* Subtitle */}
-          <motion.p
+          <m.p
             variants={fadeUp}
             className="mt-5 text-lg text-mist/75 leading-relaxed max-w-xl"
           >
             {CONTENT.subtitle}
-          </motion.p>
+          </m.p>
 
           {/* Count chip — clean borderless style */}
           {totalCount > 0 && (
-            <motion.div variants={fadeUp} className="mt-6">
+            <m.div variants={fadeUp} className="mt-6">
               <div className="inline-flex items-center gap-2.5 border border-white/10 rounded-full px-4 py-2">
                 <div
                   className="w-6 h-6 rounded-full bg-gold/15 border border-gold/30 flex items-center justify-center flex-shrink-0"
@@ -221,9 +221,9 @@ function GalleryHero({ totalCount }) {
                   {CONTENT.countSuffix}
                 </span>
               </div>
-            </motion.div>
+            </m.div>
           )}
-        </motion.div>
+        </m.div>
       </div>
 
       <GoldDivider className="mt-6 md:mt-8" />

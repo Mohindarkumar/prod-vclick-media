@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 
 /**
  * Filter bar for the Portfolio masonry grid (build brief §6.6).
@@ -10,7 +10,7 @@ function PortfolioFilter({ categories, activeCategory, onChange }) {
       {categories.map((category) => {
         const isActive = category === activeCategory
         return (
-          <motion.button
+          <m.button
             key={category}
             type="button"
             onClick={() => onChange(category)}
@@ -23,7 +23,7 @@ function PortfolioFilter({ categories, activeCategory, onChange }) {
             }`}
           >
             {category}
-          </motion.button>
+          </m.button>
         )
       })}
     </div>

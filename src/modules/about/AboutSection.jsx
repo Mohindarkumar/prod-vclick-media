@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { Target, Eye, Clock, Users } from 'lucide-react'
 import SectionEyebrow from '../../components/common/SectionEyebrow'
 import GoldDivider from '../../components/common/GoldDivider'
@@ -51,7 +51,7 @@ function AboutSection({ section = null }) {
       <div className="section-container grid lg:grid-cols-2 gap-16 items-center">
         <div>
           <SectionEyebrow align="left">{CONTENT.eyebrow}</SectionEyebrow>
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -63,9 +63,9 @@ function AboutSection({ section = null }) {
               <span className="block italic gold-text-gradient">You Celebrate.</span>
             </h2>
             <span className="mt-4 block h-[3px] w-14 rounded-full bg-gold-sweep" aria-hidden="true" />
-          </motion.div>
+          </m.div>
 
-          <motion.p
+          <m.p
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -73,7 +73,7 @@ function AboutSection({ section = null }) {
             className="mt-6 text-body-lg text-mist max-w-xl lg:max-w-none"
           >
             {bodyText}
-          </motion.p>
+          </m.p>
 
           <div className={`mt-8 md:mt-12 ${pillarsClass} grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8`}>
             {pillars.map((pillar, index) => {
@@ -81,7 +81,7 @@ function AboutSection({ section = null }) {
               const label = pillar.label || pillar.title
               const copy  = pillar.copy  || pillar.description
               return (
-                <motion.div
+                <m.div
                   key={label}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -96,14 +96,14 @@ function AboutSection({ section = null }) {
                     <h3 className="text-base font-semibold text-paper">{label}</h3>
                     <p className="mt-1 text-sm text-mist leading-relaxed">{copy}</p>
                   </div>
-                </motion.div>
+                </m.div>
               )
             })}
           </div>
         </div>
 
         {/* Desktop-only: themed 3-image grid (hidden on mobile) */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -158,11 +158,11 @@ function AboutSection({ section = null }) {
               </div>
             </div>
           </div>
-        </motion.div>
+        </m.div>
       </div>
 
       {/* Full-width auto-sliding showcase: Mission / Vision / Values / Team */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -170,7 +170,7 @@ function AboutSection({ section = null }) {
         className="section-container mt-14 md:mt-20"
       >
         <AboutHighlightsSlider />
-      </motion.div>
+      </m.div>
     </section>
   )
 }

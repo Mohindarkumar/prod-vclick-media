@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { X, ExternalLink, Clock } from 'lucide-react'
 
 function getYouTubeId(url) {
@@ -32,10 +32,10 @@ function buildEmbedUrl(video) {
 function formatDuration(seconds) {
   if (!seconds || seconds <= 0) return null
   const h = Math.floor(seconds / 3600)
-  const m = Math.floor((seconds % 3600) / 60)
+  const min = Math.floor((seconds % 3600) / 60)
   const s = seconds % 60
-  if (h > 0) return `${h}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`
-  return `${m}:${String(s).padStart(2, '0')}`
+  if (h > 0) return `${h}:${String(min).padStart(2, '0')}:${String(s).padStart(2, '0')}`
+  return `${min}:${String(s).padStart(2, '0')}`
 }
 
 const PLATFORM_LABELS = { youtube: 'YouTube', vimeo: 'Vimeo' }
@@ -64,7 +64,7 @@ function VideoModal({ video, onClose }) {
   return (
     <AnimatePresence>
       {isOpen && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -84,7 +84,7 @@ function VideoModal({ video, onClose }) {
           <div className="absolute inset-0 backdrop-blur-sm" aria-hidden="true" />
 
           {/* Close button */}
-          <motion.button
+          <m.button
             type="button"
             onClick={onClose}
             aria-label="Close video player"
@@ -97,10 +97,10 @@ function VideoModal({ video, onClose }) {
             style={{ top: 'max(20px, env(safe-area-inset-top, 0px))' }}
           >
             <X size={17} />
-          </motion.button>
+          </m.button>
 
           {/* Keyboard hint */}
-          <motion.p
+          <m.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
@@ -108,10 +108,10 @@ function VideoModal({ video, onClose }) {
             aria-hidden="true"
           >
             Press Esc to close
-          </motion.p>
+          </m.p>
 
           {/* Player card */}
-          <motion.div
+          <m.div
             key={video.video_id}
             initial={{ scale: 0.92, opacity: 0, y: 24, filter: 'blur(8px)' }}
             animate={{ scale: 1, opacity: 1, y: 0, filter: 'blur(0px)' }}
@@ -142,7 +142,7 @@ function VideoModal({ video, onClose }) {
             </div>
 
             {/* Metadata panel */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.22 }}
@@ -190,9 +190,9 @@ function VideoModal({ video, onClose }) {
                   </a>
                 )}
               </div>
-            </motion.div>
-          </motion.div>
-        </motion.div>
+            </m.div>
+          </m.div>
+        </m.div>
       )}
     </AnimatePresence>
   )

@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
+import { m, AnimatePresence, useScroll, useTransform } from 'framer-motion'
 import { Play, X } from 'lucide-react'
 import SectionEyebrow from '../../components/common/SectionEyebrow'
 import usePrefersReducedMotion from '../../hooks/usePrefersReducedMotion'
@@ -45,7 +45,7 @@ function VideoShowreel({ section = null }) {
 
   return (
     <section id="showreel" ref={sectionRef} className="relative section-padding bg-ink overflow-hidden">
-      <motion.div
+      <m.div
         style={{ y: parallaxY }}
         className="absolute inset-0 bg-gradient-to-b from-charcoal via-ink to-ink"
         aria-hidden="true"
@@ -55,12 +55,12 @@ function VideoShowreel({ section = null }) {
           alt=""
           className="w-full h-full object-cover opacity-25"
         />
-      </motion.div>
+      </m.div>
       <div className="absolute inset-0 bg-gradient-to-b from-ink/60 via-ink/70 to-ink" />
 
       <div className="relative z-10 section-container text-center">
         <SectionEyebrow>{CONTENT.eyebrow}</SectionEyebrow>
-        <motion.h2
+        <m.h2
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -68,9 +68,9 @@ function VideoShowreel({ section = null }) {
           className="mt-5 text-3xl md:text-h2 font-extrabold text-paper"
         >
           {heading}
-        </motion.h2>
+        </m.h2>
 
-        <motion.button
+        <m.button
           type="button"
           onClick={() => videoUrl && setIsModalOpen(true)}
           initial={{ opacity: 0, scale: 0.9 }}
@@ -84,14 +84,14 @@ function VideoShowreel({ section = null }) {
         >
           <span className="absolute inset-0 rounded-full bg-gold-sweep animate-ping opacity-20" aria-hidden="true" />
           <Play size={32} className="text-ink fill-ink ml-1" />
-        </motion.button>
+        </m.button>
 
         <p className="mt-8 text-body-lg text-mist">{subtext}</p>
       </div>
 
       <AnimatePresence>
         {isModalOpen && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -110,7 +110,7 @@ function VideoShowreel({ section = null }) {
             >
               <X size={28} />
             </button>
-            <motion.div
+            <m.div
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               className="w-full max-w-4xl aspect-video rounded-2xl overflow-hidden bg-charcoal"
@@ -137,8 +137,8 @@ function VideoShowreel({ section = null }) {
                   </video>
                 ) : null
               )}
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         )}
       </AnimatePresence>
     </section>

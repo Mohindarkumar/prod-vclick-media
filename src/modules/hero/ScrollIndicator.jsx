@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
 import usePrefersReducedMotion from '../../hooks/usePrefersReducedMotion'
 
@@ -11,7 +11,7 @@ function ScrollIndicator({ visible }) {
   const prefersReducedMotion = usePrefersReducedMotion()
 
   return (
-    <motion.a
+    <m.a
       href="#contact"
       aria-label="Scroll down"
       initial={{ opacity: 0, y: 12 }}
@@ -24,7 +24,7 @@ function ScrollIndicator({ visible }) {
       <div className="relative flex items-center justify-center">
         {/* Pulsing ring — motion-enabled, non-touch only */}
         {!prefersReducedMotion && (
-          <motion.span
+          <m.span
             className="absolute rounded-full border border-gold/40"
             style={{ width: 32, height: 32 }}
             animate={{ scale: [1, 1.9], opacity: [0.55, 0] }}
@@ -34,15 +34,15 @@ function ScrollIndicator({ visible }) {
         )}
 
         {/* Bouncing chevron in a rounded container */}
-        <motion.div
+        <m.div
           className="w-8 h-8 rounded-full border border-white/25 group-hover:border-gold/60 flex items-center justify-center transition-colors duration-300"
           animate={prefersReducedMotion ? {} : { y: [0, 7, 0] }}
           transition={{ duration: 1.9, repeat: Infinity, ease: 'easeInOut' }}
         >
           <ChevronDown size={16} strokeWidth={2} />
-        </motion.div>
+        </m.div>
       </div>
-    </motion.a>
+    </m.a>
   )
 }
 

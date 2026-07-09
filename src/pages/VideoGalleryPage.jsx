@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { Search, X } from 'lucide-react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import SEOHead from '../components/common/SEOHead'
 import Navbar from '../components/layout/Navbar'
 import Footer from '../components/layout/Footer'
@@ -133,7 +133,7 @@ function VideoGalleryPage() {
             />
             <AnimatePresence>
               {searchQuery && (
-                <motion.button
+                <m.button
                   type="button"
                   onClick={clearSearch}
                   aria-label={SEARCH.clearAriaLabel}
@@ -148,7 +148,7 @@ function VideoGalleryPage() {
                     text-mist/55 hover:text-gold transition-colors duration-200"
                 >
                   <X size={12} />
-                </motion.button>
+                </m.button>
               )}
             </AnimatePresence>
           </div>
@@ -156,7 +156,7 @@ function VideoGalleryPage() {
           {/* ── Category filter — hidden while searching ──────────────── */}
           <AnimatePresence>
             {!searchQuery && categories.length > 1 && (
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
@@ -169,14 +169,14 @@ function VideoGalleryPage() {
                   activeAlbum={activeCategory}
                   onChange={handleCategoryChange}
                 />
-              </motion.div>
+              </m.div>
             )}
           </AnimatePresence>
 
           {/* ── Search result label ───────────────────────────────────── */}
           <AnimatePresence>
             {searchQuery && (
-              <motion.p
+              <m.p
                 initial={{ opacity: 0, y: -6 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -6 }}
@@ -192,7 +192,7 @@ function VideoGalleryPage() {
                     <span className="text-paper/70">&ldquo;{searchQuery}&rdquo;</span>
                   </span>
                 )}
-              </motion.p>
+              </m.p>
             )}
           </AnimatePresence>
 

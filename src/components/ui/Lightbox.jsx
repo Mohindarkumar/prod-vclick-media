@@ -1,5 +1,5 @@
 import { useEffect, useCallback, useRef } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { X, ChevronLeft, ChevronRight } from 'lucide-react'
 
 function Lightbox({ items, activeIndex, onClose, onNavigate }) {
@@ -49,7 +49,7 @@ function Lightbox({ items, activeIndex, onClose, onNavigate }) {
   return (
     <AnimatePresence>
       {isOpen && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -77,7 +77,7 @@ function Lightbox({ items, activeIndex, onClose, onNavigate }) {
             className="absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-5"
             style={{ paddingTop: 'max(16px, env(safe-area-inset-top, 0px))', paddingBottom: '12px' }}
           >
-            <motion.span
+            <m.span
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
@@ -85,9 +85,9 @@ function Lightbox({ items, activeIndex, onClose, onNavigate }) {
               aria-live="polite"
             >
               {activeIndex + 1} / {items.length}
-            </motion.span>
+            </m.span>
 
-            <motion.span
+            <m.span
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
@@ -95,9 +95,9 @@ function Lightbox({ items, activeIndex, onClose, onNavigate }) {
               aria-hidden="true"
             >
               ← → to navigate · Esc to close
-            </motion.span>
+            </m.span>
 
-            <motion.button
+            <m.button
               type="button"
               onClick={onClose}
               aria-label="Close lightbox"
@@ -109,7 +109,7 @@ function Lightbox({ items, activeIndex, onClose, onNavigate }) {
               className="w-10 h-10 rounded-full glass-surface flex items-center justify-center text-paper/70 hover:text-gold hover:border-gold/45 transition-colors duration-200"
             >
               <X size={17} />
-            </motion.button>
+            </m.button>
           </div>
 
           {/* ── Desktop side nav — hidden on mobile ──────────────────────── */}
@@ -132,7 +132,7 @@ function Lightbox({ items, activeIndex, onClose, onNavigate }) {
           </button>
 
           {/* ── Image + caption ───────────────────────────────────────────── */}
-          <motion.div
+          <m.div
             key={item?.id}
             initial={{ opacity: 0, scale: 0.88, filter: 'blur(16px)', y: 20 }}
             animate={{ opacity: 1, scale: 1, filter: 'blur(0px)', y: 0 }}
@@ -150,7 +150,7 @@ function Lightbox({ items, activeIndex, onClose, onNavigate }) {
               className="w-full max-h-[56vh] sm:max-h-[68vh] md:max-h-[72vh] object-contain rounded-xl sm:rounded-2xl"
             />
 
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.38, delay: 0.28, ease: 'easeOut' }}
@@ -164,11 +164,11 @@ function Lightbox({ items, activeIndex, onClose, onNavigate }) {
                   {item.album}
                 </span>
               )}
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
 
           {/* ── Mobile bottom nav bar — hidden sm+ ────────────────────────── */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
@@ -206,7 +206,7 @@ function Lightbox({ items, activeIndex, onClose, onNavigate }) {
             ) : (
               <div className="flex-1 flex items-center justify-center gap-2">
                 <div className="w-28 h-[2px] bg-white/15 rounded-full overflow-hidden">
-                  <motion.div
+                  <m.div
                     className="h-full bg-gold-sweep rounded-full"
                     animate={{ width: `${((activeIndex + 1) / items.length) * 100}%` }}
                     transition={{ duration: 0.4, ease: 'easeOut' }}
@@ -227,10 +227,10 @@ function Lightbox({ items, activeIndex, onClose, onNavigate }) {
             >
               <ChevronRight size={24} />
             </button>
-          </motion.div>
+          </m.div>
 
           {/* ── Desktop progress — hidden on mobile ───────────────────────── */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35 }}
@@ -255,15 +255,15 @@ function Lightbox({ items, activeIndex, onClose, onNavigate }) {
               </div>
             ) : (
               <div className="w-40 h-[2px] bg-white/12 rounded-full overflow-hidden">
-                <motion.div
+                <m.div
                   className="h-full bg-gold-sweep rounded-full"
                   animate={{ width: `${((activeIndex + 1) / items.length) * 100}%` }}
                   transition={{ duration: 0.4, ease: 'easeOut' }}
                 />
               </div>
             )}
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       )}
     </AnimatePresence>
   )

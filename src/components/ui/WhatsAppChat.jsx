@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { X, Send } from 'lucide-react'
 import { siteConfig } from '../../config/site.config'
 
@@ -49,7 +49,7 @@ export default function WhatsAppChat() {
     >
       <AnimatePresence>
         {open && (
-          <motion.div
+          <m.div
             key="panel"
             initial={{ opacity: 0, scale: 0.88, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -102,12 +102,12 @@ export default function WhatsAppChat() {
                 Send Message
               </button>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
 
       {/* Floating button */}
-      <motion.button
+      <m.button
         onClick={open ? () => setOpen(false) : handleOpen}
         className="w-14 h-14 rounded-full flex items-center justify-center text-white shadow-lg"
         style={{ backgroundColor: color, boxShadow: `0 4px 20px ${color}55` }}
@@ -117,7 +117,7 @@ export default function WhatsAppChat() {
       >
         <AnimatePresence mode="wait">
           {open ? (
-            <motion.span
+            <m.span
               key="close"
               initial={{ rotate: -90, opacity: 0 }}
               animate={{ rotate: 0, opacity: 1 }}
@@ -125,9 +125,9 @@ export default function WhatsAppChat() {
               transition={{ duration: 0.15 }}
             >
               <X size={22} />
-            </motion.span>
+            </m.span>
           ) : (
-            <motion.span
+            <m.span
               key="wa"
               initial={{ rotate: 90, opacity: 0 }}
               animate={{ rotate: 0, opacity: 1 }}
@@ -135,10 +135,10 @@ export default function WhatsAppChat() {
               transition={{ duration: 0.15 }}
             >
               <WhatsAppIcon size={26} />
-            </motion.span>
+            </m.span>
           )}
         </AnimatePresence>
-      </motion.button>
+      </m.button>
     </div>
   )
 }

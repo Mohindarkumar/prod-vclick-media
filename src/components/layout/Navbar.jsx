@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import logo from '../../assets/images/logos/Logo_transparennt.webp'
-import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion'
+import { m, AnimatePresence, useScroll, useSpring } from 'framer-motion'
 import Button from '../common/Button'
 
 function HamburgerIcon() {
@@ -26,9 +26,9 @@ import { menusConfig } from '../../config/menus.config'
 import { siteConfig } from '../../config/site.config'
 
 const VISIBLE_NAV_LINKS = menusConfig
-  .filter((m) => !m.isHidden && m.isActive)
+  .filter((menu) => !menu.isHidden && menu.isActive)
   .sort((a, b) => a.displayOrder - b.displayOrder)
-  .map((m) => ({ label: m.label, href: m.href, isRoute: m.isRoute }))
+  .map((menu) => ({ label: menu.label, href: menu.href, isRoute: menu.isRoute }))
 
 function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -122,7 +122,7 @@ function Navbar() {
         }`}
       >
         {/* ── Scroll progress bar ──────────────────────────────────────────── */}
-        <motion.div
+        <m.div
           className="absolute bottom-0 left-0 right-0 h-[2px] bg-gold-sweep origin-left"
           style={{ scaleX }}
           aria-hidden="true"
@@ -133,7 +133,7 @@ function Navbar() {
           aria-label="Primary"
         >
           {/* Logo — always navigates to root */}
-          <motion.div whileHover={{ opacity: 0.82 }} transition={{ duration: 0.2 }}>
+          <m.div whileHover={{ opacity: 0.82 }} transition={{ duration: 0.2 }}>
             <Link
               to="/"
               className="flex-shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded"
@@ -146,7 +146,7 @@ function Navbar() {
                 className="h-10 w-auto object-contain"
               />
             </Link>
-          </motion.div>
+          </m.div>
 
           {/* Desktop nav links — visible at lg (1024px+) */}
           {VISIBLE_NAV_LINKS.length > 0 && (
@@ -186,7 +186,7 @@ function Navbar() {
            in the root stacking context and covers all page sections ─────── */}
       <AnimatePresence>
         {isMobileMenuOpen && hasMobileMenu && (
-          <motion.div
+          <m.div
             id="mobile-menu"
             key="mobile-menu"
             initial={{ opacity: 0 }}
@@ -209,7 +209,7 @@ function Navbar() {
               </button>
             </div>
 
-            <motion.ul
+            <m.ul
               initial="hidden"
               animate="visible"
               variants={{ visible: { transition: { staggerChildren: 0.07 } } }}
@@ -217,7 +217,7 @@ function Navbar() {
               role="list"
             >
               {VISIBLE_NAV_LINKS.map((link) => (
-                <motion.li
+                <m.li
                   key={link.href}
                   variants={{
                     hidden: { opacity: 0, y: 20 },
@@ -229,9 +229,9 @@ function Navbar() {
                     `!text-xl sm:!text-2xl !font-semibold ${isRouteActive(link) ? '!text-gold' : '!text-paper hover:!text-gold'}`,
                     handleLinkClick
                   )}
-                </motion.li>
+                </m.li>
               ))}
-              <motion.li
+              <m.li
                 variants={{
                   hidden: { opacity: 0, y: 20 },
                   visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } },
@@ -246,9 +246,9 @@ function Navbar() {
                 >
                   Book Now
                 </Button>
-              </motion.li>
-            </motion.ul>
-          </motion.div>
+              </m.li>
+            </m.ul>
+          </m.div>
         )}
       </AnimatePresence>
     </>

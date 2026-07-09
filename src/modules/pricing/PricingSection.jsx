@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import SectionEyebrow from '../../components/common/SectionEyebrow'
 import GoldDivider from '../../components/common/GoldDivider'
 import PricingCard from './PricingCard'
@@ -29,7 +29,7 @@ function PricingSection({ section = null }) {
         <GoldDivider className="mb-10 md:mb-14" />
         <div className="text-center max-w-2xl mx-auto">
           <SectionEyebrow>{CONTENT.eyebrow}</SectionEyebrow>
-          <motion.h2
+          <m.h2
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -37,7 +37,7 @@ function PricingSection({ section = null }) {
             className="mt-5 text-2xl sm:text-3xl md:text-h2 font-extrabold text-paper"
           >
             {heading}
-          </motion.h2>
+          </m.h2>
           <p className="mt-4 text-body-lg text-mist">{subtext}</p>
         </div>
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { siteConfig } from '../../config/site.config'
 import logo from '../../assets/images/logos/Logo_transparennt.webp'
 
@@ -41,7 +41,7 @@ export default function PageLoader({ onComplete }) {
   return (
     <AnimatePresence>
       {visible && (
-        <motion.div
+        <m.div
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.35, ease: 'easeInOut' }}
@@ -51,7 +51,7 @@ export default function PageLoader({ onComplete }) {
         >
           {/* Logo mark */}
           {showLogoLoader ? (
-            <motion.div
+            <m.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
@@ -64,9 +64,9 @@ export default function PageLoader({ onComplete }) {
                 height={482}
                 className="h-16 w-auto object-contain"
               />
-            </motion.div>
+            </m.div>
           ) : showTextLoader ? (
-            <motion.div
+            <m.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
@@ -96,36 +96,36 @@ export default function PageLoader({ onComplete }) {
                   Media &amp; Events
                 </p>
               </div>
-            </motion.div>
+            </m.div>
           ) : null}
 
           {/* Pulsing dots */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
             className="flex items-center gap-2 mt-10"
           >
             {[0, 1, 2].map((i) => (
-              <motion.span
+              <m.span
                 key={i}
                 className="w-1.5 h-1.5 rounded-full bg-gold"
                 animate={{ opacity: [0.3, 1, 0.3], scale: [0.8, 1.2, 0.8] }}
                 transition={{ duration: 1.2, repeat: Infinity, delay: i * 0.2, ease: 'easeInOut' }}
               />
             ))}
-          </motion.div>
+          </m.div>
 
           {/* Progress bar */}
           <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-white/8">
-            <motion.div
+            <m.div
               className="h-full bg-gold-sweep"
               initial={{ width: '0%' }}
               animate={{ width: `${progress}%` }}
               transition={{ duration: 0.4, ease: 'easeOut' }}
             />
           </div>
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   )

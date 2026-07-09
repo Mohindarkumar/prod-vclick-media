@@ -1,4 +1,4 @@
-import { motion, useMotionValue, useSpring } from 'framer-motion'
+import { m, useMotionValue, useSpring } from 'framer-motion'
 
 /**
  * Shared button component.
@@ -49,7 +49,7 @@ function Button({
   }
 
   const isMagnetic = variant !== 'text'
-  const Component  = as === 'a' ? motion.a : as === 'button' ? motion.button : motion(as)
+  const Component  = as === 'a' ? m.a : as === 'button' ? m.button : m(as)
   const baseClasses =
     variant === 'text'
       ? 'inline-flex items-center font-medium text-sm transition-colors duration-300'

@@ -1,5 +1,5 @@
 import { useRef, useEffect } from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 
 /**
  * Horizontally-scrollable album filter bar.
@@ -58,7 +58,7 @@ function GalleryFilter({ albums, counts, activeAlbum, onChange }) {
           const count = counts[album] ?? 0
 
           return (
-            <motion.button
+            <m.button
               key={album}
               type="button"
               onClick={() => onChange(album)}
@@ -76,7 +76,7 @@ function GalleryFilter({ albums, counts, activeAlbum, onChange }) {
             >
               {/* Shared layoutId background — morphs smoothly between active pills */}
               {isActive && (
-                <motion.span
+                <m.span
                   layoutId="gallery-filter-indicator"
                   className="absolute inset-0 rounded-full bg-gold-sweep"
                   transition={{ type: 'spring', stiffness: 420, damping: 36 }}
@@ -96,7 +96,7 @@ function GalleryFilter({ albums, counts, activeAlbum, onChange }) {
                   {count}
                 </span>
               )}
-            </motion.button>
+            </m.button>
           )
         })}
       </div>

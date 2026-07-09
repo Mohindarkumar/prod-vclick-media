@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 
 /**
  * Glassmorphic card surface reused for service cards, pricing cards,
@@ -6,7 +6,7 @@ import { motion } from 'framer-motion'
  * gold border-glow, gated so it's not applied to every element on the page.
  */
 function GlassCard({ children, hoverable = true, className = '', as = 'div', ...props }) {
-  const Component = motion[as] || motion.div
+  const Component = motion[as] || m.div
 
   return (
     <Component

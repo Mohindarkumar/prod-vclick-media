@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import SectionEyebrow from '../../components/common/SectionEyebrow'
 import Carousel from '../../components/ui/Carousel'
 import TestimonialCard from './TestimonialCard'
@@ -13,7 +13,7 @@ function TestimonialsSection() {
       <div className="section-container">
         <div className="text-center max-w-2xl mx-auto">
           <SectionEyebrow>{CONTENT.eyebrow}</SectionEyebrow>
-          <motion.h2
+          <m.h2
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -21,7 +21,7 @@ function TestimonialsSection() {
             className="mt-5 text-3xl md:text-h2 font-extrabold text-paper"
           >
             {CONTENT.heading}
-          </motion.h2>
+          </m.h2>
         </div>
 
         <div className="mt-14">

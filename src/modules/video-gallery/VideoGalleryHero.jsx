@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { m, useScroll, useTransform } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { ChevronRight, Film, Video, Play } from 'lucide-react'
 import GoldDivider from '../../components/common/GoldDivider'
@@ -54,7 +54,7 @@ function VideoGalleryHero({ totalCount }) {
       className="relative pt-24 pb-8 md:pt-32 md:pb-10 bg-ink overflow-hidden"
     >
       {/* ── Parallax background ──────────────────────────────────────────── */}
-      <motion.div
+      <m.div
         style={{ y: bgY }}
         className="absolute inset-0 will-change-transform pointer-events-none"
         aria-hidden="true"
@@ -78,7 +78,7 @@ function VideoGalleryHero({ totalCount }) {
         {/* Radar pulse rings — cinematic radar effect */}
         <div className="absolute left-2/3 top-1/2 -translate-x-1/2 -translate-y-1/2">
           {[0, 1, 2].map((i) => (
-            <motion.div
+            <m.div
               key={i}
               className="absolute rounded-full border border-gold/10"
               style={{
@@ -116,10 +116,10 @@ function VideoGalleryHero({ totalCount }) {
             backgroundSize: '44px 44px',
           }}
         />
-      </motion.div>
+      </m.div>
 
       {/* ── Film strip decoration — FIXED: opacity controlled via animate only ── */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.05 }}
         transition={{ duration: 2, delay: 0.4 }}
@@ -136,10 +136,10 @@ function VideoGalleryHero({ totalCount }) {
             </div>
           ))}
         </div>
-      </motion.div>
+      </m.div>
 
       {/* ── Decorative film icon — left side ─────────────────────────────── */}
-      <motion.div
+      <m.div
         style={{ y: iconY }}
         className="absolute left-0 md:left-10 top-1/2 -translate-y-1/2 w-[220px] h-[220px] md:w-[360px] md:h-[360px] pointer-events-none will-change-transform"
         initial={{ opacity: 0, scale: 0.82 }}
@@ -148,10 +148,10 @@ function VideoGalleryHero({ totalCount }) {
         aria-hidden="true"
       >
         <Film className="w-full h-full text-amber-400" strokeWidth={0.28} />
-      </motion.div>
+      </m.div>
 
       {/* ── Play icon accent — top right corner ─────────────────────────── */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.03 }}
         transition={{ duration: 2 }}
@@ -159,12 +159,12 @@ function VideoGalleryHero({ totalCount }) {
         aria-hidden="true"
       >
         <Play className="w-40 h-40 md:w-64 md:h-64 text-gold" strokeWidth={0.4} fill="currentColor" />
-      </motion.div>
+      </m.div>
 
       {/* ── Content ─────────────────────────────────────────────────────── */}
       <div className="section-container relative z-10">
         {/* Breadcrumb */}
-        <motion.nav
+        <m.nav
           initial={{ opacity: 0, x: -12 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
@@ -184,12 +184,12 @@ function VideoGalleryHero({ totalCount }) {
               Video Gallery
             </li>
           </ol>
-        </motion.nav>
+        </m.nav>
 
-        <motion.div variants={stagger} initial="hidden" animate="visible" className="max-w-3xl">
+        <m.div variants={stagger} initial="hidden" animate="visible" className="max-w-3xl">
           {/* Eyebrow */}
-          <motion.div variants={fadeUp} className="flex items-center gap-3 mb-5">
-            <motion.span
+          <m.div variants={fadeUp} className="flex items-center gap-3 mb-5">
+            <m.span
               className="block h-px bg-gold-sweep"
               initial={{ width: 0 }}
               animate={{ width: 32 }}
@@ -197,10 +197,10 @@ function VideoGalleryHero({ totalCount }) {
               aria-hidden="true"
             />
             <span className="eyebrow">{CONTENT.eyebrow}</span>
-          </motion.div>
+          </m.div>
 
           {/* Headline */}
-          <motion.h1
+          <m.h1
             variants={fadeUp}
             className="text-[2.6rem] sm:text-h1 md:text-display-2 font-extrabold text-paper leading-[1.04] tracking-tight"
           >
@@ -209,19 +209,19 @@ function VideoGalleryHero({ totalCount }) {
               <span className="gold-text-gradient">Gallery</span>
               <GoldDivider variant="underline" className="absolute -bottom-1.5 left-0 w-full" />
             </span>
-          </motion.h1>
+          </m.h1>
 
           {/* Subtitle */}
-          <motion.p
+          <m.p
             variants={fadeUp}
             className="mt-5 text-lg text-mist/75 leading-relaxed max-w-xl"
           >
             {CONTENT.subtitle}
-          </motion.p>
+          </m.p>
 
           {/* Count chip */}
           {totalCount > 0 && (
-            <motion.div variants={fadeUp} className="mt-6">
+            <m.div variants={fadeUp} className="mt-6">
               <div className="inline-flex items-center gap-2.5 border border-white/10 rounded-full px-4 py-2">
                 <div
                   className="w-6 h-6 rounded-full bg-gold/15 border border-gold/30 flex items-center justify-center flex-shrink-0"
@@ -234,9 +234,9 @@ function VideoGalleryHero({ totalCount }) {
                   {CONTENT.countSuffix}
                 </span>
               </div>
-            </motion.div>
+            </m.div>
           )}
-        </motion.div>
+        </m.div>
       </div>
 
       <GoldDivider className="mt-6 md:mt-8" />

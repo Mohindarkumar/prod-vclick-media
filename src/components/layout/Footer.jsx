@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { InstagramIcon, FacebookIcon, LinkedinIcon, YoutubeIcon, TikTokIcon } from '../common/BrandIcons'
 import GoldDivider from '../common/GoldDivider'
 import { MapPin, Mail, Phone } from 'lucide-react'
@@ -33,7 +33,7 @@ function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
 
           {/* Brand column */}
-          <motion.div
+          <m.div
             variants={animationVariants.fadeLeft}
             initial="hidden"
             whileInView="visible"
@@ -58,7 +58,7 @@ function Footer() {
 
             <div className="flex items-center gap-3 mt-7 flex-wrap">
               {socialLinks.map(({ label, href, icon: Icon }) => (
-                <motion.a
+                <m.a
                   key={label}
                   href={href}
                   target="_blank"
@@ -70,13 +70,13 @@ function Footer() {
                   transition={{ duration: 0.2 }}
                 >
                   <Icon size={18} />
-                </motion.a>
+                </m.a>
               ))}
             </div>
-          </motion.div>
+          </m.div>
 
           {/* Contact column */}
-          <motion.div
+          <m.div
             variants={animationVariants.fadeRight}
             initial="hidden"
             whileInView="visible"
@@ -99,7 +99,7 @@ function Footer() {
                 </li>
               ))}
             </ul>
-          </motion.div>
+          </m.div>
         </div>
 
         <GoldDivider className="my-10" />

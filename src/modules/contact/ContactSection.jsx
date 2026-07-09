@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { MessageCircle, PhoneCall, Mail, MapPin, Clock } from 'lucide-react'
 import SectionEyebrow from '../../components/common/SectionEyebrow'
 import ContactForm from './ContactForm'
@@ -24,7 +24,7 @@ function ContactSection({ section = null }) {
       <div className="section-container">
         <div className="text-center max-w-2xl mx-auto">
           <SectionEyebrow>{CONTENT.eyebrow}</SectionEyebrow>
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -38,11 +38,11 @@ function ContactSection({ section = null }) {
               You Celebrate.
             </p>
             <span className="mt-3 block h-[3px] w-16 mx-auto rounded-full bg-gold-sweep" aria-hidden="true" />
-          </motion.div>
+          </m.div>
         </div>
 
         <div className="mt-10 md:mt-16 grid lg:grid-cols-2 gap-10">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: -24 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -50,9 +50,9 @@ function ContactSection({ section = null }) {
             className="bg-charcoal border border-white/10 rounded-3xl p-7 md:p-9"
           >
             <ContactForm />
-          </motion.div>
+          </m.div>
 
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: 24 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -86,7 +86,7 @@ function ContactSection({ section = null }) {
                 </a>
               ))}
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </div>
     </section>

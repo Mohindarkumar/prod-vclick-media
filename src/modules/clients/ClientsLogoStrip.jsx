@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { Building } from 'lucide-react'
 import SectionEyebrow from '../../components/common/SectionEyebrow'
 import usePrefersReducedMotion from '../../hooks/usePrefersReducedMotion'
@@ -53,7 +53,7 @@ function ClientsLogoStrip() {
     <section id="clients" className="section-padding bg-charcoal">
       <div className="section-container text-center">
         <SectionEyebrow>{CONTENT.eyebrow}</SectionEyebrow>
-        <motion.h2
+        <m.h2
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -61,7 +61,7 @@ function ClientsLogoStrip() {
           className="mt-5 text-3xl md:text-h2 font-extrabold text-paper"
         >
           {CONTENT.heading}
-        </motion.h2>
+        </m.h2>
       </div>
 
       <div className="mt-14 relative overflow-hidden">

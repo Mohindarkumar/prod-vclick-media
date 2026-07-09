@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect, useRef } from 'react'
-import { motion, AnimatePresence, useInView } from 'framer-motion'
+import { m, AnimatePresence, useInView } from 'framer-motion'
 import usePrefersReducedMotion from '../../hooks/usePrefersReducedMotion'
 import { homeSectionContents } from '../../data/home_section_contents'
 import MissionSlide from './slides/MissionSlide'
@@ -177,7 +177,7 @@ function AboutHighlightsSlider() {
           card including the controls strip below, so there's no seam. */}
       <div className="absolute inset-0 z-0" aria-hidden="true">
         <AnimatePresence mode="wait" initial={false}>
-          <motion.div
+          <m.div
             key={activeSlide.key}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -195,7 +195,7 @@ function AboutHighlightsSlider() {
           rhythm across slides. */}
       <div className="relative z-10 sm:min-h-[540px] md:min-h-[500px]">
         <AnimatePresence mode="wait" custom={direction} initial={false}>
-          <motion.div
+          <m.div
             key={activeSlide.key}
             custom={direction}
             variants={slideVariants}
@@ -214,7 +214,7 @@ function AboutHighlightsSlider() {
             className={`h-auto sm:h-full ${prefersReducedMotion ? '' : 'cursor-grab active:cursor-grabbing'}`}
           >
             {renderActiveSlide()}
-          </motion.div>
+          </m.div>
         </AnimatePresence>
       </div>
 
@@ -239,7 +239,7 @@ function AboutHighlightsSlider() {
                   <span className="absolute inset-y-0 left-0 w-full bg-gold-sweep rounded-full" aria-hidden="true" />
                 )}
                 {isActive && (
-                  <motion.span
+                  <m.span
                     key={`${index}-${shouldAutoplay}`}
                     className="absolute inset-y-0 left-0 bg-gold-sweep rounded-full"
                     initial={{ width: '0%' }}

@@ -1,5 +1,6 @@
 import { lazy, Suspense, useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { LazyMotion } from 'framer-motion'
 import ScrollToTop from './components/layout/ScrollToTop'
 import CustomCursor from './components/ui/CustomCursor'
 import PageLoader from './components/ui/PageLoader'
@@ -8,6 +9,12 @@ import { siteConfig } from './config/site.config'
 import { PageSpinner } from './components/ui/LazyLoader'
 import WhatsAppChat from './components/ui/WhatsAppChat'
 import useContentProtection from './hooks/useContentProtection'
+
+// Every animated component uses `m` (not `motion`) so Framer Motion's engine
+// loads as its own async chunk instead of shipping synchronously in the
+// critical bundle — this is the single largest dependency in the app.
+const loadFramerFeatures = () => import('./lib/framerFeatures').then((mod) => mod.default)
+
 const HomePage = lazy(() => import('./pages/HomePage'))
 const GalleryPage = lazy(() => import('./pages/GalleryPage'))
 const VideoGalleryPage = lazy(() => import('./pages/VideoGalleryPage'))
@@ -34,7 +41,7 @@ function App() {
   }, [appReady])
 
   return (
-    <>
+    <LazyMotion features={loadFramerFeatures}>
       {!appReady && <PageLoader onComplete={() => setAppReady(true)} />}
       <div style={{ visibility: appReady ? 'visible' : 'hidden' }}>
         <BrowserRouter>
@@ -57,7 +64,7 @@ function App() {
           <WhatsAppChat />
         </BrowserRouter>
       </div>
-    </>
+    </LazyMotion>
   )
 }
 

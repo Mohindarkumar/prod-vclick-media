@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from 'react'
  *
  * Usage:
  *   import { animationVariants } from '../../hooks/useScrollReveal'
- *   <motion.div variants={animationVariants.fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+ *   <m.div variants={animationVariants.fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
  */
 export const animationVariants = {
   fadeUp: {

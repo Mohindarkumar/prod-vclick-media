@@ -1,5 +1,5 @@
 import { useState, useMemo, useCallback, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { Video, Sparkles, ChevronDown } from 'lucide-react'
 import VideoCard from './VideoCard'
 import { videoSectionContents } from '../../data/video_section_contents'
@@ -50,7 +50,7 @@ function VideoGrid({ videos, isLoading, isError, activeCategory, onPlay, feature
   // ── Error state ───────────────────────────────────────────────────────────
   if (isError) {
     return (
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
@@ -63,20 +63,20 @@ function VideoGrid({ videos, isLoading, isError, activeCategory, onPlay, feature
           <p className="text-paper/70 font-semibold text-base">{GRID.errorTitle}</p>
           <p className="text-sm text-mist/45 mt-1.5">{GRID.errorSubtitle}</p>
         </div>
-      </motion.div>
+      </m.div>
     )
   }
 
   // ── Empty state ───────────────────────────────────────────────────────────
   if (videos.length === 0) {
     return (
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
         className="flex flex-col items-center gap-6 py-28 text-center"
       >
-        <motion.div
+        <m.div
           className="relative w-20 h-20"
           animate={{ y: [0, -6, 0] }}
           transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
@@ -89,12 +89,12 @@ function VideoGrid({ videos, isLoading, isError, activeCategory, onPlay, feature
           <div className="relative w-20 h-20 rounded-full bg-gold/10 border border-gold/25 flex items-center justify-center">
             <Video size={30} className="text-gold/60" aria-hidden="true" />
           </div>
-        </motion.div>
+        </m.div>
         <div>
           <p className="text-paper/75 font-semibold text-base">{GRID.emptyTitle}</p>
           <p className="text-sm text-mist/45 mt-1.5">{GRID.emptySubtitle}</p>
         </div>
-      </motion.div>
+      </m.div>
     )
   }
 
@@ -142,7 +142,7 @@ function VideoGrid({ videos, isLoading, isError, activeCategory, onPlay, feature
       {/* ── Main grid ─────────────────────────────────────────────────────── */}
       {mainVideos.length > 0 && (
         <AnimatePresence mode="wait">
-          <motion.div
+          <m.div
             key={activeCategory}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -153,13 +153,13 @@ function VideoGrid({ videos, isLoading, isError, activeCategory, onPlay, feature
             {mainVideos.map((video, index) => (
               <VideoCard key={video.video_id} video={video} onPlay={onPlay} index={index} />
             ))}
-          </motion.div>
+          </m.div>
         </AnimatePresence>
       )}
 
       {/* ── Load more ──────────────────────────────────────────────────────── */}
       {hasMore && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.45 }}
@@ -168,7 +168,7 @@ function VideoGrid({ videos, isLoading, isError, activeCategory, onPlay, feature
           {/* Progress bar */}
           <div className="flex flex-col items-center gap-2">
             <div className="w-52 h-[3px] bg-white/10 rounded-full overflow-hidden">
-              <motion.div
+              <m.div
                 className="h-full bg-gold-sweep rounded-full"
                 initial={{ width: '0%' }}
                 animate={{ width: `${progressPercent}%` }}
@@ -180,7 +180,7 @@ function VideoGrid({ videos, isLoading, isError, activeCategory, onPlay, feature
             </p>
           </div>
 
-          <motion.button
+          <m.button
             type="button"
             onClick={handleLoadMore}
             whileHover={{ scale: 1.03 }}
@@ -191,13 +191,13 @@ function VideoGrid({ videos, isLoading, isError, activeCategory, onPlay, feature
           >
             <ChevronDown size={16} strokeWidth={2.25} aria-hidden="true" />
             {GRID.loadMoreBtn}
-          </motion.button>
-        </motion.div>
+          </m.button>
+        </m.div>
       )}
 
       {/* ── End of collection ──────────────────────────────────────────────── */}
       {!hasMore && videos.length > ITEMS_PER_PAGE && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
@@ -209,7 +209,7 @@ function VideoGrid({ videos, isLoading, isError, activeCategory, onPlay, feature
           <p className="text-xs text-mist/35 uppercase tracking-[0.18em]">
             {GRID.endLabel}
           </p>
-        </motion.div>
+        </m.div>
       )}
     </div>
   )

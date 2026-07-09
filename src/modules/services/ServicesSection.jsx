@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
 import SectionEyebrow from '../../components/common/SectionEyebrow'
 import ServiceCard from './ServiceCard'
@@ -24,7 +24,7 @@ function ServicesSection({ section = null }) {
       <div className="section-container">
         <div className="text-center max-w-2xl mx-auto">
           <SectionEyebrow>{CONTENT.eyebrow}</SectionEyebrow>
-          <motion.h2
+          <m.h2
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -32,7 +32,7 @@ function ServicesSection({ section = null }) {
             className="mt-5 text-3xl md:text-h2 font-extrabold text-paper"
           >
             {heading}
-          </motion.h2>
+          </m.h2>
           <p className="mt-4 text-body-lg text-mist">{subtext}</p>
         </div>
 
@@ -44,7 +44,7 @@ function ServicesSection({ section = null }) {
 
         <AnimatePresence>
           {showAll && rest.length > 0 && (
-            <motion.div
+            <m.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
@@ -56,7 +56,7 @@ function ServicesSection({ section = null }) {
                   <ServiceCard key={service.id} service={service} index={index} />
                 ))}
               </div>
-            </motion.div>
+            </m.div>
           )}
         </AnimatePresence>
 
@@ -69,9 +69,9 @@ function ServicesSection({ section = null }) {
               aria-expanded={showAll}
             >
               {showAll ? CONTENT.showFewerLabel : CONTENT.showAllLabel(services.length)}
-              <motion.span animate={{ rotate: showAll ? 180 : 0 }} transition={{ duration: 0.3 }}>
+              <m.span animate={{ rotate: showAll ? 180 : 0 }} transition={{ duration: 0.3 }}>
                 <ChevronDown size={18} />
-              </motion.span>
+              </m.span>
             </button>
           </div>
         )}

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { Play, Star, Clock } from 'lucide-react'
 
 function getYouTubeId(url) {
@@ -20,10 +20,10 @@ function getAutoThumb(video) {
 function formatDuration(seconds) {
   if (!seconds || seconds <= 0) return null
   const h = Math.floor(seconds / 3600)
-  const m = Math.floor((seconds % 3600) / 60)
+  const min = Math.floor((seconds % 3600) / 60)
   const s = seconds % 60
-  if (h > 0) return `${h}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`
-  return `${m}:${String(s).padStart(2, '0')}`
+  if (h > 0) return `${h}:${String(min).padStart(2, '0')}:${String(s).padStart(2, '0')}`
+  return `${min}:${String(s).padStart(2, '0')}`
 }
 
 const TYPE_LABELS = { youtube: 'YouTube', vimeo: 'Vimeo', self_hosted: 'Video' }
@@ -37,7 +37,7 @@ function VideoCard({ video, onPlay, index = 0 }) {
   const typeLabel = TYPE_LABELS[video.video_type] ?? 'Video'
 
   return (
-    <motion.article
+    <m.article
       initial={{ opacity: 0, y: 28, filter: 'blur(4px)' }}
       animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
       transition={{ duration: 0.6, delay: Math.min(index * 0.06, 0.5), ease: [0.22, 1, 0.36, 1] }}
@@ -168,7 +168,7 @@ function VideoCard({ video, onPlay, index = 0 }) {
           </p>
         )}
       </div>
-    </motion.article>
+    </m.article>
   )
 }
 

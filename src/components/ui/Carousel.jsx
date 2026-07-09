@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import usePrefersReducedMotion from '../../hooks/usePrefersReducedMotion'
 
@@ -55,7 +55,7 @@ function Carousel({ items, renderItem, autoAdvanceMs = 6000 }) {
     >
       <div className="overflow-hidden">
         <AnimatePresence mode="wait" custom={direction}>
-          <motion.div
+          <m.div
             key={index}
             custom={direction}
             variants={variants}
@@ -65,7 +65,7 @@ function Carousel({ items, renderItem, autoAdvanceMs = 6000 }) {
             transition={{ duration: prefersReducedMotion ? 0 : 0.45, ease: 'easeInOut' }}
           >
             {renderItem(items[index], index)}
-          </motion.div>
+          </m.div>
         </AnimatePresence>
       </div>
 

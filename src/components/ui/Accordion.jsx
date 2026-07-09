@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
 
 /**
@@ -35,18 +35,18 @@ function Accordion({ items }) {
               <span className="text-base md:text-lg font-semibold text-paper">
                 {item.question}
               </span>
-              <motion.span
+              <m.span
                 animate={{ rotate: isOpen ? 180 : 0 }}
                 transition={{ duration: 0.3 }}
                 className="flex-shrink-0 text-gold"
               >
                 <ChevronDown size={20} />
-              </motion.span>
+              </m.span>
             </button>
 
             <AnimatePresence initial={false}>
               {isOpen && (
-                <motion.div
+                <m.div
                   id={`faq-panel-${item.id}`}
                   role="region"
                   initial={{ height: 0, opacity: 0 }}
@@ -58,7 +58,7 @@ function Accordion({ items }) {
                   <p className="px-6 pb-5 text-sm md:text-base text-mist leading-relaxed">
                     {item.answer}
                   </p>
-                </motion.div>
+                </m.div>
               )}
             </AnimatePresence>
           </div>

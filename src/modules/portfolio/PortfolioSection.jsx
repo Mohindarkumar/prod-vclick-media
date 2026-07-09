@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, Camera, Video, Play, Volume2, VolumeX } from 'lucide-react'
@@ -165,7 +165,7 @@ function RecentVideoCard({ index }) {
   const posterUrl = `https://i.ytimg.com/vi/${YOUTUBE_VIDEO_ID}/maxresdefault.jpg`
 
   return (
-    <motion.article
+    <m.article
       custom={index}
       variants={cardVariants}
       initial="hidden"
@@ -276,7 +276,7 @@ function RecentVideoCard({ index }) {
           </div>
         </div>
       </div>
-    </motion.article>
+    </m.article>
   )
 }
 
@@ -298,7 +298,7 @@ function ShowreelCard({ item, index }) {
   }, [isInView])
 
   return (
-    <motion.article
+    <m.article
       custom={index}
       variants={cardVariants}
       initial="hidden"
@@ -313,7 +313,7 @@ function ShowreelCard({ item, index }) {
 
         {/* Animated slides — fills entire container */}
         <AnimatePresence mode="sync">
-          <motion.img
+          <m.img
             key={activeSlide}
             src={SHOWREEL_SLIDES[activeSlide]}
             alt="VClick recent captures"
@@ -388,7 +388,7 @@ function ShowreelCard({ item, index }) {
           </div>
         </div>
       </div>
-    </motion.article>
+    </m.article>
   )
 }
 
@@ -404,7 +404,7 @@ function PortfolioSection({ section = null }) {
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10 md:mb-12">
           <div>
             <SectionEyebrow align="left">Our Work</SectionEyebrow>
-            <motion.h2
+            <m.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -415,8 +415,8 @@ function PortfolioSection({ section = null }) {
                 {heading}
                 <GoldDivider variant="underline" className="absolute -bottom-1 left-0 w-full" />
               </span>
-            </motion.h2>
-            <motion.p
+            </m.h2>
+            <m.p
               initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -424,10 +424,10 @@ function PortfolioSection({ section = null }) {
               className="mt-4 text-mist/65 text-sm md:text-base max-w-md"
             >
               Hand-picked projects — each one a story of craft, light, and memorable moments.
-            </motion.p>
+            </m.p>
           </div>
 
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: 16 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -446,7 +446,7 @@ function PortfolioSection({ section = null }) {
             >
               <Video size={14} /> All Videos <ArrowRight size={12} strokeWidth={2.5} />
             </Link>
-          </motion.div>
+          </m.div>
         </div>
 
         {/* Two full-width showcase cards */}
@@ -456,7 +456,7 @@ function PortfolioSection({ section = null }) {
         </div>
 
         {/* Bottom CTA */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -479,7 +479,7 @@ function PortfolioSection({ section = null }) {
             Watch Our Films
             <ArrowRight size={14} strokeWidth={2.5} className="group-hover:translate-x-0.5 transition-transform duration-200" />
           </Link>
-        </motion.div>
+        </m.div>
 
       </div>
     </section>

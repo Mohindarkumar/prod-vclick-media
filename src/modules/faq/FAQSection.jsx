@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import SectionEyebrow from '../../components/common/SectionEyebrow'
 import Accordion from '../../components/ui/Accordion'
 import { faqItems as staticFaqItems } from '../../data/faq'
@@ -39,7 +39,7 @@ function FAQSection({ section = null }) {
         <div className="section-container max-w-3xl">
           <div className="text-center max-w-2xl mx-auto">
             <SectionEyebrow>{CONTENT.eyebrow}</SectionEyebrow>
-            <motion.h2
+            <m.h2
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -47,7 +47,7 @@ function FAQSection({ section = null }) {
               className="mt-5 text-3xl md:text-h2 font-extrabold text-paper"
             >
               {heading}
-            </motion.h2>
+            </m.h2>
           </div>
 
           <div className="mt-14">

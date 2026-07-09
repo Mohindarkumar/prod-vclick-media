@@ -1,10 +1,10 @@
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { ArrowUpRight, Sparkles } from 'lucide-react'
 import { homeSectionContents } from '../../data/home_section_contents'
 
 const { services: CONTENT } = homeSectionContents
-const MotionLink = motion(Link)
+const MotionLink = m(Link)
 
 function ServiceCard({ service, index }) {
   const Icon = service.icon ?? Sparkles

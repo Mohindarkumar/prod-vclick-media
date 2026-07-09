@@ -1,5 +1,5 @@
 import { useState, useMemo, useCallback, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { Camera, ChevronDown } from 'lucide-react'
 import GalleryCard from './GalleryCard'
 import { gallerySectionContents } from '../../data/gallery_section_contents'
@@ -35,14 +35,14 @@ function GalleryGrid({ items, activeAlbum, onOpenLightbox }) {
   // ── Empty state ──────────────────────────────────────────────────────────
   if (items.length === 0) {
     return (
-      <motion.div
+      <m.div
         key="empty"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
         className="flex flex-col items-center gap-6 py-28 text-center"
       >
-        <motion.div
+        <m.div
           className="relative w-20 h-20"
           animate={{ y: [0, -6, 0] }}
           transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
@@ -51,12 +51,12 @@ function GalleryGrid({ items, activeAlbum, onOpenLightbox }) {
           <div className="relative w-20 h-20 rounded-full bg-gold/10 border border-gold/25 flex items-center justify-center">
             <Camera size={30} className="text-gold/60" aria-hidden="true" />
           </div>
-        </motion.div>
+        </m.div>
         <div>
           <p className="text-paper/75 font-semibold text-base">{GRID.emptyTitle}</p>
           <p className="text-sm text-mist/45 mt-1.5">{GRID.emptySubtitle}</p>
         </div>
-      </motion.div>
+      </m.div>
     )
   }
 
@@ -64,7 +64,7 @@ function GalleryGrid({ items, activeAlbum, onOpenLightbox }) {
     <div>
       {/* Grid — key on activeAlbum triggers cross-fade on filter change */}
       <AnimatePresence mode="wait">
-        <motion.div
+        <m.div
           key={activeAlbum}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -73,7 +73,7 @@ function GalleryGrid({ items, activeAlbum, onOpenLightbox }) {
           className="columns-2 sm:columns-2 md:columns-3 xl:columns-4 gap-3 md:gap-4"
         >
           {visibleItems.map((item, index) => (
-            <motion.div
+            <m.div
               key={item.id}
               initial={{ opacity: 0, y: 28, filter: 'blur(4px)' }}
               animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
@@ -85,14 +85,14 @@ function GalleryGrid({ items, activeAlbum, onOpenLightbox }) {
               className="break-inside-avoid mb-3 md:mb-4"
             >
               <GalleryCard item={item} onOpen={onOpenLightbox} />
-            </motion.div>
+            </m.div>
           ))}
-        </motion.div>
+        </m.div>
       </AnimatePresence>
 
       {/* ── Load more ──────────────────────────────────────────────────────── */}
       {hasMore && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.45 }}
@@ -101,7 +101,7 @@ function GalleryGrid({ items, activeAlbum, onOpenLightbox }) {
           {/* Progress bar */}
           <div className="flex flex-col items-center gap-2">
             <div className="w-52 h-[3px] bg-white/10 rounded-full overflow-hidden">
-              <motion.div
+              <m.div
                 className="h-full bg-gold-sweep rounded-full"
                 initial={{ width: '0%' }}
                 animate={{ width: `${progressPercent}%` }}
@@ -114,7 +114,7 @@ function GalleryGrid({ items, activeAlbum, onOpenLightbox }) {
           </div>
 
           {/* Load more button */}
-          <motion.button
+          <m.button
             type="button"
             onClick={handleLoadMore}
             whileHover={{ scale: 1.03 }}
@@ -125,13 +125,13 @@ function GalleryGrid({ items, activeAlbum, onOpenLightbox }) {
           >
             <ChevronDown size={16} strokeWidth={2.25} aria-hidden="true" />
             {GRID.loadMoreBtn}
-          </motion.button>
-        </motion.div>
+          </m.button>
+        </m.div>
       )}
 
       {/* ── End of results ──────────────────────────────────────────────────── */}
       {!hasMore && items.length > ITEMS_PER_PAGE && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
@@ -144,7 +144,7 @@ function GalleryGrid({ items, activeAlbum, onOpenLightbox }) {
           <p className="text-xs text-mist/35 uppercase tracking-[0.18em]">
             {GRID.endLabel}
           </p>
-        </motion.div>
+        </m.div>
       )}
     </div>
   )

@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { Send, CheckCircle2, User, Mail, Phone, MessageSquare } from 'lucide-react'
 import { Turnstile } from '@marsidev/react-turnstile'
 import Button from '../../components/common/Button'
@@ -193,7 +193,7 @@ function ContactForm() {
 
       <AnimatePresence>
         {showSuccess && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
@@ -202,7 +202,7 @@ function ContactForm() {
           >
             <CheckCircle2 size={18} />
             {FORM.successMessage}
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </form>

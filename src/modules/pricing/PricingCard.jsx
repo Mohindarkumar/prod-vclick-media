@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { Check, Crown } from 'lucide-react'
 import Button from '../../components/common/Button'
 import { homeSectionContents } from '../../data/home_section_contents'
@@ -7,7 +7,7 @@ const { pricing: CONTENT } = homeSectionContents
 
 function PricingCard({ pkg, index }) {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -46,7 +46,7 @@ function PricingCard({ pkg, index }) {
       >
         {pkg.cta}
       </Button>
-    </motion.div>
+    </m.div>
   )
 }
 

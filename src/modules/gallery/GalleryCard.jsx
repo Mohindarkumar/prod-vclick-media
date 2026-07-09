@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { Expand, AlertCircle } from 'lucide-react'
 
 const ASPECT = {
@@ -25,7 +25,7 @@ function GalleryCard({ item, onOpen }) {
   const aspectClass = ASPECT[item.orientation] || ASPECT.landscape
 
   return (
-    <motion.button
+    <m.button
       type="button"
       onClick={() => !error && onOpen(item)}
       whileHover={error ? {} : { scale: 1.03 }}
@@ -123,18 +123,18 @@ function GalleryCard({ item, onOpen }) {
               </div>
 
               {/* Expand icon badge */}
-              <motion.span
+              <m.span
                 className="flex-shrink-0 w-9 h-9 rounded-full bg-gold/20 border border-gold/45 flex items-center justify-center group-hover:bg-gold/30 transition-colors duration-200"
                 whileHover={{ scale: 1.1 }}
                 aria-hidden="true"
               >
                 <Expand size={14} className="text-gold" strokeWidth={2.25} />
-              </motion.span>
+              </m.span>
             </div>
           </div>
         </>
       )}
-    </motion.button>
+    </m.button>
   )
 }
 

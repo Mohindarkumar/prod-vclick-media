@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { m, useScroll, useTransform } from 'framer-motion'
 import { ArrowRight, Phone, Camera, Video, Sparkles, Award } from 'lucide-react'
 import Button from '../../components/common/Button'
 import GoldDivider from '../../components/common/GoldDivider'
@@ -47,23 +47,23 @@ function renderHeroHeadline(title, GoldDividerComponent, maskReveal) {
     const word   = words[underlineIdx]
     const after  = words.slice(underlineIdx + 1).join(' ')
     return (
-      <motion.div variants={{ hidden: {}, visible: {} }} className="overflow-hidden pb-2 mb-1">
-        <motion.h1 variants={maskReveal} className={cls}>
+      <m.div variants={{ hidden: {}, visible: {} }} className="overflow-hidden pb-2 mb-1">
+        <m.h1 variants={maskReveal} className={cls}>
           {before && <>{before} </>}
           <span className="relative inline-block whitespace-nowrap">
             {word}
             <GoldDividerComponent variant="underline" className="absolute -bottom-1 left-0 w-full" delay={0.85} />
           </span>
           {after && <> {after}</>}
-        </motion.h1>
-      </motion.div>
+        </m.h1>
+      </m.div>
     )
   }
 
   return (
-    <motion.div variants={{ hidden: {}, visible: {} }} className="overflow-hidden pb-2 mb-1">
-      <motion.h1 variants={maskReveal} className={cls}>{title}</motion.h1>
-    </motion.div>
+    <m.div variants={{ hidden: {}, visible: {} }} className="overflow-hidden pb-2 mb-1">
+      <m.h1 variants={maskReveal} className={cls}>{title}</m.h1>
+    </m.div>
   )
 }
 
@@ -122,7 +122,7 @@ function Hero({ section = null }) {
     >
       {/* Background image with parallax — clipped independently so stats bar is never affected */}
       <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
-        <motion.div
+        <m.div
           style={{ y: bgParallaxY }}
           className="absolute inset-x-0 -top-[8%] h-[116%] will-change-transform"
         >
@@ -136,11 +136,11 @@ function Hero({ section = null }) {
             decoding="async"
             fetchPriority="high"
           />
-        </motion.div>
+        </m.div>
       </div>
 
       {/* Cinematic gradient overlays */}
-      <motion.div
+      <m.div
         style={{ opacity: overlayOpacity }}
         className="absolute inset-0 bg-black will-change-opacity"
         aria-hidden="true"
@@ -171,31 +171,31 @@ function Hero({ section = null }) {
       )}
 
       {/* Main content */}
-      <motion.div
+      <m.div
         style={{ y: contentParallaxY }}
         className="relative z-10 section-container w-full will-change-transform flex-1 flex items-end 2xl:items-center pb-6 md:pb-10 2xl:pb-0"
       >
-        <motion.div
+        <m.div
           className="max-w-3xl"
           variants={staggerContainer}
           initial="hidden"
           animate="visible"
         >
           {/* Eyebrow */}
-          <motion.div variants={{ hidden: {}, visible: {} }} className="overflow-hidden mb-7">
-            <motion.div variants={maskReveal} className="flex items-center gap-3">
+          <m.div variants={{ hidden: {}, visible: {} }} className="overflow-hidden mb-7">
+            <m.div variants={maskReveal} className="flex items-center gap-3">
               <span className="h-px w-8 bg-gold-sweep" aria-hidden="true" />
               <span className="eyebrow">{CONTENT.eyebrow}</span>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
 
           {/* Headline */}
           {cmsTitle ? (
             renderHeroHeadline(cmsTitle, GoldDivider, maskReveal)
           ) : (
             <>
-              <motion.div variants={{ hidden: {}, visible: {} }} className="overflow-hidden pb-1">
-                <motion.h1
+              <m.div variants={{ hidden: {}, visible: {} }} className="overflow-hidden pb-1">
+                <m.h1
                   variants={maskReveal}
                   className="text-4xl sm:text-5xl md:text-6xl lg:text-display-1 font-extrabold text-paper leading-[1.06] tracking-tight"
                 >
@@ -209,31 +209,31 @@ function Hero({ section = null }) {
                       </span>
                     </>
                   )}
-                </motion.h1>
-              </motion.div>
+                </m.h1>
+              </m.div>
               {CONTENT.headlineLine2 && (
-                <motion.div variants={{ hidden: {}, visible: {} }} className="overflow-hidden pb-2 mb-1">
-                  <motion.h1
+                <m.div variants={{ hidden: {}, visible: {} }} className="overflow-hidden pb-2 mb-1">
+                  <m.h1
                     variants={maskReveal}
                     className="text-4xl sm:text-5xl md:text-6xl lg:text-display-1 font-extrabold text-paper leading-[1.06] tracking-tight"
                   >
                     {CONTENT.headlineLine2}
-                  </motion.h1>
-                </motion.div>
+                  </m.h1>
+                </m.div>
               )}
             </>
           )}
 
           {/* Subtitle */}
-          <motion.p
+          <m.p
             variants={blurIn}
             className="mt-4 md:mt-5 text-body text-mist/90 max-w-xl leading-relaxed"
           >
             {cmsSubtitle || CONTENT.subtitle}
-          </motion.p>
+          </m.p>
 
           {/* Service tag chips */}
-          <motion.div variants={blurIn} className="mt-3 md:mt-4 flex flex-wrap gap-2">
+          <m.div variants={blurIn} className="mt-3 md:mt-4 flex flex-wrap gap-2">
             {CONTENT.serviceTags.map(({ label }) => {
               const Icon = TAG_ICONS[label] || Sparkles
               return (
@@ -247,10 +247,10 @@ function Hero({ section = null }) {
                 </span>
               )
             })}
-          </motion.div>
+          </m.div>
 
           {/* CTA buttons */}
-          <motion.div
+          <m.div
             variants={blurIn}
             className="mt-5 md:mt-7 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 sm:gap-4"
           >
@@ -267,8 +267,8 @@ function Hero({ section = null }) {
             >
               Call Us Now
             </Button>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
 
         {/* Brand logo — fills the empty right-side space next to the copy on
             large screens. Desktop/laptop only; drop-shadow lifts the gold/grey
@@ -286,10 +286,10 @@ function Hero({ section = null }) {
             className="w-[340px] xl:w-[440px] 2xl:w-[520px] h-auto object-contain opacity-60 drop-shadow-[0_4px_30px_rgba(212,175,55,0.25)]"
           />
         </div>
-      </motion.div>
+      </m.div>
 
       {/* Stats bar */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8, delay: 1.1, ease: 'easeOut' }}
@@ -336,7 +336,7 @@ function Hero({ section = null }) {
             })}
           </dl>
         </div>
-      </motion.div>
+      </m.div>
 
       <ScrollIndicator visible={showScrollIndicator} />
     </section>

@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { Expand, FolderOpen } from 'lucide-react'
 
 /**
@@ -9,7 +9,7 @@ import { Expand, FolderOpen } from 'lucide-react'
 function PortfolioGrid({ items, onItemClick }) {
   if (items.length === 0) {
     return (
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
@@ -22,7 +22,7 @@ function PortfolioGrid({ items, onItemClick }) {
           <p className="text-paper/70 font-semibold text-sm">No work in this category yet.</p>
           <p className="text-xs text-mist/40 mt-1">Check back soon — more is on the way.</p>
         </div>
-      </motion.div>
+      </m.div>
     )
   }
 
@@ -30,7 +30,7 @@ function PortfolioGrid({ items, onItemClick }) {
     <div className="grid grid-cols-2 md:grid-cols-3 auto-rows-[150px] sm:auto-rows-[180px] md:auto-rows-[220px] gap-3 md:gap-5">
       <AnimatePresence mode="popLayout">
         {items.map((item) => (
-          <motion.button
+          <m.button
             key={item.id}
             type="button"
             onClick={() => onItemClick(item)}
@@ -55,7 +55,7 @@ function PortfolioGrid({ items, onItemClick }) {
               </span>
               <p className="text-paper text-sm font-medium mt-1">{item.title}</p>
             </div>
-          </motion.button>
+          </m.button>
         ))}
       </AnimatePresence>
     </div>

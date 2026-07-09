@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 
 /**
  * Small uppercase tag rendered above every section headline
@@ -12,7 +12,7 @@ function SectionEyebrow({ children, align = 'center', className = '' }) {
   }
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 12 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -22,7 +22,7 @@ function SectionEyebrow({ children, align = 'center', className = '' }) {
       <span className="h-px w-6 bg-gold-sweep" aria-hidden="true" />
       <span className="eyebrow">{children}</span>
       {align === 'center' && <span className="h-px w-6 bg-gold-sweep" aria-hidden="true" />}
-    </motion.div>
+    </m.div>
   )
 }
 

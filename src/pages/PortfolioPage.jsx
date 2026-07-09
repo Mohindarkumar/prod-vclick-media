@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import {
   ChevronRight,
@@ -127,7 +127,7 @@ function PortfolioPage() {
 
           <div className="section-container relative z-10">
             {/* Breadcrumb */}
-            <motion.nav
+            <m.nav
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
@@ -147,16 +147,16 @@ function PortfolioPage() {
                   Portfolio
                 </li>
               </ol>
-            </motion.nav>
+            </m.nav>
 
-            <motion.div
+            <m.div
               variants={stagger}
               initial="hidden"
               animate="visible"
               className="max-w-3xl"
             >
-              <motion.div variants={fadeUp} className="flex items-center gap-3 mb-5">
-                <motion.span
+              <m.div variants={fadeUp} className="flex items-center gap-3 mb-5">
+                <m.span
                   className="block h-px bg-gold-sweep"
                   initial={{ width: 0 }}
                   animate={{ width: 32 }}
@@ -164,9 +164,9 @@ function PortfolioPage() {
                   aria-hidden="true"
                 />
                 <span className="eyebrow">{PC.hero.eyebrow}</span>
-              </motion.div>
+              </m.div>
 
-              <motion.h1
+              <m.h1
                 variants={fadeUp}
                 className="text-4xl sm:text-h1 md:text-display-2 font-extrabold text-paper leading-[1.04] tracking-tight"
               >
@@ -175,21 +175,21 @@ function PortfolioPage() {
                   <span className="gold-text-gradient">Portfolio</span>
                   <GoldDivider variant="underline" className="absolute -bottom-1.5 left-0 w-full" />
                 </span>
-              </motion.h1>
+              </m.h1>
 
-              <motion.p variants={fadeUp} className="mt-5 text-lg text-mist/75 leading-relaxed max-w-xl">
+              <m.p variants={fadeUp} className="mt-5 text-lg text-mist/75 leading-relaxed max-w-xl">
                 {PC.hero.subtitle}
-              </motion.p>
+              </m.p>
 
-              <motion.div variants={fadeUp} className="mt-7 flex items-center gap-4 flex-wrap">
+              <m.div variants={fadeUp} className="mt-7 flex items-center gap-4 flex-wrap">
                 <Button as={Link} to="/gallery" variant="ghost" icon={Images} iconPosition="left">
                   {PC.hero.ctaGallery}
                 </Button>
                 <Button as={Link} to="/videos" variant="ghost" icon={Video} iconPosition="left">
                   {PC.hero.ctaVideos}
                 </Button>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
 
           <GoldDivider className="mt-8 md:mt-10" />
@@ -202,7 +202,7 @@ function PortfolioPage() {
           <div className="section-container">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-6">
               {STATS.map(({ target, suffix, label, icon: Icon }) => (
-                <motion.div
+                <m.div
                   key={label}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -214,7 +214,7 @@ function PortfolioPage() {
                     <Icon size={18} className="text-gold" aria-hidden="true" />
                   </div>
                   <AnimatedCounter target={target} suffix={suffix} label={label} />
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -225,7 +225,7 @@ function PortfolioPage() {
         ══════════════════════════════════════════════════════════════ */}
         <section className="py-10 md:py-14 bg-ink" aria-labelledby="services-heading">
           <div className="section-container">
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -244,11 +244,11 @@ function PortfolioPage() {
               <p className="mt-4 text-mist/65 leading-relaxed">
                 {PC.specialties.subtitle}
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
               {SERVICE_CATEGORIES.map(({ title, desc, icon: Icon, filter, gradient }, i) => (
-                <motion.button
+                <m.button
                   key={title}
                   type="button"
                   onClick={() => {
@@ -283,7 +283,7 @@ function PortfolioPage() {
                     <span>{PC.specialties.viewWorkLabel}</span>
                     <ArrowRight size={12} strokeWidth={2.5} />
                   </div>
-                </motion.button>
+                </m.button>
               ))}
             </div>
           </div>
@@ -298,7 +298,7 @@ function PortfolioPage() {
           aria-labelledby="grid-heading"
         >
           <div className="section-container">
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -314,7 +314,7 @@ function PortfolioPage() {
                 {PC.grid.headingBase}{' '}
                 <span className="gold-text-gradient">{PC.grid.headingHighlight}</span>
               </h2>
-            </motion.div>
+            </m.div>
 
             <div className="mb-8">
               <PortfolioFilter
@@ -336,7 +336,7 @@ function PortfolioPage() {
         ══════════════════════════════════════════════════════════════ */}
         <section className="py-12 md:py-16 bg-ink" aria-labelledby="cta-heading">
           <div className="section-container">
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -355,11 +355,11 @@ function PortfolioPage() {
               <p className="mt-4 text-mist/65 leading-relaxed">
                 {PC.cta.subtitle}
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-3xl mx-auto">
               {/* Photo Gallery CTA */}
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -392,10 +392,10 @@ function PortfolioPage() {
                     <ArrowRight size={14} strokeWidth={2.5} />
                   </div>
                 </Link>
-              </motion.div>
+              </m.div>
 
               {/* Video Gallery CTA */}
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -428,11 +428,11 @@ function PortfolioPage() {
                     <ArrowRight size={14} strokeWidth={2.5} />
                   </div>
                 </Link>
-              </motion.div>
+              </m.div>
             </div>
 
             {/* Bottom CTA */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -445,7 +445,7 @@ function PortfolioPage() {
               <Button as="a" href="/#contact" variant="primary" icon={ArrowRight}>
                 {PC.cta.bottomCta}
               </Button>
-            </motion.div>
+            </m.div>
           </div>
         </section>
       </main>

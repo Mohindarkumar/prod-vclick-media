@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import {
   Palette,
   Camera,
@@ -35,7 +35,7 @@ function WhyChooseUs({ section = null }) {
       <div className="section-container">
         <div className="text-center max-w-2xl mx-auto">
           <SectionEyebrow>{CONTENT.eyebrow}</SectionEyebrow>
-          <motion.h2
+          <m.h2
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -43,7 +43,7 @@ function WhyChooseUs({ section = null }) {
             className="mt-5 text-3xl md:text-h2 font-extrabold text-paper"
           >
             {heading}
-          </motion.h2>
+          </m.h2>
         </div>
 
         <div className="mt-10 md:mt-14 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
@@ -52,7 +52,7 @@ function WhyChooseUs({ section = null }) {
             const label       = reason.label || reason.title
             const description = reason.description || reason.copy
             return (
-              <motion.div
+              <m.div
                 key={label}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -67,7 +67,7 @@ function WhyChooseUs({ section = null }) {
                 {description && (
                   <p className="text-xs text-mist/60 leading-relaxed hidden md:block">{description}</p>
                 )}
-              </motion.div>
+              </m.div>
             )
           })}
         </div>

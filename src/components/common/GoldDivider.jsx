@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import usePrefersReducedMotion from '../../hooks/usePrefersReducedMotion'
 
 /**
@@ -18,7 +18,7 @@ function GoldDivider({ variant = 'divider', className = '', delay = 0.15 }) {
 
   if (variant === 'underline') {
     return (
-      <motion.span
+      <m.span
         className={`block h-[3px] md:h-1 rounded-full bg-gold-sweep ${className}`}
         initial={{ width: prefersReducedMotion ? widthTarget : '0%', opacity: 0 }}
         whileInView={{ width: widthTarget, opacity: 1 }}
@@ -30,7 +30,7 @@ function GoldDivider({ variant = 'divider', className = '', delay = 0.15 }) {
   }
 
   return (
-    <motion.div
+    <m.div
       className={`relative h-px w-full overflow-hidden bg-white/10 ${className}`}
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
@@ -38,14 +38,14 @@ function GoldDivider({ variant = 'divider', className = '', delay = 0.15 }) {
       transition={{ duration: 0.4 }}
       aria-hidden="true"
     >
-      <motion.span
+      <m.span
         className="absolute inset-y-0 left-0 w-1/3 bg-gold-sweep-soft"
         initial={{ x: prefersReducedMotion ? '0%' : '-120%' }}
         whileInView={{ x: prefersReducedMotion ? '0%' : '320%' }}
         viewport={{ once: true }}
         transition={{ duration: prefersReducedMotion ? 0 : 1.8, ease: 'easeInOut' }}
       />
-    </motion.div>
+    </m.div>
   )
 }
 

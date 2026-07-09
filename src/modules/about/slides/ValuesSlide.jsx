@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { ShieldCheck, Lightbulb, Gem, Handshake, Palette, HeartHandshake } from 'lucide-react'
 
 const VALUE_ICONS = {
@@ -29,7 +29,7 @@ function ValuesSlide({ title, items }) {
         <span className="mt-4 inline-block h-[3px] w-14 rounded-full bg-gold-sweep" aria-hidden="true" />
       </div>
 
-      <motion.div
+      <m.div
         variants={container}
         initial="hidden"
         animate="visible"
@@ -38,7 +38,7 @@ function ValuesSlide({ title, items }) {
         {items.map((value) => {
           const Icon = VALUE_ICONS[value.label] || ShieldCheck
           return (
-            <motion.div
+            <m.div
               key={value.label}
               variants={card}
               whileHover={{ y: -6, borderColor: 'rgba(212,175,55,0.5)' }}
@@ -50,10 +50,10 @@ function ValuesSlide({ title, items }) {
               </div>
               <h4 className="mt-4 text-base font-semibold text-paper">{value.label}</h4>
               <p className="mt-1.5 text-sm text-mist leading-relaxed">{value.copy}</p>
-            </motion.div>
+            </m.div>
           )
         })}
-      </motion.div>
+      </m.div>
     </div>
   )
 }

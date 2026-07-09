@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import {
   MessageCircle,
   ClipboardList,
@@ -25,7 +25,7 @@ function EventProcess({ section = null }) {
       <div className="section-container">
         <div className="text-center max-w-2xl mx-auto">
           <SectionEyebrow>{CONTENT.eyebrow}</SectionEyebrow>
-          <motion.h2
+          <m.h2
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -33,13 +33,13 @@ function EventProcess({ section = null }) {
             className="mt-5 text-3xl md:text-h2 font-extrabold text-paper"
           >
             {heading}
-          </motion.h2>
+          </m.h2>
         </div>
 
         {/* Desktop: horizontal timeline */}
         <div className="hidden lg:block mt-20 relative">
           <div className="absolute top-7 left-0 right-0 h-px bg-white/10">
-            <motion.div
+            <m.div
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
               viewport={{ once: true }}
@@ -52,7 +52,7 @@ function EventProcess({ section = null }) {
             {steps.map((step, index) => {
               const Icon = STEP_ICONS[index % STEP_ICONS.length]
               return (
-                <motion.div
+                <m.div
                   key={step.title}
                   initial={{ opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -66,7 +66,7 @@ function EventProcess({ section = null }) {
                   <Icon size={20} className="mt-4 text-gold" strokeWidth={2} />
                   <h3 className="mt-3 text-sm font-semibold text-paper">{step.title}</h3>
                   <p className="mt-1.5 text-xs text-mist leading-relaxed">{step.description}</p>
-                </motion.div>
+                </m.div>
               )
             })}
           </div>
@@ -75,7 +75,7 @@ function EventProcess({ section = null }) {
         {/* Mobile/tablet: vertical stacked timeline */}
         <div className="lg:hidden mt-10 md:mt-14 relative pl-8">
           <div className="absolute left-[27px] top-2 bottom-2 w-px bg-white/10" aria-hidden="true">
-            <motion.div
+            <m.div
               initial={{ scaleY: 0 }}
               whileInView={{ scaleY: 1 }}
               viewport={{ once: true }}
@@ -88,7 +88,7 @@ function EventProcess({ section = null }) {
             {steps.map((step, index) => {
               const Icon = STEP_ICONS[index % STEP_ICONS.length]
               return (
-                <motion.div
+                <m.div
                   key={step.title}
                   initial={{ opacity: 0, x: -16 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -106,7 +106,7 @@ function EventProcess({ section = null }) {
                     </div>
                     <p className="mt-1.5 text-sm text-mist leading-relaxed">{step.description}</p>
                   </div>
-                </motion.div>
+                </m.div>
               )
             })}
           </div>

@@ -35,3 +35,4 @@ node_modules/
 dist/
 build/
 public/uploads/
+public/uploads/video/

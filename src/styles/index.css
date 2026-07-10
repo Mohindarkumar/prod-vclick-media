@@ -158,6 +158,35 @@
   animation: play-pulse 2.2s ease-out infinite;
 }
 
+/* ── PageLoader — pure CSS so it never depends on the framer-motion chunk;
+   this is the only component guaranteed to render on every single page
+   load before anything else, so pulling in an animation library for it
+   forces that library into the eager/critical bundle. ──────────────────── */
+@keyframes page-loader-in {
+  0%   { opacity: 0; transform: scale(0.8); }
+  100% { opacity: 1; transform: scale(1); }
+}
+.animate-page-loader-in {
+  animation: page-loader-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes page-loader-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.animate-page-loader-fade-in {
+  animation: page-loader-fade-in 0.3s ease forwards;
+  animation-delay: 0.4s;
+}
+
+@keyframes page-loader-dot {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50%      { opacity: 1;   transform: scale(1.2); }
+}
+.animate-page-loader-dot {
+  animation: page-loader-dot 1.2s ease-in-out infinite;
+}
+
 /* ── Lightbox / modal backdrop noise grain (pure CSS) ───────────────────── */
 .backdrop-noise::after {
   content: '';

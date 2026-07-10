@@ -20,19 +20,24 @@ const STATS = [
   { value: siteConfig.stats.location, label: 'Presence' },
 ]
 
+// Tightened from staggerChildren:0.14/delayChildren:0.2/duration:0.92·0.85 —
+// the hero subtitle (the page's LCP element) sits 3 stagger steps deep, so
+// its old settle time was 0.2 + 3×0.14 + 0.85 = 1.47s, matching Lighthouse's
+// measured elementRenderDelay almost exactly. These values keep the same
+// staggered reveal choreography, just snappier end-to-end.
 const staggerContainer = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.14, delayChildren: 0.2 } },
+  visible: { transition: { staggerChildren: 0.08, delayChildren: 0.06 } },
 }
 
 const maskReveal = {
   hidden: { y: '108%' },
-  visible: { y: '0%', transition: { duration: 0.92, ease: [0.76, 0, 0.24, 1] } },
+  visible: { y: '0%', transition: { duration: 0.6, ease: [0.76, 0, 0.24, 1] } },
 }
 
 const blurIn = {
   hidden: { opacity: 0, filter: 'blur(10px)', y: 8 },
-  visible: { opacity: 1, filter: 'blur(0px)', y: 0, transition: { duration: 0.85, ease: [0.22, 1, 0.36, 1] } },
+  visible: { opacity: 1, filter: 'blur(0px)', y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
 }
 
 function renderHeroHeadline(title, GoldDividerComponent, maskReveal) {
@@ -52,7 +57,7 @@ function renderHeroHeadline(title, GoldDividerComponent, maskReveal) {
           {before && <>{before} </>}
           <span className="relative inline-block whitespace-nowrap">
             {word}
-            <GoldDividerComponent variant="underline" className="absolute -bottom-1 left-0 w-full" delay={0.85} />
+            <GoldDividerComponent variant="underline" className="absolute -bottom-1 left-0 w-full" delay={0.5} />
           </span>
           {after && <> {after}</>}
         </m.h1>
@@ -205,7 +210,7 @@ function Hero({ section = null }) {
                       {' '}
                       <span className="relative inline-block whitespace-nowrap">
                         {CONTENT.headlineHighlight}
-                        <GoldDivider variant="underline" className="absolute -bottom-1 left-0 w-full" delay={0.85} />
+                        <GoldDivider variant="underline" className="absolute -bottom-1 left-0 w-full" delay={0.5} />
                       </span>
                     </>
                   )}
@@ -292,7 +297,7 @@ function Hero({ section = null }) {
       <m.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 1.1, ease: 'easeOut' }}
+        transition={{ duration: 0.5, delay: 0.55, ease: 'easeOut' }}
         className="relative z-10 w-full flex-none"
         aria-label="Key statistics"
       >

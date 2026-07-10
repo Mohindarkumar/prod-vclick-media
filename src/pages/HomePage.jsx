@@ -1,6 +1,7 @@
 import SEOHead from '../components/common/SEOHead'
 import Navbar from '../components/layout/Navbar'
 import Footer from '../components/layout/Footer'
+import DeferredSection from '../components/layout/DeferredSection'
 import Hero from '../modules/hero/Hero'
 import AboutSection from '../modules/about/AboutSection'
 import ServicesSection from '../modules/services/ServicesSection'
@@ -62,17 +63,17 @@ function HomePage() {
 
       <main className="bg-ink text-paper">
         <Hero />
-        {VISIBLE.about        && <AboutSection />}
-        {VISIBLE.services     && <ServicesSection />}
-        {VISIBLE.why          && <WhyChooseUs />}
-        {VISIBLE.gallery      && <PortfolioSection />}
-        {VISIBLE.showreel     && <VideoShowreel />}
-        {VISIBLE.process      && <EventProcess />}
-        {VISIBLE.testimonials && <TestimonialsSection />}
-        {VISIBLE.clients      && <ClientsLogoStrip />}
-        {VISIBLE.pricing      && <PricingSection />}
-        {VISIBLE.faq          && <FAQSection />}
-        {VISIBLE.contact      && <ContactSection />}
+        {VISIBLE.about        && <DeferredSection minHeight={700}  stagger={0}   ><AboutSection /></DeferredSection>}
+        {VISIBLE.services     && <DeferredSection minHeight={900}  stagger={80}  ><ServicesSection /></DeferredSection>}
+        {VISIBLE.why          && <DeferredSection minHeight={700}  stagger={160} ><WhyChooseUs /></DeferredSection>}
+        {VISIBLE.gallery      && <DeferredSection minHeight={1400} stagger={240} ><PortfolioSection /></DeferredSection>}
+        {VISIBLE.showreel     && <DeferredSection minHeight={600}  stagger={320} ><VideoShowreel /></DeferredSection>}
+        {VISIBLE.process      && <DeferredSection minHeight={700}  stagger={400} ><EventProcess /></DeferredSection>}
+        {VISIBLE.testimonials && <DeferredSection minHeight={500}  stagger={480} ><TestimonialsSection /></DeferredSection>}
+        {VISIBLE.clients      && <DeferredSection minHeight={300}  stagger={560} ><ClientsLogoStrip /></DeferredSection>}
+        {VISIBLE.pricing      && <DeferredSection minHeight={800}  stagger={640} ><PricingSection /></DeferredSection>}
+        {VISIBLE.faq          && <DeferredSection minHeight={600}  stagger={720} ><FAQSection /></DeferredSection>}
+        {VISIBLE.contact      && <DeferredSection minHeight={700}  stagger={800} ><ContactSection /></DeferredSection>}
       </main>
 
       <Footer />

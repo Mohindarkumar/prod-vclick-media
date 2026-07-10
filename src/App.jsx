@@ -7,8 +7,13 @@ import PageLoader from './components/ui/PageLoader'
 import ChunkErrorBoundary from './components/ui/ChunkErrorBoundary'
 import { siteConfig } from './config/site.config'
 import { PageSpinner } from './components/ui/LazyLoader'
-import WhatsAppChat from './components/ui/WhatsAppChat'
 import useContentProtection from './hooks/useContentProtection'
+
+// Lazy — not needed for first paint, and its framer-motion usage would
+// otherwise force that chunk into the eager critical bundle (it's the only
+// other always-mounted component that imports AnimatePresence directly,
+// alongside PageLoader which no longer does — see PageLoader.jsx).
+const WhatsAppChat = lazy(() => import('./components/ui/WhatsAppChat'))
 
 // Every animated component uses `m` (not `motion`) so Framer Motion's engine
 // loads as its own async chunk instead of shipping synchronously in the
@@ -43,7 +48,15 @@ function App() {
   return (
     <LazyMotion features={loadFramerFeatures}>
       {!appReady && <PageLoader onComplete={() => setAppReady(true)} />}
-      <div style={{ visibility: appReady ? 'visible' : 'hidden' }}>
+      {/* Real content mounts and paints immediately — PageLoader's opaque,
+          fixed, z-[9999] overlay is what visually covers it, not this
+          wrapper. Using visibility:hidden here would skip painting the
+          hero content entirely until appReady flips, artificially pushing
+          back Largest Contentful Paint by however long the loader runs.
+          `inert` keeps it non-interactive and out of the accessibility
+          tree while still letting the browser paint (and register LCP)
+          underneath the loader — same visual result, better metrics. */}
+      <div inert={!appReady}>
         <BrowserRouter>
           {siteConfig.customCursor === 1 && <CustomCursor />}
           <ScrollToTop />
@@ -61,7 +74,9 @@ function App() {
               </Routes>
             </Suspense>
           </ChunkErrorBoundary>
-          <WhatsAppChat />
+          <Suspense fallback={null}>
+            <WhatsAppChat />
+          </Suspense>
         </BrowserRouter>
       </div>
     </LazyMotion>

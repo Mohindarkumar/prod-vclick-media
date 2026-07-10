@@ -4,14 +4,38 @@ import { Link } from 'react-router-dom'
 import { ArrowRight, Camera, Video, Play, Volume2, VolumeX } from 'lucide-react'
 import SectionEyebrow from '../../components/common/SectionEyebrow'
 import GoldDivider from '../../components/common/GoldDivider'
+import { InstagramIcon } from '../../components/common/BrandIcons'
 import { galleryItems } from '../../data/gallery'
+import { siteConfig } from '../../config/site.config'
 
 // ─── Video config ───────────────────────────────────────────────────────────
 // P1: a locally-hosted file autoplays inline — no external embed, no network
 // round-trip to YouTube, so it's the reliable/fast path.
 // P2: if no local file is set, we fall back to the YouTube embed below.
+//
+// Sourced from the original FHD export (Event_Showreel_FHD.mp4, 16Mbps
+// direct from the editor) rather than a YouTube re-compression — a single
+// high-quality 1080p tier for all screens. An earlier version of this also
+// shipped a true 3840x2160 desktop-only tier sourced from YouTube's 4K
+// stream, but that master topped out at 486MB even compressed and wasn't
+// worth the size given this FHD source is comparable quality at a fraction
+// of the bytes. WebM (VP9) is listed before MP4 — smaller at equal quality —
+// with MP4 as the universal fallback; if a .webm file isn't present the
+// browser silently skips that <source>, so it's safe to ship ahead of the
+// file existing.
 const LOCAL_VIDEO_SRC = '/uploads/video/showreel.mp4'
+const LOCAL_VIDEO_SRC_WEBM = '/uploads/video/showreel.webm'
+// Local WebP poster extracted from the source footage — avoids a
+// render-blocking hotlink to i.ytimg.com for the very first frame shown.
+const LOCAL_POSTER_SRC = '/uploads/video/showreel-poster.webp'
 const YOUTUBE_VIDEO_ID = 'cHWgMzJ72PU'
+
+// Optional CDN base URL for video assets (e.g. Bunny/Cloudflare Stream/S3+CF).
+// Empty by default — assets are served same-origin from Hostinger exactly as
+// before. Set VITE_VIDEO_CDN_URL to move video delivery to a CDN without any
+// further code changes.
+const VIDEO_CDN_BASE = (import.meta.env.VITE_VIDEO_CDN_URL || '').replace(/\/$/, '')
+const withCdn = (path) => (VIDEO_CDN_BASE ? `${VIDEO_CDN_BASE}${path}` : path)
 
 // ─── Showreel slide images ─────────────────────────────────────────────────
 const SHOWREEL_SLIDES = [
@@ -162,7 +186,10 @@ function RecentVideoCard({ index }) {
     `&origin=${typeof window !== 'undefined' ? window.location.origin : ''}`,
   ].join('')
 
+  // YouTube poster stays as the P2 (embed) preview image; the local <video>
+  // uses the local WebP poster so the first paint never depends on YouTube.
   const posterUrl = `https://i.ytimg.com/vi/${YOUTUBE_VIDEO_ID}/maxresdefault.jpg`
+  const localPosterUrl = withCdn(LOCAL_POSTER_SRC)
 
   return (
     <m.article
@@ -181,15 +208,18 @@ function RecentVideoCard({ index }) {
           <>
             <video
               ref={videoRef}
-              src={LOCAL_VIDEO_SRC}
-              poster={posterUrl}
+              poster={localPosterUrl}
               muted
               loop
               playsInline
               preload="metadata"
               onClick={() => videoRef.current?.play().catch(() => {})}
               className="absolute inset-0 w-full h-full object-cover cursor-pointer"
-            />
+            >
+              {/* VP9 first (smaller at equal quality), MP4 universal fallback. */}
+              <source src={withCdn(LOCAL_VIDEO_SRC_WEBM)} type="video/webm" />
+              <source src={withCdn(LOCAL_VIDEO_SRC)} type="video/mp4" />
+            </video>
             <button
               type="button"
               onClick={toggleMute}
@@ -288,6 +318,7 @@ function ShowreelCard({ item, index }) {
   const href = item.link_type === 'gallery'
     ? (item.category ? `/gallery?album=${encodeURIComponent(item.category)}` : '/gallery')
     : null
+  const instagram = siteConfig.social.instagram
 
   // Only cycle slides while the card is actually visible — no point
   // re-rendering an off-screen slideshow every 4.5s for the whole session.
@@ -356,15 +387,32 @@ function ShowreelCard({ item, index }) {
               {item.description}
             </p>
           )}
-          {href && (
-            <Link
-              to={href}
-              className="inline-flex items-center gap-1.5 mt-3 text-gold/70 hover:text-gold text-xs font-semibold transition-colors duration-200"
-            >
-              <Camera size={12} />
-              View Photos
-              <ArrowRight size={11} strokeWidth={2.5} className="group-hover:translate-x-0.5 transition-transform duration-200" />
-            </Link>
+          {(href || instagram?.visible) && (
+            <div className="flex gap-4 mt-3">
+              {href && (
+                <Link
+                  to={href}
+                  className="inline-flex items-center gap-1.5 text-gold/70 hover:text-gold text-xs font-semibold transition-colors duration-200"
+                >
+                  <Camera size={12} />
+                  View Photos
+                  <ArrowRight size={11} strokeWidth={2.5} className="group-hover:translate-x-0.5 transition-transform duration-200" />
+                </Link>
+              )}
+              {instagram?.visible && instagram.url && (
+                <a
+                  href={instagram.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="inline-flex items-center gap-1.5 text-white/70 hover:text-gold text-xs font-semibold transition-colors duration-200"
+                >
+                  <InstagramIcon size={12} />
+                  Instagram
+                  <ArrowRight size={11} strokeWidth={2.5} className="group-hover:translate-x-0.5 transition-transform duration-200" />
+                </a>
+              )}
+            </div>
           )}
 
           {/* Slide progress bar */}

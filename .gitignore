@@ -34,3 +34,4 @@ public/vendor/
 node_modules/
 dist/
 build/
+public/uploads/

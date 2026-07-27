@@ -1,59 +1,45 @@
-Options -MultiViews
 RewriteEngine On
 
-# --- Force HTTPS ---
+# Force HTTPS
 RewriteCond %{HTTPS} off
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-# --- Serve existing files and directories directly ---
-# (JS, CSS, images, contact.php, sitemap.xml, etc. all pass through unchanged)
+# Serve existing files and folders directly
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^ - [L]
 
-# --- SPA fallback - React Router handles all other paths ---
-RewriteRule ^ /index.html [QSA,L]
+# SPA fallback
+RewriteRule ^ index.html [QSA,L]
 
-# --- Ensure correct Content-Type for newer formats the server's default
-# mime.types may not know about (shared hosting is often out of date) ---
 <IfModule mod_mime.c>
   AddType image/avif .avif
   AddType video/mp4 .mp4
 </IfModule>
 
-# --- Cache static assets ---
 <IfModule mod_expires.c>
   ExpiresActive On
-  ExpiresByType image/webp              "access plus 1 year"
-  ExpiresByType image/avif              "access plus 1 year"
-  ExpiresByType image/jpeg              "access plus 1 year"
-  ExpiresByType image/png               "access plus 1 year"
-  ExpiresByType image/svg+xml           "access plus 1 year"
-  ExpiresByType video/mp4               "access plus 1 year"
-  ExpiresByType text/css                "access plus 6 months"
-  ExpiresByType application/javascript  "access plus 6 months"
-  ExpiresByType application/json        "access plus 0 seconds"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/avif "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType video/mp4 "access plus 1 year"
+  ExpiresByType text/css "access plus 6 months"
+  ExpiresByType application/javascript "access plus 6 months"
+  ExpiresByType application/json "access plus 0 seconds"
 </IfModule>
 
-# --- Gzip compression ---
 <IfModule mod_deflate.c>
   AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml
 </IfModule>
 
-# --- Security headers ---
 <IfModule mod_headers.c>
   Header set X-Content-Type-Options "nosniff"
   Header set X-Frame-Options "SAMEORIGIN"
   Header set Referrer-Policy "strict-origin-when-cross-origin"
 </IfModule>
 
-# --- Never cache index.html ---
-# Vite hashes every JS/CSS filename per build (e.g. HomePage-Bs5msFuu.js).
-# If a browser/proxy/carrier caches an old index.html after a deploy, it can
-# still reference chunk files that no longer exist on the server, which is
-# the exact "stuck on loading screen" failure this line prevents - on every
-# device and browser (iOS Safari and mobile carrier caches are the most
-# aggressive offenders, so this matters most for iPhone/Android over cellular).
 <IfModule mod_headers.c>
   <FilesMatch "^index\.html$">
     Header set Cache-Control "no-cache, no-store, must-revalidate"
